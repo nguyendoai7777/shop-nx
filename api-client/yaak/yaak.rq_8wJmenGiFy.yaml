@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_8wJmenGiFy
+createdAt: 2025-09-23T09:41:26.487620200
+updatedAt: 2025-09-23T09:42:57.543954500
+workspaceId: wk_teknBTJbQe
+folderId: fl_3Tbgt3sdWP
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: GetAll
+sortPriority: 0.0
+url: ${[ host ]}/api/article
+urlParameters: []

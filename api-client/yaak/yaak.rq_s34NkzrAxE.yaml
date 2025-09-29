@@ -1,0 +1,34 @@
+type: http_request
+model: http_request
+id: rq_s34NkzrAxE
+createdAt: 2025-09-05T08:01:11.311645400
+updatedAt: 2025-09-05T08:05:34.817166
+workspaceId: wk_teknBTJbQe
+folderId: fl_aXDccCPvoq
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Search
+sortPriority: 1000.0
+url: ${[ host ]}/product/search
+urlParameters:
+- enabled: false
+  name: page
+  value: '0'
+  id: jny7mMqbSC
+- enabled: true
+  name: price
+  value: '600'
+  id: USsSkSsJE3
+- enabled: false
+  name: name
+  value: 16 pro max
+  id: hcjmrMmh57
+- enabled: true
+  name: ''
+  value: ''
+  id: gaug0ve9pW

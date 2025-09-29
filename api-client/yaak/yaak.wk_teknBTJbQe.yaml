@@ -1,0 +1,23 @@
+type: workspace
+model: workspace
+id: wk_teknBTJbQe
+createdAt: 2025-07-15T09:34:03.925369400
+updatedAt: 2025-09-28T14:07:28.535201
+authentication:
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJkb2FpMDk2OCIsImVtYWlsIjoibmd1eWVuZG9haTI5MDRAZ21haWwuY29tIiwiaWF0IjoxNzU5MDU5NTI2LCJleHAiOjE3NTkxNDU5MjZ9.hjUj_lt_9r02iWG_6Q8OTlLTXmghqjYMqoKyXctmv3c
+authenticationType: bearer
+description: ''
+headers:
+- enabled: false
+  name: Authorization
+  value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInVzZXJuYW1lIjoiZG9haTA5NjgiLCJlbWFpbCI6Im5ndXllbmRvYWkyOTA0QGdtYWlsLmNvbSIsImlhdCI6MTc1OTAzNDQzOSwiZXhwIjoxNzU5MTIwODM5fQ.sQHO5KMihxi7-_oXqO1ctOS7UfIqnsYgeI1Jq2Z01Gk
+  id: f5vXpAAA8r
+- enabled: true
+  name: ''
+  value: ''
+  id: WUZWemHn0g
+name: NodeEShop
+encryptionKeyChallenge: eUE0azNuQwFcSqPF60qAfxcgW7feiXgmkZwc6isT/5oRg6CvjLwAcUQPKpOGYSxZ8go4GxrnCVdkEXzzD8bWejRi2KT18oQRTE0GSEAFiFMsVqCVlMzL7JE1XzfqTpDchwk=
+settingValidateCertificates: true
+settingFollowRedirects: true
+settingRequestTimeout: 0

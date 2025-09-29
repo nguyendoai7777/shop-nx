@@ -1,0 +1,22 @@
+type: http_request
+model: http_request
+id: rq_WEAwmBwUZZ
+createdAt: 2025-09-25T03:33:07.935297600
+updatedAt: 2025-09-28T04:43:19.789994100
+workspaceId: wk_teknBTJbQe
+folderId: fl_F2grL45rFq
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers:
+- enabled: true
+  name: ''
+  value: ''
+  id: rdtKdTdQTP
+method: GET
+name: Detail
+sortPriority: 2000.0
+url: ${[ api_host ]}/user/2
+urlParameters: []

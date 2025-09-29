@@ -1,0 +1,34 @@
+type: http_request
+model: http_request
+id: rq_FcukM8zXyg
+createdAt: 2025-09-05T08:05:28.975886400
+updatedAt: 2025-09-05T08:05:45.801109900
+workspaceId: wk_teknBTJbQe
+folderId: fl_aXDccCPvoq
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: SearchBy
+sortPriority: 0.0
+url: ${[ host ]}/product/searchBy
+urlParameters:
+- enabled: true
+  name: page
+  value: '0'
+  id: jny7mMqbSC
+- enabled: true
+  name: size
+  value: '10'
+  id: USsSkSsJE3
+- enabled: true
+  name: name
+  value: bean
+  id: hcjmrMmh57
+- enabled: true
+  name: ''
+  value: ''
+  id: zsNXjqhJSU

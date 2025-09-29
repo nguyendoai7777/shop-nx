@@ -4,6 +4,9 @@
 dist
 tmp
 out-tsc
+/apps/backend/dist
+/libs/shared/dto/dist
+/apps/backend/src/prisma/client
 
 # dependencies
 node_modules
@@ -48,3 +51,5 @@ Thumbs.db
 out
 
 test-output
+
+/generated/prisma

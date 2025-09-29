@@ -1,0 +1,13 @@
+type: folder
+model: folder
+id: fl_3Tbgt3sdWP
+createdAt: 2025-09-23T09:41:19.915092400
+updatedAt: 2025-09-23T09:44:56.568798800
+workspaceId: wk_teknBTJbQe
+folderId: null
+authentication: {}
+authenticationType: null
+description: ''
+headers: []
+name: Article
+sortPriority: 1000.0

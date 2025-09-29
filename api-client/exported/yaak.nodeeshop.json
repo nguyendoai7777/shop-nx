@@ -1,0 +1,506 @@
+{
+  "yaakVersion": "2025.5.6",
+  "yaakSchema": 4,
+  "timestamp": "2025-09-28T14:13:13.706265100",
+  "resources": {
+    "workspaces": [
+      {
+        "model": "workspace",
+        "id": "wk_teknBTJbQe",
+        "createdAt": "2025-07-15T09:34:03.925369400",
+        "updatedAt": "2025-09-28T14:07:28.535201",
+        "authentication": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJkb2FpMDk2OCIsImVtYWlsIjoibmd1eWVuZG9haTI5MDRAZ21haWwuY29tIiwiaWF0IjoxNzU5MDU5NTI2LCJleHAiOjE3NTkxNDU5MjZ9.hjUj_lt_9r02iWG_6Q8OTlLTXmghqjYMqoKyXctmv3c"
+        },
+        "authenticationType": "bearer",
+        "description": "",
+        "headers": [
+          {
+            "enabled": false,
+            "name": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInVzZXJuYW1lIjoiZG9haTA5NjgiLCJlbWFpbCI6Im5ndXllbmRvYWkyOTA0QGdtYWlsLmNvbSIsImlhdCI6MTc1OTAzNDQzOSwiZXhwIjoxNzU5MTIwODM5fQ.sQHO5KMihxi7-_oXqO1ctOS7UfIqnsYgeI1Jq2Z01Gk",
+            "id": "f5vXpAAA8r"
+          },
+          {
+            "enabled": true,
+            "name": "",
+            "value": "",
+            "id": "WUZWemHn0g"
+          }
+        ],
+        "name": "NodeEShop",
+        "encryptionKeyChallenge": "eUE0azNuQwFcSqPF60qAfxcgW7feiXgmkZwc6isT/5oRg6CvjLwAcUQPKpOGYSxZ8go4GxrnCVdkEXzzD8bWejRi2KT18oQRTE0GSEAFiFMsVqCVlMzL7JE1XzfqTpDchwk=",
+        "settingValidateCertificates": true,
+        "settingFollowRedirects": true,
+        "settingRequestTimeout": 0
+      }
+    ],
+    "environments": [],
+    "folders": [
+      {
+        "model": "folder",
+        "id": "fl_WzNUM9nFRr",
+        "createdAt": "2025-09-28T04:44:19.330287300",
+        "updatedAt": "2025-09-28T04:44:19.330287700",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": null,
+        "authentication": {},
+        "authenticationType": null,
+        "description": "",
+        "headers": [],
+        "name": "Auth",
+        "sortPriority": -1759034600000.0
+      },
+      {
+        "model": "folder",
+        "id": "fl_3Tbgt3sdWP",
+        "createdAt": "2025-09-23T09:41:19.915092400",
+        "updatedAt": "2025-09-23T09:44:56.568798800",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": null,
+        "authentication": {},
+        "authenticationType": null,
+        "description": "",
+        "headers": [],
+        "name": "Article",
+        "sortPriority": 1000.0
+      },
+      {
+        "model": "folder",
+        "id": "fl_yeH6MeLVdb",
+        "createdAt": "2025-09-09T10:03:08.910292900",
+        "updatedAt": "2025-09-23T09:44:56.574807300",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": null,
+        "authentication": {},
+        "authenticationType": null,
+        "description": "",
+        "headers": [],
+        "name": "Message",
+        "sortPriority": 2000.0
+      },
+      {
+        "model": "folder",
+        "id": "fl_aXDccCPvoq",
+        "createdAt": "2025-09-05T07:41:27.877196300",
+        "updatedAt": "2025-09-23T09:44:56.562173700",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": null,
+        "authentication": {},
+        "authenticationType": null,
+        "description": "",
+        "headers": [],
+        "name": "Product",
+        "sortPriority": 4000.0
+      },
+      {
+        "model": "folder",
+        "id": "fl_F2grL45rFq",
+        "createdAt": "2025-09-05T04:03:52.165291100",
+        "updatedAt": "2025-09-23T09:44:56.556068800",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": null,
+        "authentication": {},
+        "authenticationType": null,
+        "description": "",
+        "headers": [],
+        "name": "User",
+        "sortPriority": 0.0
+      }
+    ],
+    "httpRequests": [
+      {
+        "model": "http_request",
+        "id": "rq_wRsBFC8nBp",
+        "createdAt": "2025-09-28T11:22:12.161306800",
+        "updatedAt": "2025-09-28T13:56:48.836914300",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": "fl_F2grL45rFq",
+        "authentication": {},
+        "authenticationType": null,
+        "body": {
+          "text": "{\n  \"password\": \"MinhAnh@2003\",\n  \"verifiedPassword\": \"MinhAnh@20013\"\n}"
+        },
+        "bodyType": "application/json",
+        "description": "",
+        "headers": [
+          {
+            "enabled": true,
+            "name": "Content-Type",
+            "value": "application/json",
+            "id": "pBmHXSxK9v"
+          }
+        ],
+        "method": "POST",
+        "name": "ChangePassword",
+        "sortPriority": -0.0001,
+        "url": "${[ api_host ]}/user/change-password",
+        "urlParameters": []
+      },
+      {
+        "model": "http_request",
+        "id": "rq_NFtDmmLDDn",
+        "createdAt": "2025-09-26T11:16:33.186968300",
+        "updatedAt": "2025-09-28T12:36:10.135186400",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": "fl_WzNUM9nFRr",
+        "authentication": {},
+        "authenticationType": "none",
+        "body": {
+          "text": "{\n  \"username\": \"doai0968\",\n  \"password\": \"MinhAnh@2003\"\n}"
+        },
+        "bodyType": "application/json",
+        "description": "",
+        "headers": [
+          {
+            "enabled": true,
+            "name": "Content-Type",
+            "value": "application/json",
+            "id": "jNjQY8zdRC"
+          }
+        ],
+        "method": "POST",
+        "name": "Login",
+        "sortPriority": 1000.0,
+        "url": "${[ api_host ]}/auth/login",
+        "urlParameters": []
+      },
+      {
+        "model": "http_request",
+        "id": "rq_WEAwmBwUZZ",
+        "createdAt": "2025-09-25T03:33:07.935297600",
+        "updatedAt": "2025-09-28T04:43:19.789994100",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": "fl_F2grL45rFq",
+        "authentication": {},
+        "authenticationType": null,
+        "body": {},
+        "bodyType": null,
+        "description": "",
+        "headers": [
+          {
+            "enabled": true,
+            "name": "",
+            "value": "",
+            "id": "rdtKdTdQTP"
+          }
+        ],
+        "method": "GET",
+        "name": "Detail",
+        "sortPriority": 2000.0,
+        "url": "${[ api_host ]}/user/2",
+        "urlParameters": []
+      },
+      {
+        "model": "http_request",
+        "id": "rq_bG949DdW7Y",
+        "createdAt": "2025-09-23T09:42:58.838689600",
+        "updatedAt": "2025-09-24T08:38:01.135987200",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": "fl_3Tbgt3sdWP",
+        "authentication": {},
+        "authenticationType": null,
+        "body": {
+          "text": "\n  {\n  \"title\": \"Test 5x\",\n  \"description\": \"kaspersky x\",\n  \"body\": \"Drama Kayff\",\n  \"published\": false\n}\n"
+        },
+        "bodyType": "application/json",
+        "description": "",
+        "headers": [
+          {
+            "enabled": true,
+            "name": "Content-Type",
+            "value": "application/json",
+            "id": "5FsKM9Bsne"
+          }
+        ],
+        "method": "POST",
+        "name": "Create",
+        "sortPriority": -0.0001,
+        "url": "${[ host ]}/api/article",
+        "urlParameters": []
+      },
+      {
+        "model": "http_request",
+        "id": "rq_8wJmenGiFy",
+        "createdAt": "2025-09-23T09:41:26.487620200",
+        "updatedAt": "2025-09-23T09:42:57.543954500",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": "fl_3Tbgt3sdWP",
+        "authentication": {},
+        "authenticationType": null,
+        "body": {},
+        "bodyType": null,
+        "description": "",
+        "headers": [],
+        "method": "GET",
+        "name": "GetAll",
+        "sortPriority": 0.0,
+        "url": "${[ host ]}/api/article",
+        "urlParameters": []
+      },
+      {
+        "model": "http_request",
+        "id": "rq_f2dir7zfBK",
+        "createdAt": "2025-09-09T10:03:12.125888600",
+        "updatedAt": "2025-09-15T03:11:07.690721",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": "fl_yeH6MeLVdb",
+        "authentication": {},
+        "authenticationType": null,
+        "body": {
+          "text": "{\n  \"message\": \"hello buoy 123 xxxx\"\n}"
+        },
+        "bodyType": "application/json",
+        "description": "",
+        "headers": [
+          {
+            "enabled": true,
+            "name": "Content-Type",
+            "value": "application/json",
+            "id": "hfb86N9f8E"
+          }
+        ],
+        "method": "POST",
+        "name": "PostMessage",
+        "sortPriority": -0.0001,
+        "url": "${[ host ]}/api/message",
+        "urlParameters": []
+      },
+      {
+        "model": "http_request",
+        "id": "rq_FcukM8zXyg",
+        "createdAt": "2025-09-05T08:05:28.975886400",
+        "updatedAt": "2025-09-05T08:05:45.801109900",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": "fl_aXDccCPvoq",
+        "authentication": {},
+        "authenticationType": null,
+        "body": {},
+        "bodyType": null,
+        "description": "",
+        "headers": [],
+        "method": "GET",
+        "name": "SearchBy",
+        "sortPriority": 0.0,
+        "url": "${[ host ]}/product/searchBy",
+        "urlParameters": [
+          {
+            "enabled": true,
+            "name": "page",
+            "value": "0",
+            "id": "jny7mMqbSC"
+          },
+          {
+            "enabled": true,
+            "name": "size",
+            "value": "10",
+            "id": "USsSkSsJE3"
+          },
+          {
+            "enabled": true,
+            "name": "name",
+            "value": "bean",
+            "id": "hcjmrMmh57"
+          },
+          {
+            "enabled": true,
+            "name": "",
+            "value": "",
+            "id": "zsNXjqhJSU"
+          }
+        ]
+      },
+      {
+        "model": "http_request",
+        "id": "rq_s34NkzrAxE",
+        "createdAt": "2025-09-05T08:01:11.311645400",
+        "updatedAt": "2025-09-05T08:05:34.817166",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": "fl_aXDccCPvoq",
+        "authentication": {},
+        "authenticationType": null,
+        "body": {},
+        "bodyType": null,
+        "description": "",
+        "headers": [],
+        "method": "GET",
+        "name": "Search",
+        "sortPriority": 1000.0,
+        "url": "${[ host ]}/product/search",
+        "urlParameters": [
+          {
+            "enabled": false,
+            "name": "page",
+            "value": "0",
+            "id": "jny7mMqbSC"
+          },
+          {
+            "enabled": true,
+            "name": "price",
+            "value": "600",
+            "id": "USsSkSsJE3"
+          },
+          {
+            "enabled": false,
+            "name": "name",
+            "value": "16 pro max",
+            "id": "hcjmrMmh57"
+          },
+          {
+            "enabled": true,
+            "name": "",
+            "value": "",
+            "id": "gaug0ve9pW"
+          }
+        ]
+      },
+      {
+        "model": "http_request",
+        "id": "rq_Xr6dFRjELb",
+        "createdAt": "2025-09-05T04:20:51.417301",
+        "updatedAt": "2025-09-28T04:43:05.695729500",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": "fl_F2grL45rFq",
+        "authentication": {},
+        "authenticationType": null,
+        "body": {},
+        "bodyType": null,
+        "description": "",
+        "headers": [
+          {
+            "enabled": true,
+            "name": "",
+            "value": "",
+            "id": "2rfe99NTxY"
+          }
+        ],
+        "method": "GET",
+        "name": "Search (List)",
+        "sortPriority": 1000.0,
+        "url": "${[ host ]}/api/user",
+        "urlParameters": [
+          {
+            "enabled": true,
+            "name": "page",
+            "value": "1",
+            "id": "jny7mMqbSC"
+          },
+          {
+            "enabled": true,
+            "name": "size",
+            "value": "4",
+            "id": "USsSkSsJE3"
+          },
+          {
+            "enabled": true,
+            "name": "search",
+            "value": "",
+            "id": "HMnCWD9VjC"
+          },
+          {
+            "enabled": true,
+            "name": "",
+            "value": "",
+            "id": "bIv53s4Njg"
+          }
+        ]
+      },
+      {
+        "model": "http_request",
+        "id": "rq_zAB4GmSuEN",
+        "createdAt": "2025-09-05T04:05:53.840165300",
+        "updatedAt": "2025-09-28T12:43:36.368141400",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": "fl_WzNUM9nFRr",
+        "authentication": {},
+        "authenticationType": "none",
+        "body": {
+          "text": "{\n  \"name\": \"Shark Bình Lz\",\n  \"email\": \"shark_dog_binh@gmail.com\",\n  \"username\": \"dog_binh\",\n  \"password\": \"123Qwe!@#\",\n  \"verifiedPassword\": \"123Qwe!@#\"\n}"
+        },
+        "bodyType": "application/json",
+        "description": "",
+        "headers": [
+          {
+            "enabled": true,
+            "name": "Content-Type",
+            "value": "application/json",
+            "id": "4ernSC6qxH"
+          }
+        ],
+        "method": "POST",
+        "name": "Register",
+        "sortPriority": 0.0,
+        "url": "${[ api_host ]}/auth/register",
+        "urlParameters": []
+      },
+      {
+        "model": "http_request",
+        "id": "rq_2QQUjCRTWf",
+        "createdAt": "2025-09-05T04:03:58.223791200",
+        "updatedAt": "2025-09-28T04:45:09.826818800",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": "fl_F2grL45rFq",
+        "authentication": {},
+        "authenticationType": null,
+        "body": {},
+        "bodyType": null,
+        "description": "",
+        "headers": [],
+        "method": "PUT",
+        "name": "Update",
+        "sortPriority": 4000.0,
+        "url": "${[ api_host ]}/user/",
+        "urlParameters": [
+          {
+            "enabled": true,
+            "name": "name",
+            "value": "apple",
+            "id": "bHDT4gzZUI"
+          },
+          {
+            "enabled": false,
+            "name": "email",
+            "value": "appleX@icloud.com",
+            "id": "hgh5JG5zsx"
+          },
+          {
+            "enabled": true,
+            "name": "",
+            "value": "",
+            "id": "0fy572C3g4"
+          }
+        ]
+      },
+      {
+        "model": "http_request",
+        "id": "rq_gXT22SMcmf",
+        "createdAt": "2025-07-15T09:34:08.163699700",
+        "updatedAt": "2025-09-05T08:05:34.824601400",
+        "workspaceId": "wk_teknBTJbQe",
+        "folderId": "fl_aXDccCPvoq",
+        "authentication": {},
+        "authenticationType": null,
+        "body": {
+          "text": "{\n  \"name\": \"Samsung S25 Mini\",\n  \"price\": 600\n}"
+        },
+        "bodyType": "application/json",
+        "description": "",
+        "headers": [
+          {
+            "enabled": true,
+            "name": "Content-Type",
+            "value": "application/json",
+            "id": "scpU6HEPrp"
+          }
+        ],
+        "method": "POST",
+        "name": "Create",
+        "sortPriority": 2000.0,
+        "url": "${[ host ]}/product/create",
+        "urlParameters": []
+      }
+    ],
+    "grpcRequests": [],
+    "websocketRequests": []
+  }
+}

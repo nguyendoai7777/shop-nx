@@ -1,0 +1,30 @@
+type: http_request
+model: http_request
+id: rq_bG949DdW7Y
+createdAt: 2025-09-23T09:42:58.838689600
+updatedAt: 2025-09-24T08:38:01.135987200
+workspaceId: wk_teknBTJbQe
+folderId: fl_3Tbgt3sdWP
+authentication: {}
+authenticationType: null
+body:
+  text: |2
+
+      {
+      "title": "Test 5x",
+      "description": "kaspersky x",
+      "body": "Drama Kayff",
+      "published": false
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: 5FsKM9Bsne
+method: POST
+name: Create
+sortPriority: -0.0001
+url: ${[ host ]}/api/article
+urlParameters: []

@@ -1,0 +1,26 @@
+type: http_request
+model: http_request
+id: rq_f2dir7zfBK
+createdAt: 2025-09-09T10:03:12.125888600
+updatedAt: 2025-09-15T03:11:07.690721
+workspaceId: wk_teknBTJbQe
+folderId: fl_yeH6MeLVdb
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "message": "hello buoy 123 xxxx"
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: hfb86N9f8E
+method: POST
+name: PostMessage
+sortPriority: -0.0001
+url: ${[ host ]}/api/message
+urlParameters: []
