@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_NFtDmmLDDn
 createdAt: 2025-09-26T11:16:33.186968300
-updatedAt: 2025-09-28T12:36:10.135186400
+updatedAt: 2025-09-29T02:56:20.296600900
 workspaceId: wk_teknBTJbQe
 folderId: fl_WzNUM9nFRr
 authentication: {}
@@ -10,8 +10,8 @@ authenticationType: none
 body:
   text: |-
     {
-      "username": "doai0968",
-      "password": "MinhAnh@2003"
+      "username": "dog_binh",
+      "password": "123Qwe!@#"
     }
 bodyType: application/json
 description: ''

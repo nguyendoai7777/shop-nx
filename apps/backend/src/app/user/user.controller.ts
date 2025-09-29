@@ -44,6 +44,17 @@ export class UserController {
     });
   }
 
+  @Get(`current`)
+  async current(@User() user: UserInfoByJWT) {
+    const data = await this.userService.findOne(user.id);
+
+    return new ResponseTransformer({
+      message: 'Success',
+      data,
+      status: HttpStatus.OK,
+    });
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const data = await this.userService.findOne(+id);
@@ -57,7 +68,7 @@ export class UserController {
 
   @Post(`update-info`)
   updateUserInfo(@Body() dto: UserInfoDTO, @User() user: any) {
-    return this.userService.updateUserInfo();
+    return `ok`;
   }
 
   @Post(`change-password`)

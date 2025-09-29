@@ -26,7 +26,7 @@ async function bootstrap() {
     new ResponseExceptionFilter(),
     new PrismaClientExceptionFilter()
   );
-  app.useLogger(new WTLogger());
+  // app.useLogger(new WTLogger());
   app.useGlobalInterceptors(new ResponseInterceptor());
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);

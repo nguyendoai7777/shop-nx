@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_zYoQtH2Jzh
+createdAt: 2025-09-29T04:43:26.155807600
+updatedAt: 2025-09-29T04:47:58.631568900
+workspaceId: wk_teknBTJbQe
+folderId: fl_F2grL45rFq
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Current
+sortPriority: 1999.9999
+url: ${[ api_host ]}/user/current
+urlParameters: []

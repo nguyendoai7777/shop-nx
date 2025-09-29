@@ -1,0 +1,75 @@
+type: http_request
+model: http_request
+id: rq_SUk5mewrC4
+createdAt: 2025-09-29T04:30:41.635128800
+updatedAt: 2025-09-29T04:30:43.316858200
+workspaceId: wk_teknBTJbQe
+folderId: fl_XY4UkxiVZQ
+authentication: {}
+authenticationType: null
+body:
+  text: '{"username":"dog_binh","password":"123Qwe\u0021@#"}'
+bodyType: text/plain
+description: ''
+headers:
+- enabled: true
+  name: Accept
+  value: '*/*'
+  id: null
+- enabled: true
+  name: Accept-Language
+  value: vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5
+  id: null
+- enabled: true
+  name: Connection
+  value: keep-alive
+  id: null
+- enabled: true
+  name: Content-Type
+  value: text/plain;charset=UTF-8
+  id: null
+- enabled: true
+  name: DNT
+  value: '1'
+  id: null
+- enabled: true
+  name: Origin
+  value: http://localhost:3001
+  id: null
+- enabled: true
+  name: Referer
+  value: http://localhost:3001/
+  id: null
+- enabled: true
+  name: Sec-Fetch-Dest
+  value: empty
+  id: null
+- enabled: true
+  name: Sec-Fetch-Mode
+  value: cors
+  id: null
+- enabled: true
+  name: Sec-Fetch-Site
+  value: same-site
+  id: null
+- enabled: true
+  name: User-Agent
+  value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+  id: null
+- enabled: true
+  name: sec-ch-ua
+  value: '"Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"'
+  id: null
+- enabled: true
+  name: sec-ch-ua-mobile
+  value: ?0
+  id: null
+- enabled: true
+  name: sec-ch-ua-platform
+  value: '"Windows"'
+  id: null
+method: POST
+name: ''
+sortPriority: -1759120241632.0
+url: http://localhost:3000/api/auth/login
+urlParameters: []

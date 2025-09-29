@@ -11,6 +11,9 @@
     },
     {
       "path": "./libs/shared/dto"
+    },
+    {
+      "path": "./libs/shared/types"
     }
   ]
 }

@@ -1,0 +1,13 @@
+type: folder
+model: folder
+id: fl_XY4UkxiVZQ
+createdAt: 2025-09-29T04:30:35.749214600
+updatedAt: 2025-09-29T04:30:38.401785
+workspaceId: wk_teknBTJbQe
+folderId: null
+authentication: {}
+authenticationType: null
+description: ''
+headers: []
+name: CMD
+sortPriority: 7000.0

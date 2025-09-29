@@ -76,6 +76,7 @@ export class CreateUserDto extends IntersectionType(
 }
 
 export interface UserInfoByJWT {
+  name: string
   id: number;
   username: string;
   email: string;

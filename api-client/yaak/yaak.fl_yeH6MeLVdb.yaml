@@ -2,7 +2,7 @@ type: folder
 model: folder
 id: fl_yeH6MeLVdb
 createdAt: 2025-09-09T10:03:08.910292900
-updatedAt: 2025-09-23T09:44:56.574807300
+updatedAt: 2025-09-29T04:30:38.366075
 workspaceId: wk_teknBTJbQe
 folderId: null
 authentication: {}
@@ -10,4 +10,4 @@ authenticationType: null
 description: ''
 headers: []
 name: Message
-sortPriority: 2000.0
+sortPriority: 3000.0

@@ -36,5 +36,5 @@ module.exports = {
       generatePackageJson: true,
       sourceMaps: true,
     }),
-  ],
+  ]
 };

@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    container_name: nx-backend
+    ports:
+      - "3000:3000" # host:container
+    environment:
+      - NODE_ENV=production
+
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+    container_name: nx-frontend
+    ports:
+      - "4200:3000" # host:container
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=production

@@ -1,8 +1,8 @@
 import { defineConfig } from '@prisma/config';
-import * as dotenv from 'dotenv';
+import { configDotenv } from 'dotenv';
 import path = require('node:path');
 
-dotenv.config({
+configDotenv({
   path: path.resolve(__dirname, './.env'),
 });
 

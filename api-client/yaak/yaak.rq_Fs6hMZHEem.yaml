@@ -1,0 +1,26 @@
+type: http_request
+model: http_request
+id: rq_Fs6hMZHEem
+createdAt: 2025-07-15T10:01:45.300820800
+updatedAt: 2025-09-04T10:45:08.471445700
+workspaceId: wk_teknBTJbQe
+folderId: fl_DfBH6zzERe
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "username": "123"
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: 9A5K3QpAyk
+method: GET
+name: UserSearch
+sortPriority: -0.0001
+url: ${[ host ]}/product/search
+urlParameters: []
