@@ -2,7 +2,7 @@ type: workspace
 model: workspace
 id: wk_teknBTJbQe
 createdAt: 2025-07-15T09:34:03.925369400
-updatedAt: 2025-09-29T04:44:15.345140
+updatedAt: 2025-09-30T08:37:44.763698700
 authentication:
   token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJkb2dfYmluaCIsImVtYWlsIjoic2hhcmtfZG9nX2JpbmhAZ21haWwuY29tIiwiaWF0IjoxNzU5MTIxMDQzLCJleHAiOjE3NTkyMDc0NDN9.6Y6txno138HD8q9p-ZvqZZBCfKJN_WJdTNBw7G98lvA
 authenticationType: bearer
@@ -17,7 +17,7 @@ headers:
   value: ''
   id: WUZWemHn0g
 name: NodeEShop
-encryptionKeyChallenge: eUE0azNuQwFcSqPF60qAfxcgW7feiXgmkZwc6isT/5oRg6CvjLwAcUQPKpOGYSxZ8go4GxrnCVdkEXzzD8bWejRi2KT18oQRTE0GSEAFiFMsVqCVlMzL7JE1XzfqTpDchwk=
+encryptionKeyChallenge: eUE0azNuQwGbtc01WTI/rE9Q/Adx5UfKqfBQqVxtI9oKHndlQG8AxhLmIpVan6NCb3vqg0IR/+mcpnWZOVzaAawn2nHnxBsj+2fkn5kI2YcN6ovA7eT2r5lxe9U1jzwYGqk=
 settingValidateCertificates: true
 settingFollowRedirects: true
 settingRequestTimeout: 0
