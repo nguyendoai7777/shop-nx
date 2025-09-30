@@ -17,12 +17,19 @@ datasource db {
 model User {
   id        Int      @id @default(autoincrement())
   name      String
+  username  String   @unique
   email     String   @unique
+  password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   donationsSent     Donation[] @relation("SentDonations")
   donationsReceived Donation[] @relation("ReceivedDonations")
+
+  points      UserPoint[]
+  redemptions RewardRedemption[]
+  themeId     Int?
+  theme       Theme?             @relation(fields: [themeId], references: [id])
 }
 
 model Donation {
@@ -46,4 +53,60 @@ model Notification {
   createdAt  DateTime  @default(now())
 
   donation Donation @relation(fields: [donationId], references: [id])
+}
+
+//
+// --- TÍCH ĐIỂM ---
+//
+model UserPoint {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  points    Int
+  reason    String // ví dụ: "donation", "redemption", "bonus"
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+//
+// --- QUÀ TẶNG ---
+//
+model Reward {
+  id        Int      @id @default(autoincrement())
+  name      String
+  cost      Int // số points cần để đổi
+  quantity  Int // số lượng còn lại
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  redemptions RewardRedemption[]
+}
+
+model RewardRedemption {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  rewardId  Int
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  reward Reward @relation(fields: [rewardId], references: [id])
+}
+
+//
+// --- SETTING ---
+//
+model Setting {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+}
+
+//
+// --- THEME ---
+//
+model Theme {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  users User[]
 }

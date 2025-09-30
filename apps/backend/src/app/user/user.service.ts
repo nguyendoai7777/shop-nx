@@ -58,7 +58,7 @@ export class UserService {
   }
 
   async changePassword(dto: UserPasswordDTO, id: number) {
-    const password = await verifyPassword(dto.password, dto.verifiedPassword!);
+    const password = await verifyPassword(dto.password, dto.confirmPassword!);
     return this.prisma.user.update({
       where: {
         id,

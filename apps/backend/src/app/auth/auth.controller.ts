@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto, LoginDto } from '@shop/dto';
+import { type CreateUserDto, LoginDto } from '@shop/dto';
 import { verifyPassword } from '@utils';
 
 @ApiTags('Auth')
@@ -12,7 +12,9 @@ export class AuthController {
   @Post('register')
   @ApiOperation({ summary: 'Tạo mới user', description: 'API tạo mới user' })
   async register(@Body() dto: CreateUserDto) {
-    dto.password = await verifyPassword(dto.password, dto.verifiedPassword!);
+    console.log(`@@ request in`, dto);
+    dto.password = await verifyPassword(dto.password, dto.confirmPassword!);
+    console.log(`@@ hashed pw`, dto.password);
     return this.authService.create(dto);
   }
 

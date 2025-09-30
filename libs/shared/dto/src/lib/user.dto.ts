@@ -55,7 +55,7 @@ export class UserPasswordDTO {
   @ApiProperty({
     example: '123@!Fvxs',
   })
-  verifiedPassword?: string;
+  confirmPassword?: string;
 }
 
 export class CreateUserDto extends IntersectionType(

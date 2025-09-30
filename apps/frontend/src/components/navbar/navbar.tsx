@@ -6,12 +6,12 @@ import AuthDialog from '../auth/auth';
 export default function Navbar() {
   const { user, loading, logout } = useAuth();
   const [showLogin, setShowLogin] = useState(false);
+  const [isRegisterMode, setIsRegisterMode] = useState(false);
 
-  /*useEffect(() => {
-    if (!loading && !user) {
-      setShowLogin(true);
-    }
-  }, [loading]);*/
+  const handleAuthMode = (register: boolean) => {
+    setShowLogin(true);
+    setIsRegisterMode(register);
+  };
 
   return (
     <nav className="flex justify-between items-center p-4 bg-gray-100">
@@ -28,16 +28,24 @@ export default function Navbar() {
             </button>
           </div>
         ) : (
-          <button
-            onClick={() => setShowLogin(true)}
-            className="bg-blue-600 text-white px-3 py-1 rounded"
-          >
-            Login
-          </button>
+          <>
+            <button
+              onClick={() => handleAuthMode(false)}
+              className="bg-blue-600 text-white px-3 py-1 rounded"
+            >
+              Login
+            </button>
+            <button
+              onClick={() => handleAuthMode(true)}
+              className="bg-blue-600 text-white px-3 py-1 rounded"
+            >
+              Register
+            </button>
+          </>
         )}
       </div>
 
-      {showLogin && <AuthDialog onClose={() => setShowLogin(false)} />}
+      {showLogin && <AuthDialog isRegister={isRegisterMode} onClose={() => setShowLogin(false)} />}
     </nav>
   );
 }

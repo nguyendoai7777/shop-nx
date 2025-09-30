@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {
   createContext,
   ReactNode,
@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { isPrivateRoute } from '@edge-runtime';
 import { AuthContextType, UserInfo } from './auth-context.types';
+import { RegisterFormDto } from '@types';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -21,6 +22,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserInfo>();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+
     fetch('/api/auth/me')
       .then((res) => res.json())
       .then((data) => {
@@ -31,12 +33,15 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
       .finally(() => setLoading(false));
   }, []);
 
-  const login = async (username: string, password: string) => {
+  const login = async (payload: RegisterFormDto): Promise<any> => {
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({
+          username: payload.username,
+          password: payload.password,
+        }),
       });
 
       if (!res.ok) return false;
@@ -69,8 +74,26 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const register = async (payload: RegisterFormDto): Promise<any> => {
+    const res = await fetch(`/api/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) return false;
+
+    const data = await res.json();
+    setUser(data.user); // user từ Next API trả về
+
+    const returnUrl = searchParams.get('returnUrl');
+    return true;
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, login, logout, loading }}>
+    <AuthContext.Provider
+      value={{ loading, user, setUser, login, logout, register }}
+    >
       {children}
     </AuthContext.Provider>
   );

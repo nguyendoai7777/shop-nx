@@ -1,6 +1,6 @@
 import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaClientService } from '@services';
-import { CreateUserDto, LoginDto, UserInfoByJWT } from '@shop/dto';
+import type { CreateUserDto, LoginDto, UserInfoByJWT } from '@shop/dto';
 import { JwtService } from '@nestjs/jwt';
 import { verify } from 'argon2';
 import { ResponseTransformer } from '@transformers';

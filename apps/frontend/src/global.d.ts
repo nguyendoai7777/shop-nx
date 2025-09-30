@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, MouseEvent } from 'react';
 
 declare global {
   export type PropsWithChildren<P> = P & { children?: ReactNode };
@@ -9,4 +9,6 @@ declare global {
   }
 
   export type FCC<P = {}> = FunctionComponent<P>;
+
+  export type RMouseEvent<T> = MouseEvent<T>
 }

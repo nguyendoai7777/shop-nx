@@ -21,7 +21,9 @@
       "@components": ["src/components"],
       "@types": ["src/shared/types"],
       "@edge-runtime": ["src/shared/edge-runtime"],
-      "@utils": ["src/shared/utils"]
+      "@utils": ["src/shared/utils"],
+      "@directives": ["src/shared/directives"],
+      "@hooks": ["src/shared/hooks"]
     },
     "types": ["jest", "node"],
     "outDir": "dist",

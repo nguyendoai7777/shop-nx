@@ -1,11 +1,13 @@
-import { UserInfoByJWT } from '@shop/dto';
+import type { UserInfoByJWT } from '@shop/dto';
+import { LoginFormDto, RegisterFormDto } from '@types';
 
 export type UserInfo = Omit<UserInfoByJWT, 'iat' | 'exp'>;
 
-export type AuthContextType = {
+export interface AuthContextType {
   user: UserInfo | undefined;
-  setUser: (user: UserInfo) => void;
   loading: boolean;
-  login: (username: string, password: string) => Promise<any>;
-  logout: () => void;
-};
+  setUser(user: UserInfo): void;
+  login<T = any>(payload: LoginFormDto): Promise<T>;
+  logout(): void;
+  register<T = any>(payload: RegisterFormDto): Promise<T>;
+}

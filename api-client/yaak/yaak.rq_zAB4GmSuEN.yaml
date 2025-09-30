@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_zAB4GmSuEN
 createdAt: 2025-09-05T04:05:53.840165300
-updatedAt: 2025-09-28T12:43:36.368141400
+updatedAt: 2025-09-30T16:00:37.240557600
 workspaceId: wk_teknBTJbQe
 folderId: fl_WzNUM9nFRr
 authentication: {}
@@ -14,7 +14,7 @@ body:
       "email": "shark_dog_binh@gmail.com",
       "username": "dog_binh",
       "password": "123Qwe!@#",
-      "verifiedPassword": "123Qwe!@#"
+      "confirmPassword": "123Qwe!@#"
     }
 bodyType: application/json
 description: ''
