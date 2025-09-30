@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "fe": "nx dev frontend -p 3001",
+    "fe": "nx dev frontend --turbo -p 3001",
     "be": "nx serve backend",
     "mgdb": "prisma migrate dev --name init"
   },

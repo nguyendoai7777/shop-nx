@@ -16,6 +16,5 @@ export async function loadConfig() {
   const file = join(process.cwd(), 'public', 'config.json');
   const raw = readFileSync(file, 'utf-8');
   appConfig = JSON.parse(raw) as AppConfig;
-  console.log(`@@ App init config`, appConfig);
   return appConfig;
 }

@@ -5,7 +5,6 @@ import { useAuth } from './auth-context/auth-context';
 export function VSC() {
   const { user, loading } = useAuth();
   useEffect(() => {
-    console.log(`@@`);
   }, []);
   return loading ? (
     <div>Loading...</div>

@@ -32,7 +32,6 @@ function isPrivateRoute(pathname: string): boolean {
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const token = req.cookies.get('token')?.value; // token bạn set sau khi login
-  console.log(`@@ Next MiddleWare`, {token});
   // Nếu truy cập /user/* mà chưa login thì redirect về "/"
   // Bỏ qua static files và API routes
   if (

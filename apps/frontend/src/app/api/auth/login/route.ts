@@ -7,7 +7,6 @@ export async function POST(req: Request) {
   const body = await req.json();
   const { ApiUrl } = await loadConfig();
 
-  console.log(`@@Next api`, body);
 
   // gọi tới backend server login
   const res = await fetch(`${ApiUrl}/auth/login`, {
@@ -25,7 +24,6 @@ export async function POST(req: Request) {
   const token = data.data!.accessToken;
   const user = data.data!.user;
 
-  console.log(`@@ Login success`, data);
   if (!token) {
     return NextResponse.json({ error: 'No token returned' }, { status: 500 });
   }

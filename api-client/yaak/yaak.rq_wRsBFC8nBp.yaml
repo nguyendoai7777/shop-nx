@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_wRsBFC8nBp
 createdAt: 2025-09-28T11:22:12.161306800
-updatedAt: 2025-09-28T13:56:48.836914300
+updatedAt: 2025-09-29T07:47:43.604164
 workspaceId: wk_teknBTJbQe
 folderId: fl_F2grL45rFq
 authentication: {}
@@ -11,7 +11,7 @@ body:
   text: |-
     {
       "password": "MinhAnh@2003",
-      "verifiedPassword": "MinhAnh@20013"
+      "verifiedPassword": "MinhAnh@2001311"
     }
 bodyType: application/json
 description: ''

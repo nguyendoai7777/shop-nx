@@ -24,6 +24,5 @@ export async function GET(req: Request) {
   }
 
   const data: ResponseBase<UserFromDetail> = await res.json();
-  console.log(`@@ Data `, { data });
   return NextResponse.json({ user: data.data });
 }
