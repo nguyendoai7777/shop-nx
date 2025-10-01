@@ -12,11 +12,11 @@ export async function POST(req: Request) {
     body: JSON.stringify(body),
   });
 
-  if (!res.ok) {
-    return NextResponse.json({ error: 'Login failed' }, { status: res.status });
-  }
-
   const data: ResponseBase<UserFromDetail> = await res.json();
+
+  if (!res.ok) {
+    return NextResponse.json(data);
+  }
   const token = data.data!.accessToken;
 
   if (!token) {

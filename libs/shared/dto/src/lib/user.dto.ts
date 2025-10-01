@@ -25,10 +25,19 @@ export class UserInfoDTO {
   @IsString()
   @ApiProperty({
     description: 'Không để trống, min length = 6, max length 255',
-    example: 'Nguyyễn văn X',
+    example: 'Nguyyễn Văn',
     type: 'string',
   })
-  name: string;
+  firstname: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: 'Không để trống, min length = 6, max length 255',
+    example: 'Nam',
+    type: 'string',
+  })
+  lastname: string;
 }
 
 export class UserPasswordDTO {
@@ -76,7 +85,7 @@ export class CreateUserDto extends IntersectionType(
 }
 
 export interface UserInfoByJWT {
-  name: string
+  name: string;
   id: number;
   username: string;
   email: string;

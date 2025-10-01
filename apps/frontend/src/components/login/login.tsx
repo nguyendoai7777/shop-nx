@@ -2,6 +2,7 @@
 
 import { LoginAction, LoginFormDto } from '@types';
 import { useFocusElement, useFormChange } from '@hooks';
+import { TextField } from '@mui/material';
 
 export const Login: FCC<LoginAction> = ({ valueChange }) => {
   useFocusElement('#AuthForm input');
@@ -14,20 +15,21 @@ export const Login: FCC<LoginAction> = ({ valueChange }) => {
   );
   return (
     <>
-      <input
-        type="text"
-        placeholder="Username"
-        name="username"
-        onInput={(e) => handleInput(e, 'username')}
-        className="w-full px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      <TextField
+        fullWidth
+        variant="standard"
+        label="Tên đăng nhập / Email"
+        onChange={(e) => handleInput(e, 'username')}
       />
+
       {/* Password */}
-      <input
+      <TextField
+        fullWidth
         type="password"
         name="password"
-        placeholder="Password"
-        onInput={(e) => handleInput(e, 'password')}
-        className="w-full px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        variant="standard"
+        label="mật khẩu"
+        onChange={(e) => handleInput(e, 'password')}
       />
     </>
   );

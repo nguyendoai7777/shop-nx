@@ -18,7 +18,8 @@ export class AuthService {
       data: {
         password: data.password,
         email: data.email,
-        name: data.name,
+        firstname: data.firstname,
+        lastname: data.lastname,
         username: data.username,
       },
       omit: {

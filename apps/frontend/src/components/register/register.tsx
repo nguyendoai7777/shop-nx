@@ -10,7 +10,8 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
     {
       confirmPassword: '',
       password: '',
-      name: '',
+      firstname: '',
+      lastname: '',
       username: '',
       email: '',
     },
@@ -18,55 +19,55 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
   );
 
   return (
-    <div className="flex flex-col gap-y-4">
+    <>
       <TextField
-        className="text-white"
         fullWidth
-        placeholder="Tên đăng nhập"
         name="username"
         label="Tên đăng nhập"
         variant="standard"
         onChange={(e) => handleInput(e, 'username')}
       />
       <TextField
-        className="text-white"
         fullWidth
         variant="standard"
         type="email"
-        placeholder="Email"
         label="Email"
         name="username"
         onChange={(e) => handleInput(e, 'email')}
       />
+      <div className="flex gap-3">
+        <TextField
+          fullWidth
+          variant="standard"
+          type="text"
+          label="Họ, tên đệm"
+          name="firstname"
+          onChange={(e) => handleInput(e, 'firstname')}
+        />
+        <TextField
+          fullWidth
+          variant="standard"
+          type="text"
+          label="Tên"
+          name="lastname"
+          onChange={(e) => handleInput(e, 'lastname')}
+        />
+      </div>
       <TextField
-        className="text-white"
-        fullWidth
-        variant="standard"
-        type="text"
-        placeholder="Tên hiển thị"
-        label="Tên hiển thị"
-        name="name"
-        onChange={(e) => handleInput(e, 'name')}
-      />
-      <TextField
-        className="text-white"
         fullWidth
         variant="standard"
         type="password"
-        placeholder="Mật khẩu"
         label="Mật khẩu"
         name="password"
         onChange={(e) => handleInput(e, 'password')}
       />
       <TextField
-        className="text-white"
         fullWidth
         variant="standard"
         type="password"
-        placeholder="Xác nhận mật khẩu"
         label="Xác nhận mật khẩu"
         onChange={(e) => handleInput(e, 'confirmPassword')}
       />
-    </div>
+    </>
   );
 };

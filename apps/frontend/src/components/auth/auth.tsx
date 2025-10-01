@@ -9,6 +9,7 @@ import { Login } from '../login/login';
 import { Register } from '../register/register';
 import { useAuthStore } from '@z-state';
 import { useStore } from 'zustand/react';
+import { Button } from '@mui/material';
 
 const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
   const { login, register } = useAuth();
@@ -41,56 +42,60 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
     setIsLogin(!isRegister);
   }, []);
 
+  const LabelMode = () => {
+    return <>{isLogin ? 'Đăng nhập' : 'Đăng ký'}</>;
+  };
+
   return createPortal(
     <>
       <div
         onClick={(ev) => onClose?.()}
-        className="fixed inset-0 flex items-center justify-center min-h-screen bg-gray-900/60"
+        className="fixed inset-0 z-[101] flex items-center justify-center min-h-screen bg-gray-900/60"
       >
         <div
-          className="bg-gray-800 p-6 rounded-lg shadow-lg w-80"
+          className="bg-gray-800 p-6 rounded-lg shadow-lg w-120"
           {...StopPropagation}
         >
-          <h2 className="text-white text-lg font-semibold mb-4">
-            {isLogin ? 'Login' : 'Register'}
+          <h2 className="text-white text-lg font-semibold mb-6 text-center">
+            <LabelMode />
           </h2>
 
-          <div className="space-y-4" id="AuthForm">
+          <div className="flex flex-col gap-y-4" id="AuthForm">
             {isLogin ? (
               <Login valueChange={setLoginValue} />
             ) : (
               <Register valueChange={setRegisterValue} />
             )}
 
-            <div className="text-sm text-red-500 min-h-3.5 h-3.5">{error}</div>
+            <div className="text-sm text-[#ff2929] min-h-4 h-4 leading-4">
+              {error}
+            </div>
 
-            <button
-              type="submit"
-              onClick={handleSubmit}
-              className="w-full py-2 bg-blue-600 text-white rounded hover:brightness-110 transition duration-200"
-            >
-              {isLogin ? 'Login' : 'Register'}
-            </button>
+            <div className="flex flex-col gap-3">
+              <Button type="submit" variant="contained" onClick={handleSubmit}>
+                <LabelMode />
+              </Button>
 
-            {/* Cancel button */}
-            <button
-              type="button"
-              onClick={() => onClose?.()}
-              className="w-full py-2 text-gray-400 hover:text-gray-200 transition duration-200"
-            >
-              Cancel
-            </button>
+              {/* Cancel button */}
+              <Button
+                type="button"
+                onClick={() => onClose?.()}
+                className="!bg-gray-700 !px-6 hover:!bg-gray-600 !text-white"
+              >
+                Đóng
+              </Button>
+            </div>
           </div>
 
           {/* Switch link */}
           <p className="mt-4 text-center text-sm text-gray-400">
-            {isLogin ? "Don't have an account? " : 'Already have an account? '}
+            {isLogin ? 'Chưa có tài khoản? ' : 'Đã có tài khoản? '}
             <button
               type="button"
-              className="text-blue-400 hover:underline"
+              className="text-blue-400 hover:underline cursor-pointer"
               onClick={() => setIsLogin(!isLogin)}
             >
-              {isLogin ? 'Register' : 'Login'}
+              <LabelMode />
             </button>
           </p>
         </div>

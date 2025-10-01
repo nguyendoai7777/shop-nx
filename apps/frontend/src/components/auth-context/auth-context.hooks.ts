@@ -1,6 +1,6 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { RegisterFormDto, UserFromDetail, UserInfo } from '@types';
+import { RegisterFormDto, UserFromDetail } from '@types';
 import { isPrivateRoute } from '@edge-runtime';
 import { ResponseBase } from '@shop/type';
 import { useStore } from 'zustand/react';
@@ -12,7 +12,7 @@ export const useAuthContextHook = () => {
   const router = useRouter();
   const currentUrl = usePathname();
 
-  const [user, setUser] = useState<UserInfo>();
+  const [user, setUser] = useState<RegisterFormDto>();
   const [loading, setLoading] = useState(true);
   const [toastMsg, setToastMsg] = useState('');
 
@@ -39,10 +39,14 @@ export const useAuthContextHook = () => {
     });
     const r: ResponseBase<UserFromDetail> = await res.json();
     try {
-      setUser(r.data!.user);
-      const returnUrl = searchParams.get('returnUrl');
-      if (returnUrl) {
-        router.push(returnUrl);
+      if (r.data) {
+        setUser(r.data.user);
+        const returnUrl = searchParams.get('returnUrl');
+        if (returnUrl) {
+          router.push(returnUrl);
+        }
+      } else {
+        setError(r.message);
       }
     } catch (err) {}
     return r;

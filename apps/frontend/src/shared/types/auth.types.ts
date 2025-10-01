@@ -1,6 +1,5 @@
 import type { CreateUserDto, LoginDto } from '@shop/dto';
 import { Prettify, ResponseBase } from '@shop/type';
-import type { UserInfoByJWT } from '@shop/dto';
 import { UserFromDetail } from './user.types';
 
 export type LoginFormDto = Prettify<LoginDto>;
@@ -19,12 +18,11 @@ export interface AuthDialogProps {
   isRegister?: boolean;
 }
 
-export type UserInfo = Omit<UserInfoByJWT, 'iat' | 'exp'> | RegisterFormDto;
 
 export interface AuthContextType {
-  user: UserInfo | undefined;
+  user: RegisterFormDto | undefined;
   loading: boolean;
-  setUser(user: UserInfo): void;
+  setUser(user: RegisterFormDto): void;
   login(payload: LoginFormDto): Promise<ResponseBase<UserFromDetail>>;
   logout(): void;
   register(payload: RegisterFormDto): Promise<ResponseBase<RegisterFormDto>>;
