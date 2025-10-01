@@ -1,20 +1,16 @@
 import { NextResponse } from 'next/server';
 import { UserFromLogin } from '@types';
 import { ResponseBase } from '@shop/type';
-import { loadConfig } from '@utils';
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { ApiUrl } = await loadConfig();
-
 
   // gọi tới backend server login
-  const res = await fetch(`${ApiUrl}/auth/login`, {
+  const res = await fetch(`http://localhost:3000/api/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
-
 
   if (!res.ok) {
     return NextResponse.json({ error: 'Login failed' }, { status: res.status });

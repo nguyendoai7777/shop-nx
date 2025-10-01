@@ -1,5 +1,5 @@
 'use client';
-import { FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 type ValueChangeFn<T> = (value: T) => void;
 
@@ -15,7 +15,12 @@ export const useFormChange = <T extends object>(
   }, [value]);
 
   // hàm handle input
-  const handleInput = (e: FormEvent<HTMLInputElement>, key: keyof T) => {
+  const handleInput = (
+    e:
+      | FormEvent<HTMLInputElement | HTMLTextAreaElement>
+      | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    key: keyof T
+  ) => {
     setValue((prev) => ({
       ...prev,
       [key]: (e.target as HTMLInputElement).value,

@@ -28,7 +28,13 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Page() {
   return (
     <>
-      <script type="application/ld+json">
+      <div className={styles['container']}></div>
+    </>
+  );
+}
+
+/*
+<script type="application/ld+json">
         {JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'Product',
@@ -46,9 +52,4 @@ export default function Page() {
           },
         })}
       </script>
-      <div className={styles['container']}>
-        <UserProfile />
-      </div>
-    </>
-  );
-}
+* */

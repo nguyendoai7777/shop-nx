@@ -7,29 +7,26 @@ import { StopPropagation } from '@directives';
 import { useAuth } from '../auth-context/auth-context';
 import { Login } from '../login/login';
 import { Register } from '../register/register';
+import { useAuthStore } from '@z-state';
+import { useStore } from 'zustand/react';
 
 const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
   const { login, register } = useAuth();
-  const [error, setError] = useState('');
+  const { error } = useStore(useAuthStore, (state) => state);
+
   const [isLogin, setIsLogin] = useState(true);
   const [registerValue, setRegisterValue] = useState<RegisterFormDto>();
   const [loginValue, setLoginValue] = useState<LoginFormDto>();
 
   const _exeLogin = async () => {
     const ok = await login(loginValue!);
-    if (ok) {
-      onClose?.();
-    } else {
-      setError('Login failed');
-    }
   };
 
   const _exeRegister = async () => {
     const ok = await register(registerValue!);
+
     if (ok) {
       onClose?.();
-    } else {
-      setError('Login failed');
     }
   };
 
@@ -61,6 +58,8 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
           ) : (
             <Register valueChange={setRegisterValue} />
           )}
+
+          <div>{error}</div>
 
           <button
             type="submit"

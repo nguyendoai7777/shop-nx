@@ -1,8 +1,8 @@
-import './global.css';
 import { Metadata } from 'next';
 import { ReactNode } from 'react';
-import { AuthContextProvider } from '@components';
-import { Navbar } from '@components';
+import { AuthContextProvider, Navbar } from '@components';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import './global.css';
 
 export const metadata: Metadata = {
   title: 'XD - d',
@@ -13,10 +13,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <AuthContextProvider>
-          <Navbar />
-          {children}
-        </AuthContextProvider>
+        <AppRouterCacheProvider options={{ key: 'css', enableCssLayer: true }}>
+          <AuthContextProvider>
+            <Navbar />
+            {children}
+          </AuthContextProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

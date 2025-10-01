@@ -67,11 +67,10 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
     exception: Prisma.PrismaClientKnownRequestError,
     host: ArgumentsHost
   ) {
-    console.info(`@@ Filter starting`, JSON.stringify(exception));
+    console.info(`@@ PrismaClientKnownRequestError`, JSON.stringify(exception));
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const { message, code } = mapPrismaError(exception);
-    console.log(`@@ Filter`, { ctx: ctx.getRequest() });
 
     response.status(HttpStatus.BAD_REQUEST).json(
       new ResponseTransformer({

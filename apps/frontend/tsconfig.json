@@ -23,6 +23,7 @@
       "@edge-runtime": ["src/shared/edge-runtime"],
       "@utils": ["src/shared/utils"],
       "@directives": ["src/shared/directives"],
+      "@z-state": ["src/shared/z-state"],
       "@hooks": ["src/shared/hooks"]
     },
     "types": ["jest", "node"],

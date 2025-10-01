@@ -9,20 +9,23 @@ import {
   useState,
 } from 'react';
 import { isPrivateRoute } from '@edge-runtime';
-import { AuthContextType, UserInfo } from './auth-context.types';
-import { RegisterFormDto } from '@types';
+import { AuthContextType, RegisterFormDto, UserInfo } from '@types';
+import { useAuthStore } from '@z-state';
+import { useStore } from 'zustand/react';
+import { ResponseBase } from '@shop/type';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
+  const { clearError, setError } = useStore(useAuthStore, (state) => state);
   const searchParams = useSearchParams();
   const router = useRouter();
   const currentUrl = usePathname();
 
   const [user, setUser] = useState<UserInfo>();
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
 
+  useEffect(() => {
     fetch('/api/auth/me')
       .then((res) => res.json())
       .then((data) => {
@@ -34,6 +37,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (payload: RegisterFormDto): Promise<any> => {
+    clearError();
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
@@ -75,19 +79,24 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   };
 
   const register = async (payload: RegisterFormDto): Promise<any> => {
+    clearError();
     const res = await fetch(`/api/auth/register`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-
-    if (!res.ok) return false;
-
-    const data = await res.json();
-    setUser(data.user); // user từ Next API trả về
-
-    const returnUrl = searchParams.get('returnUrl');
-    return true;
+    setError('');
+    try {
+      const data: ResponseBase<RegisterFormDto> = await res.json();
+      if (data.status !== 200) {
+        setError(data?.message);
+      } else {
+        setUser(data.data); // user từ Next API trả về
+      }
+      const returnUrl = searchParams.get('returnUrl');
+      console.log(`@Register success`, data);
+    } catch (e: any) {
+      console.log(`@Register err`, e);
+    }
   };
 
   return (

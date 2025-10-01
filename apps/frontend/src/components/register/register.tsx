@@ -1,10 +1,11 @@
 'use client';
 import { RegisterAction, RegisterFormDto } from '@types';
 import { useFocusElement, useFormChange } from '@hooks';
-import { useEffect } from 'react';
+import { TextField } from '@mui/material';
 
 export const Register: FCC<RegisterAction> = ({ valueChange }) => {
   useFocusElement('#AuthForm input');
+
   const { value, handleInput } = useFormChange<RegisterFormDto>(
     {
       confirmPassword: '',
@@ -17,47 +18,55 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
   );
 
   return (
-    <>
-      {/* Username */}
-      <input
-        type="text"
+    <div className="flex flex-col gap-y-4">
+      <TextField
+        className="text-white"
+        fullWidth
         placeholder="Tên đăng nhập"
         name="username"
-        className="w-full px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onInput={(e) => handleInput(e, 'username')}
+        label="Tên đăng nhập"
+        variant="standard"
+        onChange={(e) => handleInput(e, 'username')}
       />
-      {/* Email */}
-      <input
+      <TextField
+        className="text-white"
+        fullWidth
+        variant="standard"
         type="email"
         placeholder="Email"
+        label="Email"
         name="username"
-        className="w-full px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onInput={(e) => handleInput(e, 'email')}
+        onChange={(e) => handleInput(e, 'email')}
       />
-      {/* Display name */}
-      <input
+      <TextField
+        className="text-white"
+        fullWidth
+        variant="standard"
         type="text"
         placeholder="Tên hiển thị"
+        label="Tên hiển thị"
         name="name"
-        className="w-full px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onInput={(e) => handleInput(e, 'name')}
+        onChange={(e) => handleInput(e, 'name')}
       />
-
-      {/* Password */}
-      <input
+      <TextField
+        className="text-white"
+        fullWidth
+        variant="standard"
         type="password"
         placeholder="Mật khẩu"
+        label="Mật khẩu"
         name="password"
-        className="w-full px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onInput={(e) => handleInput(e, 'password')}
+        onChange={(e) => handleInput(e, 'password')}
       />
-      {/* Confirm Password */}
-      <input
+      <TextField
+        className="text-white"
+        fullWidth
+        variant="standard"
         type="password"
         placeholder="Xác nhận mật khẩu"
-        className="w-full px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onInput={(e) => handleInput(e, 'confirmPassword')}
+        label="Xác nhận mật khẩu"
+        onChange={(e) => handleInput(e, 'confirmPassword')}
       />
-    </>
+    </div>
   );
 };

@@ -1,4 +1,5 @@
-import { ResponseBase, ResponseWithPagination } from '@types';
+import { ResponseWithPagination } from '@types';
+import { ResponseBase } from '@shop/type';
 
 export class ResponseTransformer<T> {
   constructor(public option: ResponseBase<T>) {}
