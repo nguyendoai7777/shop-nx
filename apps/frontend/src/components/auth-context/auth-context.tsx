@@ -5,7 +5,11 @@ import { AuthContextType } from '@types';
 import { Snackbar } from '@mui/material';
 import { useAuthContextHook } from './auth-context.hooks';
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType>({
+  loading: false,
+  user: undefined,
+  login(payload: LoginFormDto): Promise<ResponseBase<UserFromDetail>> {},
+});
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
   const {
