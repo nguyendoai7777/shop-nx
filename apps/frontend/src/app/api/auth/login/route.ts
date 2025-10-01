@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { UserFromLogin } from '@types';
+import { UserFromDetail } from '@types';
 import { ResponseBase } from '@shop/type';
 
 export async function POST(req: Request) {
@@ -16,16 +16,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Login failed' }, { status: res.status });
   }
 
-  const data: ResponseBase<UserFromLogin> = await res.json();
+  const data: ResponseBase<UserFromDetail> = await res.json();
   const token = data.data!.accessToken;
-  const user = data.data!.user;
 
   if (!token) {
-    return NextResponse.json({ error: 'No token returned' }, { status: 500 });
+    return data;
   }
 
   // tạo response và set cookie
-  const response = NextResponse.json({ success: true, user });
+  const response = NextResponse.json(data);
   response.cookies.set('token', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',

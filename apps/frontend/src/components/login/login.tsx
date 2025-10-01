@@ -5,7 +5,7 @@ import { useFocusElement, useFormChange } from '@hooks';
 
 export const Login: FCC<LoginAction> = ({ valueChange }) => {
   useFocusElement('#AuthForm input');
-  const { value, handleInput } = useFormChange<LoginFormDto>(
+  const { handleInput } = useFormChange<LoginFormDto>(
     {
       password: '',
       username: '',

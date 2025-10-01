@@ -1,11 +1,6 @@
-import { UserInfoByJWT, UserInfoDTO } from '@shop/dto';
-
-export interface UserFromLogin {
-  accessToken: string;
-  user: UserInfoDTO
-}
+import { type CreateUserDto } from '@shop/dto';
 
 export interface UserFromDetail {
   accessToken: string;
-  user: UserInfoDTO
+  user: CreateUserDto;
 }

@@ -1,6 +1,7 @@
 import type { CreateUserDto, LoginDto } from '@shop/dto';
-import { Prettify } from '@shop/type';
+import { Prettify, ResponseBase } from '@shop/type';
 import type { UserInfoByJWT } from '@shop/dto';
+import { UserFromDetail } from './user.types';
 
 export type LoginFormDto = Prettify<LoginDto>;
 export type RegisterFormDto = Prettify<CreateUserDto>;
@@ -24,7 +25,7 @@ export interface AuthContextType {
   user: UserInfo | undefined;
   loading: boolean;
   setUser(user: UserInfo): void;
-  login<T = any>(payload: LoginFormDto): Promise<T>;
+  login(payload: LoginFormDto): Promise<ResponseBase<UserFromDetail>>;
   logout(): void;
-  register<T = any>(payload: RegisterFormDto): Promise<T>;
+  register(payload: RegisterFormDto): Promise<ResponseBase<RegisterFormDto>>;
 }

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../auth-context/auth-context';
 import AuthDialog from '../auth/auth';
 export default function Navbar() {
-  const { user, loading, logout } = useAuth();
+  const { user, logout } = useAuth();
   const [showLogin, setShowLogin] = useState(false);
   const [isRegisterMode, setIsRegisterMode] = useState(false);
 
