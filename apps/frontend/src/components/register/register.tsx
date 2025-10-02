@@ -8,12 +8,12 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
 
   const { value, handleInput } = useFormChange<RegisterFormDto>(
     {
-      confirmPassword: '',
-      password: '',
-      firstname: '',
-      lastname: '',
-      username: '',
-      email: '',
+      confirmPassword: 'MinhAnh@2003',
+      password: 'MinhAnh@2003',
+      firstname: 'Minh',
+      lastname: 'Anh',
+      username: 'minhanh',
+      email: 'ntma2003@gmail.com',
     },
     valueChange
   );
@@ -25,6 +25,7 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
         name="username"
         label="Tên đăng nhập"
         variant="standard"
+        value={value.username}
         onChange={(e) => handleInput(e, 'username')}
       />
       <TextField
@@ -32,7 +33,8 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
         variant="standard"
         type="email"
         label="Email"
-        name="username"
+        name="email"
+        value={value.email}
         onChange={(e) => handleInput(e, 'email')}
       />
       <div className="flex gap-3">
@@ -42,6 +44,7 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
           type="text"
           label="Họ, tên đệm"
           name="firstname"
+          value={value.firstname}
           onChange={(e) => handleInput(e, 'firstname')}
         />
         <TextField
@@ -50,6 +53,7 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
           type="text"
           label="Tên"
           name="lastname"
+          value={value.lastname}
           onChange={(e) => handleInput(e, 'lastname')}
         />
       </div>
@@ -59,6 +63,7 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
         type="password"
         label="Mật khẩu"
         name="password"
+        value={value.password}
         onChange={(e) => handleInput(e, 'password')}
       />
       <TextField
@@ -66,6 +71,7 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
         variant="standard"
         type="password"
         label="Xác nhận mật khẩu"
+        value={value.password}
         onChange={(e) => handleInput(e, 'confirmPassword')}
       />
     </>

@@ -15,7 +15,6 @@ export class ResponseExceptionFilter<T> implements ExceptionFilter {
   constructor() {}
   catch(exception: BadRequestException, host: ArgumentsHost) {
     const res = host.switchToHttp().getResponse<Response>();
-    console.log(`@@ BadRequestException`, res);
 
     let errorMess: any;
     const isBadRequestFilter = (exception.getResponse() as BadRequestException).message;

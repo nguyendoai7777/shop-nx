@@ -24,7 +24,7 @@ export class UserService {
       },
       {
         [key('lastname')]: { contains: search },
-      }
+      },
     ];
 
     return this.prisma.$transaction([
@@ -42,8 +42,8 @@ export class UserService {
         },*/
         omit: {
           password: true,
-          themeId: true
-        }
+          themeId: true,
+        },
       }),
       this.prisma.user.count(),
     ]);
@@ -56,6 +56,7 @@ export class UserService {
       },
       omit: {
         password: true,
+        themeId: true,
       },
     });
   }

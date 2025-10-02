@@ -7,6 +7,7 @@ export const verifyPassword = async (
   confirmPassword: string
 ) => {
   if (confirmPassword !== password) {
+    console.log(`@@ ??`);
     throw new BadRequestException(
       new ResponseTransformer({
         message: 'Password không khớp',

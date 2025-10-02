@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { ResponseBase } from '@shop/type';
 import { UserFromDetail } from '@types';
+import { Http } from '@utils';
 
 // simple verify (có thể gọi BE verify nếu cần)
 export async function GET() {
@@ -13,14 +14,11 @@ export async function GET() {
   }
 
   // gọi BE để lấy user info
-  const res = await fetch(`http://localhost:3000/api/user/current`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const { data } = await Http.get<ResponseBase<UserFromDetail>>(`/api/user/current`);
 
-  if (!res.ok) {
+  if (!data.data) {
     return NextResponse.json({ user: null });
   }
 
-  const data: ResponseBase<UserFromDetail> = await res.json();
   return NextResponse.json({ user: data.data });
 }

@@ -1,11 +1,14 @@
+import { CatchAxiosError, Http } from '@utils';
+import { ResponseBase } from '@shop/type';
+import { NextResponse } from 'next/server';
+
 export async function POST(req: Request) {
   const body = await req.json();
-  const res = await fetch(`http://localhost:3000/api/auth/register`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
 
-  // const r = await http.post(`${ApiUrl}/auth/register`, body);
-  return res;
+  try {
+    const res = await Http.post<ResponseBase<any>>(`/api/auth/register`, body);
+    return NextResponse.json(res.data);
+  } catch (err) {
+    return CatchAxiosError(err);
+  }
 }

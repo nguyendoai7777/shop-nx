@@ -30,7 +30,6 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
 
   const _exeRegister = async () => {
     const res = await register(registerValue!);
-    console.log(res);
     if (res.data) {
       onClose?.();
     }
@@ -59,12 +58,9 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
     const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
     const distance = 20;
 
-    // Check cách top 40px
     if (distanceFromTop <= distance) {
-      console.log('Gần top! Cách:', distanceFromTop, 'px');
       setScrollShadow(0);
     } else if (distanceFromBottom <= distance) {
-      console.log('Gần bottom! Cách:', distanceFromBottom, 'px');
       setScrollShadow(1);
     } else {
       setScrollShadow(2);

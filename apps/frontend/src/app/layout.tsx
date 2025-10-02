@@ -6,6 +6,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { MuiThemeConfig } from '@utils';
 import './global.css';
 import 'overlayscrollbars/overlayscrollbars.css';
+import { BodyScrollbarInitializer } from './scrollbar-initializer';
 
 export const metadata: Metadata = {
   title: 'XD - d',
@@ -15,7 +16,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-dark text-white">
+      <body className="bg-dark text-white" data-overlayscrollbars-initialize>
+        <BodyScrollbarInitializer />
         <AppRouterCacheProvider options={{ key: 'css', enableCssLayer: true }}>
           <ThemeProvider theme={MuiThemeConfig}>
             <AuthContextProvider>

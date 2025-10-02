@@ -30,7 +30,7 @@ export const useAuthContextHook = () => {
   const login = async (payload: RegisterFormDto) => {
     clearError();
     setToastMsg('');
-    setLoading(true)
+    setLoading(true);
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -51,8 +51,11 @@ export const useAuthContextHook = () => {
         console.log(`error`, r.message);
         setError(r.message);
       }
-    } catch (err) {}
-    setLoading(false)
+    } catch (err) {
+    } finally {
+      setLoading(false);
+    }
+
     return r;
   };
 
@@ -74,7 +77,7 @@ export const useAuthContextHook = () => {
   const register = async (payload: RegisterFormDto) => {
     setToastMsg('');
     clearError();
-    setLoading(true)
+    setLoading(true);
     const res = await fetch(`/api/auth/register`, {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -88,8 +91,12 @@ export const useAuthContextHook = () => {
         setToastMsg(data.message + ', ' + 'đăng nhập nhé!');
       }
       const returnUrl = searchParams.get('returnUrl');
-    } catch (e: any) {}
-    setLoading(false)
+    } catch (e: any) {
+      console.log(`error`, e);
+    } finally {
+      setLoading(false);
+    }
+    setLoading(false);
     return data;
   };
 

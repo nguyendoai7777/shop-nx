@@ -56,9 +56,10 @@ export default function Navbar() {
         <></>
       )}
       <div className="sticky top-0 pt-6 z-100">
-        <nav className="flex items-center mx-6 p-2 justify-between rounded-full bg-[#63636336] !backdrop-blur-[5px] !backdrop-saturate-[1]">
+        <nav className="flex gap-x-2 items-center mx-6 p-2 rounded-full bg-[#63636336] !backdrop-blur-[5px] !backdrop-saturate-[1]">
           <Link href="/" className="font-bold cursor-pointer">DonateApp</Link>
-          <div className="flex items-center gap-3">
+          <Link href="/streamers" className="font-bold cursor-pointer">Streamer</Link>
+          <div className="ml-auto flex items-center gap-3">
             {user ? (
               <>
                 <div

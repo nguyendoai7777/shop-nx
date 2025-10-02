@@ -29,6 +29,7 @@ export class AuthService {
   }
 
   async login(dto: LoginDto) {
+    console.log(`@@ Login`, dto);
     const user = await this.prisma.user.findFirst({
       where: {
         OR: [{ email: dto.username }, { username: dto.username }],
