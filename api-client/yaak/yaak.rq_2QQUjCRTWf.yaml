@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_2QQUjCRTWf
 createdAt: 2025-09-05T04:03:58.223791200
-updatedAt: 2025-09-28T04:45:09.826818800
+updatedAt: 2025-10-02T09:09:48.873872600
 workspaceId: wk_teknBTJbQe
 folderId: fl_F2grL45rFq
 authentication: {}
@@ -13,7 +13,7 @@ description: ''
 headers: []
 method: PUT
 name: Update
-sortPriority: 4000.0
+sortPriority: 3000.0
 url: ${[ api_host ]}/user/
 urlParameters:
 - enabled: true

@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_wRsBFC8nBp
 createdAt: 2025-09-28T11:22:12.161306800
-updatedAt: 2025-09-29T07:47:43.604164
+updatedAt: 2025-10-02T09:09:48.366641100
 workspaceId: wk_teknBTJbQe
 folderId: fl_F2grL45rFq
 authentication: {}
@@ -22,6 +22,6 @@ headers:
   id: pBmHXSxK9v
 method: POST
 name: ChangePassword
-sortPriority: -0.0001
+sortPriority: 0.0
 url: ${[ api_host ]}/user/change-password
 urlParameters: []

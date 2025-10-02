@@ -29,6 +29,8 @@ export const useAuthContextHook = () => {
 
   const login = async (payload: RegisterFormDto) => {
     clearError();
+    setToastMsg('');
+    setLoading(true)
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -46,9 +48,11 @@ export const useAuthContextHook = () => {
           router.push(returnUrl);
         }
       } else {
+        console.log(`error`, r.message);
         setError(r.message);
       }
     } catch (err) {}
+    setLoading(false)
     return r;
   };
 
@@ -70,6 +74,7 @@ export const useAuthContextHook = () => {
   const register = async (payload: RegisterFormDto) => {
     setToastMsg('');
     clearError();
+    setLoading(true)
     const res = await fetch(`/api/auth/register`, {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -80,11 +85,11 @@ export const useAuthContextHook = () => {
       if (data.status !== 200) {
         setError(data?.message);
       } else {
-        setUser(data.data); // user từ Next API trả về
-        setToastMsg(data.message);
+        setToastMsg(data.message + ', ' + 'đăng nhập nhé!');
       }
       const returnUrl = searchParams.get('returnUrl');
     } catch (e: any) {}
+    setLoading(false)
     return data;
   };
 

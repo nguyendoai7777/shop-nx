@@ -21,14 +21,12 @@ export const Login: FCC<LoginAction> = ({ valueChange }) => {
         label="Tên đăng nhập / Email"
         onChange={(e) => handleInput(e, 'username')}
       />
-
-      {/* Password */}
       <TextField
         fullWidth
         type="password"
         name="password"
         variant="standard"
-        label="mật khẩu"
+        label="Mật khẩu"
         onChange={(e) => handleInput(e, 'password')}
       />
     </>

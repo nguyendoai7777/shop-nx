@@ -4,3 +4,4 @@ export interface UserFromDetail {
   accessToken: string;
   user: CreateUserDto;
 }
+

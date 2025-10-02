@@ -17,7 +17,7 @@ const NavAvatar = (user: { user: NavAvatarProps }) => {
   return avatar ? (
     <Avatar alt={naming().full} src={avatar} />
   ) : (
-    <div className="w-10 h-10 rounded-full text-center content-center border border-gray-400 ">
+    <div className="w-9 h-9 rounded-full text-center content-center border border-gray-400 ">
       {naming().short}
     </div>
   );

@@ -1,8 +1,39 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
-const openRoutes = ['/api/auth/login', '/api/auth/register'];
+function pathToRegex(pattern: string): RegExp {
+  // Bước 1: thay thế glob ** và *
+  let regexStr = pattern
+    .replace(/\*\*/g, '<<<DOUBLE>>>') // placeholder
+    .replace(/\*/g, '<<<SINGLE>>>'); // placeholder
+
+  // Bước 2: escape các ký tự regex đặc biệt
+  regexStr = regexStr.replace(/[.+?^${}()|[\]\\]/g, '\\$&');
+
+  // Bước 3: trả lại placeholder thành regex thật
+  regexStr = regexStr
+    .replace(/<<<DOUBLE>>>/g, '.*') // ** = match nhiều segment
+    .replace(/<<<SINGLE>>>/g, '[^/]+'); // *  = match 1 segment
+
+  return new RegExp(`^${regexStr}$`);
+}
+
+function isOpenRoute(url: string, routes: string[]): boolean {
+  const path = url.split('?')[0].split('#')[0];
+  return routes.some((pattern) => pathToRegex(pattern).test(path));
+}
+const openRoutes = [
+  '/api/streamer',
+  '/api/streamer/**',
+  '/api/auth/**',
+  '/api/public/**',
+];
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -11,7 +42,14 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
 
     // if (request.url.startsWith('/api/auth')) return true;
-    if (openRoutes.includes(request.url)) return true;
+    // if (openRoutes.includes(request.url))
+    console.log(`@@ route`, {
+      url: request.url,
+      isPublic: isOpenRoute(request.url, openRoutes)
+    });
+    if (isOpenRoute(request.url, openRoutes)) {
+      return true;
+    }
 
     const token = this.extractTokenFromHeader(request);
     if (!token) {

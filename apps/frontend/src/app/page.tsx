@@ -1,5 +1,3 @@
-import { useAuth, VSC } from '@components';
-
 export default function Main() {
   return (
     <>

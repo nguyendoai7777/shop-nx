@@ -1,12 +1,14 @@
 'use client';
 import { Button, Menu } from '@mui/material';
-import { lazy, useState } from 'react';
-
+// import SettingsIcon from '@mui/icons-material/Settings';
+import { Settings, Person, Logout } from '@mui/icons-material';
+import Link from 'next/link';
 export interface UserSettingMenuProps {
   id: string;
   anchorEl: HTMLElement | null;
   open: boolean;
   handleClose(e: RMouseEvent<HTMLElement>): void;
+  logout(): void;
 }
 
 const UserSettingMenu: FCC<UserSettingMenuProps> = ({
@@ -14,7 +16,10 @@ const UserSettingMenu: FCC<UserSettingMenuProps> = ({
   anchorEl,
   open,
   handleClose,
+  logout,
 }) => {
+  const _className =
+    '!justify-start !text-white hover:!bg-white/10 !px-4 !rounded-none';
   return (
     <Menu
       anchorEl={anchorEl}
@@ -54,9 +59,32 @@ const UserSettingMenu: FCC<UserSettingMenuProps> = ({
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
-      <Button>Cập nhật thông tin</Button>
-      <Button>Cài đặt</Button>
-      <Button>Đăng xuất</Button>
+      <li>
+        <Link href="/profile">
+          <Button fullWidth className={_className} startIcon={<Person />}>
+            Hồ sơ
+          </Button>
+        </Link>
+      </li>
+      <li>
+        <Link href="/setting">
+          <Button fullWidth className={_className} startIcon={<Settings />}>
+            Cài đặt
+          </Button>
+        </Link>
+      </li>
+      <li>
+        <Link href="/">
+          <Button
+            fullWidth
+            className={_className}
+            startIcon={<Logout />}
+            onClick={logout}
+          >
+            Đăng xuất
+          </Button>
+        </Link>
+      </li>
     </Menu>
   );
 };

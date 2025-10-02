@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_WEAwmBwUZZ
 createdAt: 2025-09-25T03:33:07.935297600
-updatedAt: 2025-09-29T04:45:48.236087700
+updatedAt: 2025-10-02T09:09:50.301419600
 workspaceId: wk_teknBTJbQe
 folderId: fl_F2grL45rFq
 authentication: {}
@@ -16,7 +16,7 @@ headers:
   value: ''
   id: rdtKdTdQTP
 method: GET
-name: Detail
-sortPriority: 2000.0
+name: Detail [id]
+sortPriority: 1500.0
 url: ${[ api_host ]}/user/1
 urlParameters: []

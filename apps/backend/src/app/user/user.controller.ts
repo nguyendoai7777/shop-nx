@@ -28,36 +28,10 @@ import { User } from '@decorators';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get()
-  async findAll(@Query(TransformParams()) pagination: PaginationDto) {
-    const { page, size } = pagination;
-    const [data, total] = await this.userService.findAll(pagination);
-    return new ResponsePaginationTransformer({
-      status: HttpStatus.OK,
-      message: 'Success',
-      data,
-      pagination: {
-        page,
-        size,
-        total,
-      },
-    });
-  }
 
   @Get(`current`)
   async current(@User() user: UserInfoByJWT) {
     const data = await this.userService.findOne(user.id);
-
-    return new ResponseTransformer({
-      message: 'Success',
-      data,
-      status: HttpStatus.OK,
-    });
-  }
-
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const data = await this.userService.findOne(+id);
 
     return new ResponseTransformer({
       message: 'Success',

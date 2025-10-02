@@ -1,0 +1,42 @@
+import { fetchStreamerList } from './streamer.service';
+import { Metadata } from 'next';
+import { CardButton } from './card-button';
+import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Danh sách streamer',
+};
+
+export default async function StreamersPage() {
+  const res = await fetchStreamerList();
+
+  console.log(`@@ Streamers`, res.data);
+  if (!res.data) {
+    return <div>Fetch Streamers fail</div>;
+  }
+
+  return (
+    <>
+      <h1 className="pb-2 font-semibold text-2xl mt-1">Danh sách</h1>
+
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-3 mt-4">
+        {(res.data ?? []).map((str) => (
+          <CardButton key={str.id}>
+          <Link
+              href={`/streamers/${str.id}`}
+              className="overflow-hidden flex !ustify-start items-center gap-2 rounded-md bg-gray-700/50 p-3 duration-300 border border-transparent hover:border-gray-600 w-full"
+            >
+              <div className="w-10 aspect-square bg-pink-700 rounded-full"></div>
+              <div>
+                <div className="text-left">
+                  {str.firstname} {str.lastname}
+                </div>
+                <div className="text-left">{str.email}</div>
+              </div>
+            </Link>
+          </CardButton>
+        ))}
+      </div>
+    </>
+  );
+}

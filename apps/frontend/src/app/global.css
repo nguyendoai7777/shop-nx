@@ -2,4 +2,59 @@
 
 @theme {
   --color-dark: #0a0f2d;
+  --color-dark-lighter: #0f1538;
 }
+:root {
+  .os-scrollbar-handle {
+    background-color: #6c6c6c;
+
+    &:hover {
+      background-color: #dcdcdc;
+    }
+  }
+}
+
+body {
+  min-height: 100svh;
+}
+
+.sora-scrollbar {
+  --opacity: 50px;
+
+  &:not([at-start]):not([at-end]) {
+    mask-image: linear-gradient(to bottom, transparent 0, transparent 1px, #000 var(--opacity), #000 calc(100% - var(--opacity)), transparent calc(100% - 1px), transparent 100%);
+  }
+
+  &[at-start] {
+    mask-image: linear-gradient(to top, transparent 0, transparent 1px, #000 var(--opacity));
+  }
+
+  &[at-end] {
+    mask-image: linear-gradient(to bottom, transparent 0, transparent 1px, #000 var(--opacity));
+  }
+}
+
+input {
+  color: #fff;
+  &:-webkit-autofill,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active,
+  &:-webkit-autofill:hover,
+  &:autofill {
+    -webkit-box-shadow: inherit !important;
+    background-color: transparent !important;
+    -webkit-text-fill-color: #fff !important;
+    caret-color: #fff !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+  }
+}
+
+/*
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}*/

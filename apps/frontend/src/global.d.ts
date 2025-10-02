@@ -16,11 +16,12 @@ declare global {
 
   export type FCC<P = {}> = FunctionComponent<P>;
 
-  export type RMouseEvent<T> = MouseEvent<T>
+  export type RMouseEvent<T> = MouseEvent<T>;
 
-  function createContext<T>(
-    // If you thought this should be optional, see
-    // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24509#issuecomment-382213106
-    defaultValue: T,
-  ): Context<T>;
+}
+
+declare module 'react' {
+
+  function createContext<T>(defaultValue: T): Context<T>;
+  function createContext<T = undefined>(): Context<T>;
 }

@@ -5,11 +5,7 @@ import { AuthContextType } from '@types';
 import { Snackbar } from '@mui/material';
 import { useAuthContextHook } from './auth-context.hooks';
 
-const AuthContext = createContext<AuthContextType>({
-  loading: false,
-  user: undefined,
-  login(payload: LoginFormDto): Promise<ResponseBase<UserFromDetail>> {},
-});
+const AuthContext = createContext<AuthContextType>();
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
   const {
@@ -30,10 +26,19 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
         open={!!toastMsg}
         autoHideDuration={5000}
         message={toastMsg}
-        onClose={() => setToastMsg('')}
+        onClose={() => {
+          setToastMsg('');
+        }}
       />
       <AuthContext.Provider
-        value={{ loading, user, setUser, login, logout, register }}
+        value={{
+          loading,
+          user,
+          setUser,
+          login,
+          logout,
+          register,
+        }}
       >
         {children}
       </AuthContext.Provider>

@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_zYoQtH2Jzh
 createdAt: 2025-09-29T04:43:26.155807600
-updatedAt: 2025-09-29T04:47:58.631568900
+updatedAt: 2025-10-02T09:09:48.482982700
 workspaceId: wk_teknBTJbQe
 folderId: fl_F2grL45rFq
 authentication: {}
@@ -13,6 +13,6 @@ description: ''
 headers: []
 method: GET
 name: Current
-sortPriority: 1999.9999
+sortPriority: 1000.0
 url: ${[ api_host ]}/user/current
 urlParameters: []

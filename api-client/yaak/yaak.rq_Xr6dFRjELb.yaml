@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_Xr6dFRjELb
 createdAt: 2025-09-05T04:20:51.417301
-updatedAt: 2025-09-28T04:43:05.695729500
+updatedAt: 2025-10-02T09:09:56.398089700
 workspaceId: wk_teknBTJbQe
 folderId: fl_F2grL45rFq
 authentication: {}
@@ -17,8 +17,8 @@ headers:
   id: 2rfe99NTxY
 method: GET
 name: Search (List)
-sortPriority: 1000.0
-url: ${[ host ]}/api/user
+sortPriority: 2000.0
+url: ${[ host ]}/api/streamer
 urlParameters:
 - enabled: true
   name: page

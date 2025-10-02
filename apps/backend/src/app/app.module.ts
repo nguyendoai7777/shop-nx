@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { StreamingModule } from './streaming/streaming.module';
+import { StreamerModule } from './streamer/streamer.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { StreamingModule } from './streaming/streaming.module';
     ArticlesModule,
     AuthModule,
     StreamingModule,
+    StreamerModule,
   ],
   controllers: [AppController],
   providers: [

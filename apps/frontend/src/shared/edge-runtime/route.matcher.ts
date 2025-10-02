@@ -1,11 +1,11 @@
 export const PrivateRouteConfig = [
-  "/user",           // Exact: /user
-  "/user/:path*",    // Wildcard: /user/anything, /user/123, /user/profile/settings
-  "/streamers",      // Exact: /streamers
-  "/streamer/:id",   // Dynamic: /streamer/123, /streamer/abc
-  "/dashboard",      // Exact: /dashboard
-  "/dashboard/:path*", // Wildcard: /dashboard/analytics, /dashboard/settings/profile
-  "/profile/:id/edit", // Specific dynamic: /profile/123/edit
+  '/user', // Exact: /user
+  '/user/:path*', // Wildcard: /user/anything, /user/123, /user/profile/settings
+  '/dashboard', // Exact: /dashboard
+  '/dashboard/:path*', // Wildcard: /dashboard/analytics, /dashboard/settings/profile
+  '/profile', // Specific dynamic: /profile/123/edit
+  '/setting', // Specific dynamic: /profile/123/edit
+  '/',
 ];
 
 export function isPrivateRoute(pathname: string): boolean {

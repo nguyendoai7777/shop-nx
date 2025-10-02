@@ -20,8 +20,11 @@ export class UserService {
         [key('email')]: { contains: search },
       },
       {
-        [key('name')]: { contains: search },
+        [key('firstname')]: { contains: search },
       },
+      {
+        [key('lastname')]: { contains: search },
+      }
     ];
 
     return this.prisma.$transaction([
@@ -31,12 +34,16 @@ export class UserService {
         where: {
           OR: searchCol,
         },
-        select: {
+        /*select: {
+
           id: true,
           createAt: true,
           email: true,
-          name: true,
-        },
+        },*/
+        omit: {
+          password: true,
+          themeId: true
+        }
       }),
       this.prisma.user.count(),
     ]);
@@ -48,8 +55,8 @@ export class UserService {
         id,
       },
       omit: {
-        password: true
-      }
+        password: true,
+      },
     });
   }
 
