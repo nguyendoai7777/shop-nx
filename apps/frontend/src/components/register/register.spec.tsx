@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
+import { Register } from './register';
 
-import Register from './register';
 
 describe('Register', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Register />);
+    const { baseElement } = render(<Register valueChange={() => {}} />);
     expect(baseElement).toBeTruthy();
   });
 });

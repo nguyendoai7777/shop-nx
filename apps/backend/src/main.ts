@@ -11,6 +11,8 @@ import { PrismaClientExceptionFilter, ResponseExceptionFilter } from '@filters';
 import { ResponseInterceptor } from '@interceptors';
 import { WTLogger } from '@loggers';
 import { configDotenv } from 'dotenv';
+import { NoCacheInterceptor } from './shared/interceptors/no-cache.interceptor';
+import { NotFoundFilter } from './shared/filters/notfound-exception/notfound-exception.filter';
 
 configDotenv({
   path: '/.env',
@@ -24,10 +26,14 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(
     new ResponseExceptionFilter(),
-    new PrismaClientExceptionFilter()
+    new PrismaClientExceptionFilter(),
+    new NotFoundFilter()
   );
   // app.useLogger(new WTLogger());
-  app.useGlobalInterceptors(new ResponseInterceptor());
+  app.useGlobalInterceptors(
+    new NoCacheInterceptor(),
+    new ResponseInterceptor()
+  );
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;

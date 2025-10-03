@@ -21,16 +21,18 @@ body {
 .sora-scrollbar {
   --opacity: 50px;
 
-  &:not([at-start]):not([at-end]) {
-    mask-image: linear-gradient(to bottom, transparent 0, transparent 1px, #000 var(--opacity), #000 calc(100% - var(--opacity)), transparent calc(100% - 1px), transparent 100%);
-  }
+  &:not([at-none]) {
+    &:not([at-start]):not([at-end]) {
+      mask-image: linear-gradient(to bottom, transparent 0, transparent 1px, #000 var(--opacity), #000 calc(100% - var(--opacity)), transparent calc(100% - 1px), transparent 100%);
+    }
 
-  &[at-start] {
-    mask-image: linear-gradient(to top, transparent 0, transparent 1px, #000 var(--opacity));
-  }
+    &[at-start] {
+      mask-image: linear-gradient(to top, transparent 0, transparent 1px, #000 var(--opacity));
+    }
 
-  &[at-end] {
-    mask-image: linear-gradient(to bottom, transparent 0, transparent 1px, #000 var(--opacity));
+    &[at-end] {
+      mask-image: linear-gradient(to bottom, transparent 0, transparent 1px, #000 var(--opacity));
+    }
   }
 }
 

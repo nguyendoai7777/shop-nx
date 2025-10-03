@@ -17,9 +17,7 @@ export interface AuthDialogProps {
 
 
 export interface AuthContextType {
-  user: RegisterFormDto | undefined;
   loading: boolean;
-  setUser(user: RegisterFormDto): void;
   login(payload: LoginFormDto): Promise<ResponseBase<UserFromDetail>>;
   register(payload: RegisterFormDto): Promise<ResponseBase<RegisterFormDto>>;
   logout(): void;

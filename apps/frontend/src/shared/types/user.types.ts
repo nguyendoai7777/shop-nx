@@ -5,3 +5,6 @@ export interface UserFromDetail {
   user: CreateUserDto;
 }
 
+export interface UserFromDetailClient extends UserFromDetail {
+  api: string
+}

@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-// the store itself does not need any change
+import { RegisterFormDto } from '@types';
 
 interface AuthStore {
   error: string;
-  setError: (error: string) => void;
+  setError(error: string): void;
+  user: RegisterFormDto | undefined;
+  setUser(user: RegisterFormDto | undefined): void;
   clearError: () => void;
 }
 
@@ -14,6 +15,9 @@ export const useAuthStore = create<AuthStore>()(
     (set) => ({
       error: '',
       setError: (error) => set({ error }),
+      user: void 0,
+      setUser: (user) => set({ user }),
+
       clearError: () => set({ error: '' }),
     }),
     {

@@ -1,23 +1,14 @@
 'use client';
 
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import { AuthContextType } from '@types';
 import { Snackbar } from '@mui/material';
 import { useAuthContextHook } from './auth-context.hooks';
 
 const AuthContext = createContext<AuthContextType>();
 
-export function AuthContextProvider({ children }: { children: ReactNode }) {
-  const {
-    register,
-    logout,
-    login,
-    setUser,
-    setToastMsg,
-    user,
-    loading,
-    toastMsg,
-  } = useAuthContextHook();
+export const AuthContextProvider: FCC = ({ children }) => {
+  const { register, logout, login, setToastMsg, loading, toastMsg } = useAuthContextHook();
 
   return (
     <>
@@ -30,21 +21,19 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
           setToastMsg('');
         }}
       />
-      <AuthContext.Provider
+      <AuthContext
         value={{
           loading,
-          user,
-          setUser,
           login,
           logout,
           register,
         }}
       >
         {children}
-      </AuthContext.Provider>
+      </AuthContext>
     </>
   );
-}
+};
 
 export const useAuth = () => {
   const ctx = useContext(AuthContext);

@@ -1,27 +1,29 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { RegisterFormDto, UserFromDetail } from '@types';
-import { isPrivateRoute } from '@edge-runtime';
+import { RegisterFormDto, UserFromDetail, UserFromDetailClient } from '@types';
+import { ClientConfiguration, isPrivateRoute } from '@edge-runtime';
 import { ResponseBase } from '@shop/type';
 import { useStore } from 'zustand/react';
 import { useAuthStore } from '@z-state';
 
 export const useAuthContextHook = () => {
-  const { clearError, setError } = useStore(useAuthStore, (state) => state);
+  const { clearError, setError, setUser } = useStore(useAuthStore, (state) => state);
   const searchParams = useSearchParams();
   const router = useRouter();
   const currentUrl = usePathname();
 
-  const [user, setUser] = useState<RegisterFormDto>();
   const [loading, setLoading] = useState(true);
   const [toastMsg, setToastMsg] = useState('');
 
   useEffect(() => {
     fetch('/api/auth/me')
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: UserFromDetailClient) => {
         if (data.user) {
           setUser(data.user);
+          ClientConfiguration.setMultiple(
+            { token: data.accessToken, api: data.api }
+          );
         }
       })
       .finally(() => setLoading(false));
@@ -31,6 +33,7 @@ export const useAuthContextHook = () => {
     clearError();
     setToastMsg('');
     setLoading(true);
+    // const {} = await HttpClient.post(`/api/auth/login`)
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -104,9 +107,7 @@ export const useAuthContextHook = () => {
     register,
     logout,
     login,
-    setUser,
     setToastMsg,
-    user,
     loading,
     toastMsg,
   };

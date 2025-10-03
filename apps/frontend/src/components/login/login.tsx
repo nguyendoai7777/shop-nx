@@ -17,15 +17,14 @@ export const Login: FCC<LoginAction> = ({ valueChange }) => {
     <>
       <TextField
         fullWidth
-        variant="standard"
         label="Tên đăng nhập / Email"
+        name="username"
         onChange={(e) => handleInput(e, 'username')}
       />
       <TextField
         fullWidth
         type="password"
         name="password"
-        variant="standard"
         label="Mật khẩu"
         onChange={(e) => handleInput(e, 'password')}
       />

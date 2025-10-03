@@ -1,8 +1,8 @@
 type: http_request
 model: http_request
-id: rq_zYoQtH2Jzh
-createdAt: 2025-09-29T04:43:26.155807600
-updatedAt: 2025-10-03T07:42:40.184700800
+id: rq_3hiucGiP2H
+createdAt: 2025-10-03T06:50:13.394559100
+updatedAt: 2025-10-03T06:50:45.879454400
 workspaceId: wk_teknBTJbQe
 folderId: fl_F2grL45rFq
 authentication: {}
@@ -12,7 +12,7 @@ bodyType: null
 description: ''
 headers: []
 method: GET
-name: Current
-sortPriority: 1000.0
-url: ${[ host ]}/user/current
+name: Streamer [List]
+sortPriority: 1999.9999
+url: ${[ api_host ]}/streamer
 urlParameters: []

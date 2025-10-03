@@ -2,15 +2,13 @@
 import { createTheme } from '@mui/material/styles';
 
 export const MuiThemeConfig = createTheme({
-  palette: {
-
-  },
+  palette: {},
   components: {
     MuiDialog: {
       styleOverrides: {
         paper: {
           backgroundColor: '#0d0c1e',
-          borderRadius: '1rem'
+          borderRadius: '1rem',
         },
       },
     },
@@ -31,18 +29,17 @@ export const MuiThemeConfig = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-
+          borderRadius: 6,
         },
       },
       variants: [
         {
-          props: {size: 'medium'},
+          props: { size: 'medium' },
           style: {
-            height: '36px'
-          }
+            height: '36px',
+          },
         },
-
-      ]
+      ],
     },
     MuiFormLabel: {
       styleOverrides: {
@@ -55,6 +52,9 @@ export const MuiThemeConfig = createTheme({
       },
     },
     MuiInput: {
+      defaultProps: {
+        size: 'small'
+      },
       styleOverrides: {
         underline: {
           '&:before': {
@@ -65,6 +65,35 @@ export const MuiThemeConfig = createTheme({
           },
           '&:after': {
             borderBottom: '2px solid #fff', // focus
+          },
+        },
+        fullWidth: true,
+      },
+    },
+    MuiOutlinedInput: {
+      defaultProps: {
+        size: 'small'
+      },
+      styleOverrides: {
+        root: {
+          borderRadius: 6,
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgba(255,255,255,0.5)',
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'oklch(1 0 0 / 0.85)',
+            borderWidth: 1,
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: `oklch(1 0 0 / 0.85)`,
+            borderWidth: 1,
+          },
+          '&.Mui-focused input': {
+            backgroundColor: 'oklch(1 0 0 / 0.08)',
+          },
+          '& input': {
+            color: '#fff',
+            backgroundColor: 'oklch(1 0 0 / 0.05)',
           },
         },
       },

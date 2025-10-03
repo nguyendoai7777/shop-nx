@@ -1,7 +1,5 @@
-import type { Metadata } from 'next';
-import styles from './page.module.scss';
 import { UserProfile } from './user-profile';
-import { fetchUserDetail } from '../server-actions';
+/*import { fetchUserDetail } from '../server-actions';
 
 export async function generateMetadata(): Promise<Metadata> {
   const user = await fetchUserDetail();
@@ -23,12 +21,12 @@ export async function generateMetadata(): Promise<Metadata> {
       follow: true,
     },
   };
-}
+}*/
 
 export default function Page() {
   return (
     <>
-      <div className={styles['container']}></div>
+      <UserProfile />
     </>
   );
 }

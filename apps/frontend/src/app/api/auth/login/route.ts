@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       `/api/auth/login`,
       body
     );
-    const response = NextResponse.json(data.data);
+    const response = NextResponse.json(data);
     const token = data.data!.accessToken;
     response.cookies.set('token', token, {
       httpOnly: true,

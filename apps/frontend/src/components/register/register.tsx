@@ -24,13 +24,11 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
         fullWidth
         name="username"
         label="Tên đăng nhập"
-        variant="standard"
         value={value.username}
         onChange={(e) => handleInput(e, 'username')}
       />
       <TextField
         fullWidth
-        variant="standard"
         type="email"
         label="Email"
         name="email"
@@ -40,7 +38,6 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
       <div className="flex gap-3">
         <TextField
           fullWidth
-          variant="standard"
           type="text"
           label="Họ, tên đệm"
           name="firstname"
@@ -49,7 +46,6 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
         />
         <TextField
           fullWidth
-          variant="standard"
           type="text"
           label="Tên"
           name="lastname"
@@ -59,7 +55,6 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
       </div>
       <TextField
         fullWidth
-        variant="standard"
         type="password"
         label="Mật khẩu"
         name="password"
@@ -68,7 +63,6 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
       />
       <TextField
         fullWidth
-        variant="standard"
         type="password"
         label="Xác nhận mật khẩu"
         value={value.password}

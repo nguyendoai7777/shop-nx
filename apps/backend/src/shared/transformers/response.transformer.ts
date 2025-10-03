@@ -2,7 +2,7 @@ import { ResponseWithPagination } from '@types';
 import { ResponseBase } from '@shop/type';
 
 export class ResponseTransformer<T> {
-  constructor(public option: ResponseBase<T>) {}
+  constructor(protected option: ResponseBase<T>) {}
 
   get data() {
     return this.option;

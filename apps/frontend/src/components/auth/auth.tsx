@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useCallback, useEffect, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { AuthDialogProps, LoginFormDto, RegisterFormDto } from '@types';
 import { useAuth } from '../auth-context/auth-context';
 import { Login } from '../login/login';
@@ -9,18 +9,22 @@ import { useAuthStore } from '@z-state';
 import { useStore } from 'zustand/react';
 import { Button, DialogTitle } from '@mui/material';
 import { DialogFooter } from 'next/dist/client/components/react-dev-overlay/ui/components/dialog';
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
-import type { OverlayScrollbars } from 'overlayscrollbars';
-// import type { OverlayScrollbars } from 'overlayscrollbars';
+import {
+  OverlayScrollbarsComponent,
+  OverlayScrollbarsComponentRef,
+} from 'overlayscrollbars-react';
+import { ESoraScrollDistance, useSoraScrollbar } from '@hooks';
 
 const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
+  const scrollRef = useRef<OverlayScrollbarsComponentRef<'div'>>(null);
   const { login, register, loading } = useAuth();
   const { error } = useStore(useAuthStore, (state) => state);
+  const { scrollPosition, handleScroll } = useSoraScrollbar();
 
-  const [isLogin, setIsLogin] = useState(isRegister);
+  const [isLogin, setIsLogin] = useState(!isRegister);
   const [registerValue, setRegisterValue] = useState<RegisterFormDto>();
   const [loginValue, setLoginValue] = useState<LoginFormDto>();
-  const [scrollShadow, setScrollShadow] = useState<0 | 1 | 2>(0);
+
   const _exeLogin = async () => {
     const data = await login(loginValue!);
     if (data.data) {
@@ -42,30 +46,12 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
 
   useEffect(() => {
     setIsLogin(!isRegister);
+
   }, []);
 
   const LabelMode = useCallback(() => {
     return <>{isLogin ? 'Đăng nhập' : 'Đăng ký'}</>;
   }, []);
-
-  const handleScroll = (instance: OverlayScrollbars, event: Event) => {
-    const { viewport } = instance.elements();
-    const scrollTop = viewport.scrollTop;
-    const scrollHeight = viewport.scrollHeight;
-    const clientHeight = viewport.clientHeight;
-
-    const distanceFromTop = scrollTop;
-    const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
-    const distance = 20;
-
-    if (distanceFromTop <= distance) {
-      setScrollShadow(0);
-    } else if (distanceFromBottom <= distance) {
-      setScrollShadow(1);
-    } else {
-      setScrollShadow(2);
-    }
-  };
 
   return (
     <>
@@ -74,14 +60,18 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
       </DialogTitle>
 
       <OverlayScrollbarsComponent
+        ref={scrollRef}
         defer
         className="px-6 pb-4 sora-scrollbar"
         options={{}}
         events={{
           scroll: handleScroll,
+          initialized: handleScroll,
+          updated: handleScroll,
         }}
-        {...(scrollShadow === 0 && { 'at-start': '' })}
-        {...(scrollShadow === 1 && { 'at-end': '' })}
+        {...(scrollPosition === ESoraScrollDistance.Top && { 'at-start': '' })}
+        {...(scrollPosition === ESoraScrollDistance.Bottom && { 'at-end': '' })}
+        {...(scrollPosition === ESoraScrollDistance.None && { 'at-none': '' })}
       >
         <div className="flex flex-col gap-y-5 w-120 py-2" id="AuthForm">
           {isLogin ? (

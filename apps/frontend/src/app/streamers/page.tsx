@@ -3,15 +3,28 @@ import { CardButton } from './card-button';
 import Link from 'next/link';
 import { Http } from '@utils';
 import { ResponseBase, Streamer } from '@shop/type';
+import { httpResource, httpResourceAsync } from '../../shared/factory';
 
 export const metadata: Metadata = {
   title: 'Danh sách streamer',
 };
 
-export default async function StreamersPage() {
+/*export async function getStaticProps() {
   const { data } = await Http.get<ResponseBase<Streamer[]>>(`/api/streamer`);
 
-  if (!data.data) {
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts: data,
+    },
+  }
+}*/
+
+export default async function StreamersPage() {
+  const { data, error } = await httpResourceAsync<ResponseBase<Streamer[]>>(Http.get(`/api/streamer`));
+
+  if (error) {
     return <div>Fetch Streamers fail</div>;
   }
 

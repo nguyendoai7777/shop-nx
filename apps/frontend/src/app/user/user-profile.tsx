@@ -1,25 +1,36 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { fetchUserDetail } from '../server-actions';
-import { UserInfoByJWT } from '@shop/dto';
+import { useEffect } from 'react';
+import { ResponseBase } from '@shop/type';
+import { HttpClient } from '@edge-runtime';
+import { httpResource } from '../../shared/factory';
 
-export const UserProfile: FCC = () => {
-  const [user, setUsers] = useState<UserInfoByJWT>();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+export const UserProfile = () => {
   const handleLoadUsers = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await fetchUserDetail(); // gọi server action
-      console.log(`@@ data SA`, data);
-      setUsers(data.data);
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong');
-    } finally {
-      setLoading(false);
-    }
+    httpResource<ResponseBase<any>>(HttpClient.get(`/user/current`)).subscribe({
+      error(err) {
+        console.log(`@@ {} user error`, err);
+      },
+      next(data) {
+        console.log(`@@ {} user data`, data);
+      },
+      origin(response) {
+        console.log(`@@ {} origin`, response);
+      },
+    });
+
+
+    httpResource<ResponseBase<any>>(HttpClient.get(`/user/current`)).subscribe(
+      (data) => {
+        console.log(`@@ _,_,_ user data`, data);
+      },
+      (err) => {
+        console.log(`@@ _,_,_ user error`, err);
+      },
+      (response) => {
+        console.log(`@@ _,_,_ origin`, response);
+      }
+    );
   };
 
   useEffect(() => {
@@ -27,8 +38,8 @@ export const UserProfile: FCC = () => {
   }, []);
   return (
     <>
-      <h1>{user?.name}</h1>
-      <div>Email: {user?.email}</div>
+      <h1> ?? </h1>
+      <div>Email</div>
     </>
   );
 };

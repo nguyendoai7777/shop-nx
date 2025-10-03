@@ -1,4 +1,4 @@
-import { Http } from '@utils';
+import { Http, json } from '@utils';
 import { ResponseBase, Streamer } from '@shop/type';
 
 export interface StreamerDetailProps {}
@@ -20,11 +20,13 @@ const StreamerDetailPage = async ({
     `/api/streamer/${id}`
   );
 
-  if(!data.data) {
-    return <div>Fail to load</div>
+  if (!data.data) {
+    return <div>Fail to load</div>;
   }
   console.log(`@@ Server Component`, { id });
-  return <div className="min-h-[200svh]">{JSON.stringify(data.data)}</div>;
+  return <div className="min-h-[200svh]">
+    <pre>{json(data.data)}</pre>
+  </div>;
 };
 
 export default StreamerDetailPage;
