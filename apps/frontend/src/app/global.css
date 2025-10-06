@@ -3,8 +3,14 @@
 @theme {
   --color-dark: #0a0f2d;
   --color-dark-lighter: #0f1538;
+
+  --breakpoint-xl: 78rem;
+
+
 }
 :root {
+  --color-btn-base-hover-bg: #adadad26;
+  --color-btn-base-active-bg: rgba(173, 173, 173, 0.25);
   .os-scrollbar-handle {
     background-color: #6c6c6c;
 
@@ -38,6 +44,7 @@ body {
 
 input {
   color: #fff;
+
   &:-webkit-autofill,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active,
@@ -60,3 +67,8 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
   transition: background-color 5000s ease-in-out 0s;
 }*/
+
+.icon {
+  width: 24px;
+  height: 24px;
+}

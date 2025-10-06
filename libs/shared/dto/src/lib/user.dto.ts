@@ -38,6 +38,8 @@ export class UserInfoDTO {
     type: 'string',
   })
   lastname: string;
+
+
 }
 
 export class UserPasswordDTO {
@@ -69,7 +71,8 @@ export class UserPasswordDTO {
 
 export class CreateUserDto extends IntersectionType(
   UserInfoDTO,
-  UserPasswordDTO
+  UserPasswordDTO,
+
 ) {
   @MinLength(6, { message: 'username tối thiểu 6 ký tự' })
   @MaxLength(32, { message: 'username tối đa 32 ký tự' })
@@ -82,6 +85,10 @@ export class CreateUserDto extends IntersectionType(
     type: 'string',
   })
   username: string;
+
+
+  verified: boolean
+  channel?: string
 }
 
 export interface UserInfoByJWT {
@@ -91,4 +98,14 @@ export interface UserInfoByJWT {
   email: string;
   iat: number;
   exp: number;
+}
+
+
+export class RBStreamerBy {
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: `để tim streamer theo channel khi đã đăng ký pro`, type: 'string'
+  })
+  channel: string
 }

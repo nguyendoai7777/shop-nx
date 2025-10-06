@@ -1,0 +1,13 @@
+.BaseNavLink {
+
+  &:hover:not(.activated) {
+    background-color: var(--color-btn-base-hover-bg) !important;
+
+  }
+
+  &.activated {
+    background-color: var(--color-btn-base-active-bg) !important;
+  }
+}
+
+

@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_3hiucGiP2H
 createdAt: 2025-10-03T06:50:13.394559100
-updatedAt: 2025-10-03T06:50:45.879454400
+updatedAt: 2025-10-06T08:58:40.158375700
 workspaceId: wk_teknBTJbQe
 folderId: fl_F2grL45rFq
 authentication: {}
@@ -13,6 +13,6 @@ description: ''
 headers: []
 method: GET
 name: Streamer [List]
-sortPriority: 1999.9999
+sortPriority: 6000.0
 url: ${[ api_host ]}/streamer
 urlParameters: []

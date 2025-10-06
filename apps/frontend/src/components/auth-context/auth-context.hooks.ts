@@ -1,10 +1,11 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { RegisterFormDto, UserFromDetail, UserFromDetailClient } from '@types';
-import { ClientConfiguration, isPrivateRoute } from '@edge-runtime';
+import { isPrivateRoute } from '@edge-runtime';
 import { ResponseBase } from '@shop/type';
 import { useStore } from 'zustand/react';
 import { useAuthStore } from '@z-state';
+import { ClientConfiguration } from '@client';
 
 export const useAuthContextHook = () => {
   const { clearError, setError, setUser } = useStore(useAuthStore, (state) => state);
@@ -53,7 +54,6 @@ export const useAuthContextHook = () => {
           router.push(returnUrl);
         }
       } else {
-        console.log(`error`, r.message);
         setError(r.message);
       }
     } catch (err) {
@@ -70,8 +70,13 @@ export const useAuthContextHook = () => {
       if (!res.ok) return false;
 
       setUser(void 0);
+      console.log({
+        currentUrl,
+        isPrivate: isPrivateRoute(currentUrl)
+      });
       if (isPrivateRoute(currentUrl)) {
-        router.replace('/', {});
+        console.log(`?? sao lai z nhi`);
+        // router.replace('/', {});
       }
       return true;
     } catch (err) {

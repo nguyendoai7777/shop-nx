@@ -22,6 +22,8 @@
       "@types": ["src/shared/types"],
       "@edge-runtime": ["src/shared/edge-runtime"],
       "@utils": ["src/shared/utils"],
+      "@client": ["src/client-resource"],
+      "@factory": ["src/shared/factory"],
       "@directives": ["src/shared/directives"],
       "@z-state": ["src/shared/z-state"],
       "@hooks": ["src/shared/hooks"]

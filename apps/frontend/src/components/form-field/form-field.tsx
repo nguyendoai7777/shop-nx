@@ -2,7 +2,7 @@
 
 import { TextField } from '@mui/material';
 import { useEffect } from 'react';
-import { HttpClient } from '@edge-runtime';
+import { HttpClient } from '@client';
 
 export interface FormFieldProps {}
 

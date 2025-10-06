@@ -3,7 +3,8 @@ import { Button, Menu } from '@mui/material';
 import { Settings, Person, Logout } from '@mui/icons-material';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { HttpClient } from '@edge-runtime';
+import { HttpClient } from '@client';
+
 export interface UserSettingMenuProps {
   id: string;
   anchorEl: HTMLElement | null;
@@ -14,13 +15,6 @@ export interface UserSettingMenuProps {
 
 const UserSettingMenu: FCC<UserSettingMenuProps> = ({ id, anchorEl, open, handleClose, logout }) => {
   const _className = '!justify-start !text-white hover:!bg-white/10 !px-4 !rounded-none';
-
-  useEffect(() => {
-    console.log(`@@ alo, 2 lafn af`);
-    HttpClient.get(`/api/streamer`).then((res) => {
-      console.log(res.data);
-    });
-  }, []);
 
   return (
     <Menu
@@ -76,11 +70,9 @@ const UserSettingMenu: FCC<UserSettingMenuProps> = ({ id, anchorEl, open, handle
         </Link>
       </li>
       <li>
-        <Link href="/">
-          <Button fullWidth className={_className} startIcon={<Logout />} onClick={logout}>
-            Đăng xuất
-          </Button>
-        </Link>
+        <Button fullWidth className={_className} startIcon={<Logout />} onClick={logout}>
+          Đăng xuất
+        </Button>
       </li>
     </Menu>
   );

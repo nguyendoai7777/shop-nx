@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 import { ResponseBase } from '@shop/type';
-import { HttpClient } from '@edge-runtime';
-import { httpResource } from '../../shared/factory';
+import { HttpClient } from '@client';
+import { httpResource } from '@factory';
 
 export const UserProfile = () => {
   const handleLoadUsers = async () => {

@@ -43,7 +43,7 @@ export class AuthGuard implements CanActivate {
 
     // if (request.url.startsWith('/api/auth')) return true;
     // if (openRoutes.includes(request.url))
-    console.log(`@@ route`, {
+    console.log(`@@ [${request.method}] route`, {
       url: request.url,
       isPublic: isOpenRoute(request.url, openRoutes)
     });

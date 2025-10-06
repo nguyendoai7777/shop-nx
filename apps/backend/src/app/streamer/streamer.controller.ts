@@ -1,12 +1,9 @@
-import { Controller, Get, HttpStatus, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Query } from '@nestjs/common';
 import { TransformParams } from '@decorators';
-import { PaginationDto } from '@shop/dto';
-import {
-  ResponsePaginationTransformer,
-  ResponseTransformer,
-} from '@transformers';
+import { PaginationDto, RBStreamerBy } from '@shop/dto';
+import { ResponsePaginationTransformer, ResponseTransformer } from '@transformers';
 import { UserService } from '../user/user.service';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('streamer')
 @ApiTags('Streamer')
@@ -29,6 +26,16 @@ export class StreamerController {
     });
   }
 
+  @Post('/search')
+  async findOneBy(@Body() payload: RBStreamerBy) {
+    const data = await this.userService.findOneBy(payload);
+    return new ResponseTransformer({
+      data,
+      status: 200,
+      message: 'OK',
+    });
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const data = await this.userService.findOne(+id);
@@ -39,4 +46,6 @@ export class StreamerController {
       status: HttpStatus.OK,
     });
   }
+
+
 }

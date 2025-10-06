@@ -1,0 +1,33 @@
+type: http_request
+model: http_request
+id: rq_RErLJhoFpE
+createdAt: 2025-10-06T08:28:39.482812500
+updatedAt: 2025-10-06T09:39:36.207729300
+workspaceId: wk_teknBTJbQe
+folderId: fl_3py5A3C6ch
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "description": "thêm cho doai3",
+      "channel": "@doai33",
+      "externalLinks": [
+        {
+          "shortname": "facebook",
+          "url": "https://facebook.com/doai33"
+        }
+      ]
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: y4fqUITGnS
+method: POST
+name: Register
+sortPriority: 999.9998
+url: ${[ api_host ]}/user/channel
+urlParameters: []

@@ -10,7 +10,9 @@ const nextConfig = {
   // Use this to set Nx-specific options
   // See: https://nx.dev/recipes/next/next-config-setup
   reactStrictMode: false,
-  nx: {},
+  nx: {
+    svgr: false
+  },
 };
 
 const plugins = [

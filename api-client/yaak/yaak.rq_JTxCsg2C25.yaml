@@ -1,0 +1,33 @@
+type: http_request
+model: http_request
+id: rq_JTxCsg2C25
+createdAt: 2025-10-06T09:12:10.478055400
+updatedAt: 2025-10-06T09:42:10.426126100
+workspaceId: wk_teknBTJbQe
+folderId: fl_3py5A3C6ch
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "description": "update cho doai 33",
+      "channel": "@doai33",
+      "externalLinks": [
+        {
+          "shortname": "facebook",
+          "url": "https://facebook.com/doai333_XXXXXXX"
+        }
+      ]
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: NbpPzrPSmH
+method: PUT
+name: UpdateChannel
+sortPriority: 499.9998000000001
+url: ${[ api_host ]}/user/channel
+urlParameters: []

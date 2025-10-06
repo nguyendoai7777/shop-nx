@@ -1,33 +1,14 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpStatus,
-  Param,
-  Post,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
-import { TransformParams } from '@decorators';
-import {
-  ResponsePaginationTransformer,
-  ResponseTransformer,
-} from '@transformers';
-import {
-  PaginationDto,
-  type UserInfoByJWT,
-  UserInfoDTO,
-  UserPasswordDTO,
-} from '@shop/dto';
 import { User } from '@decorators';
+import { ResponseTransformer } from '@transformers';
+import { ChannelDto, type UserInfoByJWT, UserInfoDTO, UserPasswordDTO } from '@shop/dto';
 
 @Controller('user')
 @ApiTags('User')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
 
   @Get(`current`)
   async current(@User() user: UserInfoByJWT) {
@@ -38,6 +19,28 @@ export class UserController {
       data,
       status: HttpStatus.OK,
     });
+  }
+
+  @Post('channel')
+  async createChannel(@Body() payload: ChannelDto, @User() user: UserInfoByJWT) {
+    console.log(`@@ Create Channel [user]`, user);
+    console.log(`@@ Create Channel [channel]`, payload);
+    if (!payload.channel.startsWith('@')) {
+      payload.channel = '@' + payload.channel;
+    }
+    const data = await this.userService.updateChannel(payload, user);
+    return new ResponseTransformer({
+      message: 'Thêm mới ok',
+      status: 200,
+      data,
+    });
+  }
+
+  @Put('channel')
+  updateChannel(@Body() payload: ChannelDto, @User() user: UserInfoByJWT) {
+    console.log(`@@ Create Channel [user]`, user);
+    console.log(`@@ Create Channel [channel]`, payload);
+    return this.userService.updateChannel(payload, user);
   }
 
   @Post(`update-info`)

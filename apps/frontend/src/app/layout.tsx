@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-dark text-white" data-overlayscrollbars-initialize>
+      <body className="bg-dark text-white px-4" data-overlayscrollbars-initialize>
         <BodyScrollbarInitializer />
         <AppRouterCacheProvider options={{ key: 'css', enableCssLayer: true }}>
           <ThemeProvider theme={MuiThemeConfig}>

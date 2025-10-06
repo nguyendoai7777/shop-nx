@@ -14,88 +14,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model ExternalLink {
+  id        Int     @id @default(autoincrement())
+  channelId Int
+  url       String
+  shortname String? // ví dụ: "twitter", "facebook", "instagram"
+  channel   Channel @relation(fields: [channelId], references: [id])
+}
+
+model Channel {
+  id            Int            @id @default(autoincrement())
+  userId        Int            @unique
+  followers     Int            @default(0)
+  description   String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  user          User           @relation("UserChannel", fields: [userId], references: [id])
+  externalLinks ExternalLink[]
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   lastname  String
   firstname String
   username  String   @unique
   email     String   @unique
+  channel   String?  @unique
+  verified  Boolean  @default(false)
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  donationsSent     Donation[] @relation("SentDonations")
-  donationsReceived Donation[] @relation("ReceivedDonations")
+  channelRef Channel?    @relation("UserChannel")
+  points     UserPoint[]
+  themeId    Int?
+  theme      Theme?      @relation(fields: [themeId], references: [id])
 
-  points      UserPoint[]
-  redemptions RewardRedemption[]
-  themeId     Int?
-  theme       Theme?             @relation(fields: [themeId], references: [id])
+  @@fulltext([firstname, lastname, email, channel])
 }
 
-model Donation {
-  id         Int      @id @default(autoincrement())
-  senderId   Int
-  receiverId Int
-  amount     Decimal
-  currency   String
-  message    String?
-  createdAt  DateTime @default(now())
-
-  sender        User           @relation("SentDonations", fields: [senderId], references: [id])
-  receiver      User           @relation("ReceivedDonations", fields: [receiverId], references: [id])
-  notifications Notification[]
-}
-
-model Notification {
-  id         Int       @id @default(autoincrement())
-  donationId Int
-  sentAt     DateTime? @default(now())
-  createdAt  DateTime  @default(now())
-
-  donation Donation @relation(fields: [donationId], references: [id])
-}
-
-//
-// --- TÍCH ĐIỂM ---
-//
 model UserPoint {
   id        Int      @id @default(autoincrement())
   userId    Int
   points    Int
   reason    String // ví dụ: "donation", "redemption", "bonus"
   createdAt DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 }
 
-//
-// --- QUÀ TẶNG ---
-//
-model Reward {
-  id        Int      @id @default(autoincrement())
-  name      String
-  cost      Int // số points cần để đổi
-  quantity  Int // số lượng còn lại
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  redemptions RewardRedemption[]
-}
-
-model RewardRedemption {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  rewardId  Int
-  createdAt DateTime @default(now())
-
-  user   User   @relation(fields: [userId], references: [id])
-  reward Reward @relation(fields: [rewardId], references: [id])
-}
-
-//
-// --- SETTING ---
-//
 model Setting {
   id    Int    @id @default(autoincrement())
   key   String @unique

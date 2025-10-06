@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ClientConfiguration } from './client.config';
+import { ClientConfiguration } from './client-config.utils';
 
 const httpServer = axios.create({
   headers: { 'Content-Type': 'application/json' },

@@ -42,8 +42,9 @@ export default function Navbar() {
   return (
     <>
       {open ? <UserSettingMenu id={MenuAnchorId} anchorEl={anchorEl} open={open} handleClose={handleClose} logout={logout} /> : <></>}
-      <div className="sticky top-0 pt-6 z-100">
-        <nav className="flex gap-x-2 items-center mx-6 p-2 rounded-full bg-[#63636336] !backdrop-blur-[5px] !backdrop-saturate-[1]">
+      <div className="sticky top-0 z-100">
+        <div className="h-6 bg-dark"></div>
+        <nav className="flex gap-x-2 items-center p-2 rounded-full bg-[#63636336] !backdrop-blur-[5px] !backdrop-saturate-[1]">
           <Link href="/" className="font-bold cursor-pointer">
             DonateApp
           </Link>
