@@ -15,17 +15,26 @@ export async function GET() {
   }
 
   // gọi BE để lấy user info
-  const { data } = await Http.get<ResponseBase<UserFromDetail>>(
-    `/api/user/current`
-  );
+  try {
+    const { data } = await Http.get<ResponseBase<UserFromDetail>>(`/api/user/current`);
 
-  if (!data.data) {
-    return NextResponse.json({ user: null });
+    if (!data.data) {
+      return NextResponse.json({ user: null });
+    }
+
+    return NextResponse.json({
+      user: data.data,
+      accessToken: token,
+      api: ApiUrl,
+    });
+  } catch (error) {
+    const e = error as ResponseBase<any>;
+    const response = NextResponse.json(e);
+    response.cookies.set('token', '', {
+      httpOnly: true,
+      expires: new Date(0), // xóa cookie
+      path: '/',
+    });
+    return response;
   }
-
-  return NextResponse.json({
-    user: data.data,
-    accessToken: token,
-    api: ApiUrl,
-  });
 }

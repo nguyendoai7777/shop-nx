@@ -24,6 +24,8 @@ export const useAuthContextHook = () => {
           ClientConfiguration.setMultiple(
             { token: data.accessToken, api: data.api }
           );
+        } else {
+          setUser(void 0)
         }
       })
       .finally(() => setLoading(false));
