@@ -1,14 +1,14 @@
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { RegisterFormDto, UserFromDetail, UserFromDetailClient } from '@types';
+import { ClientConfiguration } from '@client';
 import { isPrivateRoute } from '@edge-runtime';
 import { ResponseBase } from '@shop/type';
+import { RegisterFormDto, UserFromDetail, UserFromDetailClient } from '@types';
+import { zAuthStore } from '@z-state';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useStore } from 'zustand/react';
-import { useAuthStore } from '@z-state';
-import { ClientConfiguration } from '@client';
 
 export const useAuthContextHook = () => {
-  const { clearError, setError, setUser } = useStore(useAuthStore, (state) => state);
+  const { clearError, setError, setUser } = useStore(zAuthStore, (state) => state);
   const searchParams = useSearchParams();
   const router = useRouter();
   const currentUrl = usePathname();
@@ -22,11 +22,9 @@ export const useAuthContextHook = () => {
       .then((data: UserFromDetailClient) => {
         if (data.user) {
           setUser(data.user);
-          ClientConfiguration.setMultiple(
-            { token: data.accessToken, api: data.api }
-          );
+          ClientConfiguration.setMultiple({ token: data.accessToken, api: data.api });
         } else {
-          setUser(void 0)
+          setUser(void 0);
         }
       })
       .finally(() => setLoading(false));
@@ -45,23 +43,24 @@ export const useAuthContextHook = () => {
         password: payload.password,
       }),
     });
-    const r: ResponseBase<UserFromDetail> = await res.json();
+    const data: UserFromDetailClient = await res.json();
+
     try {
-      if (r.data) {
-        setUser(r.data.user);
+      if (data.user) {
+        setUser(data.user);
+        ClientConfiguration.setMultiple({ token: data.accessToken, api: data.api });
         const returnUrl = searchParams.get('returnUrl');
         if (returnUrl) {
           router.push(returnUrl);
         }
       } else {
-        setError(r.message);
+        setUser(void 0);
       }
-    } catch (err) {
     } finally {
       setLoading(false);
     }
 
-    return r;
+    return data;
   };
 
   const logout = async () => {
@@ -72,11 +71,11 @@ export const useAuthContextHook = () => {
       setUser(void 0);
       console.log({
         currentUrl,
-        isPrivate: isPrivateRoute(currentUrl)
+        isPrivate: isPrivateRoute(currentUrl),
       });
       if (isPrivateRoute(currentUrl)) {
         console.log(`?? sao lai z nhi`);
-        // router.replace('/', {});
+        router.replace('/', {});
       }
       return true;
     } catch (err) {
@@ -115,6 +114,7 @@ export const useAuthContextHook = () => {
     logout,
     login,
     setToastMsg,
+    setLoading,
     loading,
     toastMsg,
   };

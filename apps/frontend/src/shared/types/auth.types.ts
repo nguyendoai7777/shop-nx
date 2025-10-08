@@ -1,6 +1,6 @@
 import type { CreateUserDto, LoginDto } from '@shop/dto';
 import { Prettify, ResponseBase } from '@shop/type';
-import { UserFromDetail } from './user.types';
+import { UserFromDetail, UserFromDetailClient } from './user.types';
 import { FormChange } from './form.types';
 
 export type LoginFormDto = Prettify<LoginDto>;
@@ -18,7 +18,8 @@ export interface AuthDialogProps {
 
 export interface AuthContextType {
   loading: boolean;
-  login(payload: LoginFormDto): Promise<ResponseBase<UserFromDetail>>;
+  setLoading: (state: boolean) => void
+  login(payload: LoginFormDto): Promise<UserFromDetailClient>;
   register(payload: RegisterFormDto): Promise<ResponseBase<RegisterFormDto>>;
   logout(): void;
 }

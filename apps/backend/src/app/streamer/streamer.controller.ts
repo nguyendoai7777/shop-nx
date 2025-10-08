@@ -28,6 +28,7 @@ export class StreamerController {
 
   @Post('/search')
   async findOneBy(@Body() payload: RBStreamerBy) {
+    console.log(`@@ Adu`, payload);
     const data = await this.userService.findOneBy(payload);
     return new ResponseTransformer({
       data,
@@ -46,6 +47,4 @@ export class StreamerController {
       status: HttpStatus.OK,
     });
   }
-
-
 }

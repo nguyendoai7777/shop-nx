@@ -10,7 +10,7 @@ interface AuthStore {
   clearError: () => void;
 }
 
-export const useAuthStore = create<AuthStore>()(
+export const zAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
       error: '',

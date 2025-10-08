@@ -2,8 +2,10 @@
 import { Button, Menu } from '@mui/material';
 import { Settings, Person, Logout } from '@mui/icons-material';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { HttpClient } from '@client';
+import { useStore } from 'zustand/react';
+import { zAuthStore } from '@z-state';
 
 export interface UserSettingMenuProps {
   id: string;
@@ -13,7 +15,12 @@ export interface UserSettingMenuProps {
   logout(): void;
 }
 
+function StyledListHeader(props: { className: string; children: ReactNode }) {
+  return null;
+}
+
 const UserSettingMenu: FCC<UserSettingMenuProps> = ({ id, anchorEl, open, handleClose, logout }) => {
+  const { user } = useStore(zAuthStore, (state) => state);
   const _className = '!justify-start !text-white hover:!bg-white/10 !px-4 !rounded-none';
 
   return (
@@ -22,7 +29,6 @@ const UserSettingMenu: FCC<UserSettingMenuProps> = ({ id, anchorEl, open, handle
       id={id}
       open={open}
       onClose={handleClose}
-      onClick={handleClose}
       disableRestoreFocus
       slotProps={{
         paper: {
@@ -44,7 +50,7 @@ const UserSettingMenu: FCC<UserSettingMenuProps> = ({ id, anchorEl, open, handle
               top: 0,
               right: 14,
               width: 10,
-              height: 10,
+            height: 10,
               bgcolor: 'background.paper',
               transform: 'translateY(-50%) rotate(45deg)',
               zIndex: 0,
@@ -55,21 +61,25 @@ const UserSettingMenu: FCC<UserSettingMenuProps> = ({ id, anchorEl, open, handle
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
-      <li>
+      <li className="px-4 text-xs text-gray-400 pb-2">{user?.email}</li>
+      <li className="px-4 text-xs text-gray-400 pb-2 border-b border-gray-400/30">
+        {user?.firstname} {user?.lastname}
+      </li>
+      <li onClick={handleClose}>
         <Link href="/user">
           <Button fullWidth className={_className} startIcon={<Person />}>
             Hồ sơ
           </Button>
         </Link>
       </li>
-      <li>
+      <li onClick={handleClose}>
         <Link href="/setting">
           <Button fullWidth className={_className} startIcon={<Settings />}>
             Cài đặt
           </Button>
         </Link>
       </li>
-      <li>
+      <li onClick={handleClose}>
         <Button fullWidth className={_className} startIcon={<Logout />} onClick={logout}>
           Đăng xuất
         </Button>

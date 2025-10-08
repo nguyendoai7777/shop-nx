@@ -3,7 +3,8 @@ import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@decorators';
 import { ResponseTransformer } from '@transformers';
-import { ChannelDto, type UserInfoByJWT, UserInfoDTO, UserPasswordDTO } from '@shop/dto';
+import { ChannelDto, RegisterProChannel, type UserInfoByJWT, UserInfoDTO, UserPasswordDTO } from '@shop/dto';
+import { RegisterChannelResponse } from '@shop/type';
 
 @Controller('user')
 @ApiTags('User')
@@ -22,17 +23,19 @@ export class UserController {
   }
 
   @Post('channel')
-  async createChannel(@Body() payload: ChannelDto, @User() user: UserInfoByJWT) {
-    console.log(`@@ Create Channel [user]`, user);
-    console.log(`@@ Create Channel [channel]`, payload);
+  async createChannel(@Body() payload: RegisterProChannel, @User() user: UserInfoByJWT) {
     if (!payload.channel.startsWith('@')) {
       payload.channel = '@' + payload.channel;
     }
-    const data = await this.userService.updateChannel(payload, user);
-    return new ResponseTransformer({
-      message: 'Thêm mới ok',
+    console.log(`@@ Create Channel [channel]`, payload);
+    await this.userService.createChannel(payload, user);
+    return new ResponseTransformer<RegisterChannelResponse>({
+      message: 'Đăng ký kênh thành công',
       status: 200,
-      data,
+      data: {
+        channel: payload.channel,
+        verified: true,
+      },
     });
   }
 

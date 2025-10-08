@@ -5,7 +5,7 @@ import { AuthDialogProps, LoginFormDto, RegisterFormDto } from '@types';
 import { useAuth } from '../auth-context/auth-context';
 import { Login } from '../login/login';
 import { Register } from '../register/register';
-import { useAuthStore } from '@z-state';
+import { zAuthStore } from '@z-state';
 import { useStore } from 'zustand/react';
 import { Button, DialogTitle } from '@mui/material';
 import { DialogFooter } from 'next/dist/client/components/react-dev-overlay/ui/components/dialog';
@@ -18,7 +18,7 @@ import { ESoraScrollDistance, useSoraScrollbar } from '@hooks';
 const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
   const scrollRef = useRef<OverlayScrollbarsComponentRef<'div'>>(null);
   const { login, register, loading } = useAuth();
-  const { error } = useStore(useAuthStore, (state) => state);
+  const { error } = useStore(zAuthStore, (state) => state);
   const { scrollPosition, handleScroll } = useSoraScrollbar();
 
   const [isLogin, setIsLogin] = useState(!isRegister);
@@ -27,7 +27,7 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
 
   const _exeLogin = async () => {
     const data = await login(loginValue!);
-    if (data.data) {
+    if (data.user) {
       onClose?.();
     }
   };

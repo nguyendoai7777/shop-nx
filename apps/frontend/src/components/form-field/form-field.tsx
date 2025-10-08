@@ -7,11 +7,7 @@ import { HttpClient } from '@client';
 export interface FormFieldProps {}
 
 export const FormField: FCC<FormFieldProps> = () => {
-  useEffect(() => {
-    HttpClient.get(`/streamer`).then(res => {
-      console.log(res.data);
-    })
-  }, []);
+
   return (
     <div className="flex justify-center">
       <div className="mx auto w-1/2">

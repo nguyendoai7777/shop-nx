@@ -1,7 +1,9 @@
+import type { Metadata } from 'next';
 import { Sidenav } from './component/sidenav';
 
 export interface SettingLayoutProps {
 }
+
 
 const SettingLayoutPage: FCC<SettingLayoutProps> = ({children}) => {
 

@@ -5,6 +5,7 @@ export const PrivateRouteConfig = [
   '/dashboard/:path*', // Wildcard: /dashboard/analytics, /dashboard/settings/profile
   '/profile', // Specific dynamic: /profile/123/edit
   '/setting', // Specific dynamic: /profile/123/edit
+  '/setting/:path*', // Specific dynamic: /profile/123/edit
 ];
 
 export function isPrivateRoute(pathname: string): boolean {

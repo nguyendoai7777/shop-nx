@@ -8,12 +8,12 @@ import { useAuthContextHook } from './auth-context.hooks';
 const AuthContext = createContext<AuthContextType>();
 
 export const AuthContextProvider: FCC = ({ children }) => {
-  const { register, logout, login, setToastMsg, loading, toastMsg } = useAuthContextHook();
+  const { register, logout, login, setToastMsg, loading, toastMsg, setLoading } = useAuthContextHook();
 
   return (
     <>
       <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={!!toastMsg}
         autoHideDuration={5000}
         message={toastMsg}
@@ -27,6 +27,7 @@ export const AuthContextProvider: FCC = ({ children }) => {
           login,
           logout,
           register,
+          setLoading,
         }}
       >
         {children}

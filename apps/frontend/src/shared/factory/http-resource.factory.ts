@@ -1,33 +1,29 @@
 import { AxiosError, AxiosResponse } from 'axios';
 
-interface HttpResourceCaller<T = {}> {
-  next?(data: T): void;
-  error?(err: T): void;
+interface HttpResourceCaller<R = {}, V = AxiosResponse> {
+  next?(res: R): void;
+  error?(err: R): void;
   /**
    * truyền lại response bất kể thành công hay thất bại
    * */
-  origin?(response: AxiosResponse<T>): void;
+  origin?(response: V): void;
 }
 
-class HttpResource<T> {
-  constructor(private resource: Promise<AxiosResponse<T>>) {}
-  subscribe(caller: HttpResourceCaller<T>): void;
+class HttpResource<R> {
+  constructor(private resource: Promise<AxiosResponse<R>>) {}
+  subscribe(caller: HttpResourceCaller<R>): void;
 
   // Overload 2: callbacks
-  subscribe(
-    next?: (data: T) => void,
-    error?: (err: T) => void,
-    origin?: (response: AxiosResponse<T> | undefined) => void
-  ): void;
+  subscribe(next?: (data: R) => void, error?: (err: R) => void, origin?: (response: AxiosResponse<R> | undefined) => void): void;
 
   subscribe(
-    arg1?: HttpResourceCaller<T> | ((data: T) => void),
-    arg2?: (err: T) => void,
-    arg3?: (response: AxiosResponse<T> | undefined) => void
-  ): void {
+    arg1?: HttpResourceCaller<R> | ((data: R) => void),
+    arg2?: (err: R) => void,
+    arg3?: (response: AxiosResponse<R> | undefined) => void
+  ) {
     this.resource
       .then((res) => {
-        if (typeof arg1 === "function") {
+        if (typeof arg1 === 'function') {
           arg1(res.data);
           arg3?.(res);
         } else {
@@ -35,9 +31,9 @@ class HttpResource<T> {
           arg1?.origin?.(res);
         }
       })
-      .catch((err: AxiosError<T>) => {
-        const errData = (err.response?.data ?? {}) as T;
-        if (typeof arg1 === "function") {
+      .catch((err: AxiosError<R>) => {
+        const errData = (err.response?.data ?? {}) as R;
+        if (typeof arg1 === 'function') {
           arg2?.(errData);
           arg3?.(err.response);
         } else {
@@ -48,16 +44,14 @@ class HttpResource<T> {
   }
 }
 
-export function httpResource<T>(resource: Promise<AxiosResponse<T>>) {
-  return new HttpResource<T>(resource);
+export function httpResource<R>(resource: Promise<AxiosResponse<R>>) {
+  return new HttpResource<R>(resource);
 }
 
-export async function httpResourceAsync<T>(
-  resource: Promise<AxiosResponse<T>>
-): Promise<{
-  data?: T;
-  error?: T;
-  response?: AxiosResponse<T>;
+export async function httpResourceAsync<R>(resource: Promise<AxiosResponse<R>>): Promise<{
+  data?: R;
+  error?: R;
+  response?: AxiosResponse<R>;
 }> {
   try {
     const res = await resource;
@@ -66,9 +60,9 @@ export async function httpResourceAsync<T>(
       response: res,
     };
   } catch (err) {
-    const axiosErr = err as AxiosError<T>;
+    const axiosErr = err as AxiosError<R>;
     return {
-      error: (axiosErr.response?.data ?? {}) as T,
+      error: (axiosErr.response?.data ?? {}) as R,
       response: axiosErr.response,
     };
   }

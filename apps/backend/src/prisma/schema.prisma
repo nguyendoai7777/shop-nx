@@ -26,11 +26,19 @@ model Channel {
   id            Int            @id @default(autoincrement())
   userId        Int            @unique
   followers     Int            @default(0)
-  description   String?
+  description   String?        @db.LongText
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   user          User           @relation("UserChannel", fields: [userId], references: [id])
   externalLinks ExternalLink[]
+}
+
+model Subscription {
+  id           Int      @id @default(autoincrement())
+  subscription Int
+  userId       Int      @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model User {

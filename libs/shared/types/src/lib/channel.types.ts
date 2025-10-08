@@ -10,3 +10,8 @@ export interface Channel extends BaseRecord{
   description: string
   externalLinks: ExternalLink[]
 }
+
+export interface RegisterChannelResponse {
+  channel: string
+  verified: boolean
+}

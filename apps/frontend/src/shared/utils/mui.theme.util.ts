@@ -1,8 +1,11 @@
 'use client';
 import { createTheme } from '@mui/material/styles';
+import { purple } from '@mui/material/colors';
 
 export const MuiThemeConfig = createTheme({
-  palette: {},
+  palette: {
+    mode: 'dark',
+  },
   components: {
     MuiDialog: {
       styleOverrides: {
@@ -30,6 +33,7 @@ export const MuiThemeConfig = createTheme({
         root: {
           textTransform: 'none',
           borderRadius: 6,
+          color: '#fff',
         },
       },
       variants: [
@@ -53,7 +57,7 @@ export const MuiThemeConfig = createTheme({
     },
     MuiInput: {
       defaultProps: {
-        size: 'small'
+        size: 'small',
       },
       styleOverrides: {
         underline: {
@@ -72,7 +76,7 @@ export const MuiThemeConfig = createTheme({
     },
     MuiOutlinedInput: {
       defaultProps: {
-        size: 'small'
+        size: 'small',
       },
       styleOverrides: {
         root: {
@@ -98,5 +102,21 @@ export const MuiThemeConfig = createTheme({
         },
       },
     },
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          '&.Mui-checked': {
+            color: purple[500],
+          },
+        },
+      },
+    },
+    MuiSnackbar: {
+      styleOverrides: {
+        root: {
+          color: '#fff'
+        }
+      }
+    }
   },
 });

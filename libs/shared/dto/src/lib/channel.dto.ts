@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsDefined, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class ExternalLink {
   @ApiProperty({
@@ -15,12 +16,39 @@ export class ExternalLink {
   url: string
 }
 
-
-export class ChannelDto {
+export class RegisterProChannel {
+  @IsDefined({ message: 'channel không được để trống' })
+  @IsNotEmpty({ message: 'channel không được để trống' })
+  @IsNotEmpty()
+  @IsString()
   @ApiProperty({
     description: `tên kênh`,
     type: 'string',
-    required: false,
+    required: true,
+  })
+  channel: string;
+
+  @IsDefined({ message: 'Subscription không được để trống' })
+  @IsNotEmpty({ message: 'Subscription không được để trống' })
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({
+    description: `gói đăng ký trong bao lâu`,
+    type: 'string',
+    required: true,
+  })
+  subscription: number;
+}
+
+export class ChannelDto {
+  @IsDefined({ message: 'channel không được để trống' })
+  @IsNotEmpty({ message: 'channel không được để trống' })
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: `tên kênh`,
+    type: 'string',
+    required: true,
   })
   channel: string;
 

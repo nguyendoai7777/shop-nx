@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { PrismaClientService } from '@services';
-import { ChannelDto, PaginationDto, RBStreamerBy, UserInfoByJWT, UserPasswordDTO } from '@shop/dto';
+import type { ChannelDto, PaginationDto, RBStreamerBy, RegisterProChannel, UserInfoByJWT, UserPasswordDTO } from '@shop/dto';
 import { verifyPassword } from '@utils';
-import { omitKeyInArrObj, omitKeyInObj } from '@transformers';
+import { omitKeyInArrObj, omitKeyInObj, ResponseTransformer } from '@transformers';
 
 @Injectable()
 export class UserService {
@@ -80,7 +80,7 @@ export class UserService {
         },
       },
     });
-
+    // return user;
     const cr = user!.channelRef!;
     const _c = omitKeyInObj(cr, 'userId');
     const _ex = omitKeyInArrObj(_c.externalLinks, 'channelId');
@@ -93,29 +93,68 @@ export class UserService {
     };
   }
 
-  async createChannel(payload: ChannelDto, user: UserInfoByJWT) {
-    await this.prisma.user.update({
+  async createChannel(payload: RegisterProChannel, user: UserInfoByJWT) {
+    const __user = (await this.prisma.user.findUnique({
       where: {
         id: user.id,
       },
-      data: {
-        verified: true,
+    }))!;
+
+    if (__user.channel) {
+      throw new BadRequestException({
+        message: `Kênh này đã đăng ký Pro rồi.`,
+        status: 400,
+      });
+    }
+
+    const _user = (await this.prisma.user.findUnique({
+      where: {
+        channel: payload.channel,
+      },
+    }))!;
+
+    if (_user?.channel === payload.channel) {
+      throw new BadRequestException({
+        message: `Kênh này đã được đăng ký`,
+        status: 400,
+      });
+    }
+
+    const sub = await this.prisma.subscription.findUnique({
+      where: {
+        userId: user.id,
       },
     });
 
-    return this.prisma.channel.create({
-      data: {
-        user: {
-          connect: {
+    if (!_user && !sub) {
+      const [$user, $sub] = await this.prisma.$transaction([
+        this.prisma.user.update({
+          where: {
             id: user.id,
           },
-        },
-        description: payload.description ?? '',
-        externalLinks: {
-          create: payload.externalLinks,
-        },
-      },
-    });
+          data: {
+            verified: true,
+            channel: payload.channel,
+          },
+          omit: {
+            password: true,
+          },
+        }),
+        this.prisma.subscription.create({
+          data: {
+            subscription: payload.subscription,
+            userId: user.id,
+          },
+        }),
+      ]);
+      return {};
+    }
+    throw new BadRequestException(
+      new ResponseTransformer<void>({
+        message: `không biết lỗi gì`,
+        status: HttpStatus.BAD_REQUEST,
+      })
+    );
   }
 
   async updateChannel(payload: ChannelDto, user: UserInfoByJWT) {

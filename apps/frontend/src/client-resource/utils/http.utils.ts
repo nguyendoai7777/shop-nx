@@ -9,6 +9,7 @@ httpServer.interceptors.request.use(
   async (config) => {
     const { api, token } = await ClientConfiguration.getAll();
     config.baseURL = api;
+    console.log(`@Init HttpClient`);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

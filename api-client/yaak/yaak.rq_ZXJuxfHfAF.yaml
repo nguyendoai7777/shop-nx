@@ -1,8 +1,8 @@
 type: http_request
 model: http_request
-id: rq_z8p4hbpqP2
-createdAt: 2025-10-06T07:05:18.822681800
-updatedAt: 2025-10-08T09:35:53.023709300
+id: rq_ZXJuxfHfAF
+createdAt: 2025-10-08T04:02:10.949648900
+updatedAt: 2025-10-08T04:03:45.809842800
 workspaceId: wk_teknBTJbQe
 folderId: fl_3py5A3C6ch
 authentication: {}
@@ -10,7 +10,8 @@ authenticationType: null
 body:
   text: |-
     {
-      "channel": "@minhanhVVip"
+      "channel": "doaivippro",
+      "subscription": 6
     }
 bodyType: application/json
 description: ''
@@ -18,9 +19,9 @@ headers:
 - enabled: true
   name: Content-Type
   value: application/json
-  id: pd2izMnukD
+  id: 369TjqpSt7
 method: POST
-name: Channel [id]
-sortPriority: 499.9999
-url: ${[ api_host ]}/streamer/search
+name: Register Channel
+sortPriority: 999.9997
+url: ${[ api_host ]}/user/channel
 urlParameters: []

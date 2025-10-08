@@ -14,12 +14,11 @@ export interface StreamerDetailProps {}
 const StreamerDetailPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const _id = decodeURIComponent(id);
-
   if (_id.startsWith('@')) {
     const { data } = await Http.post<ResponseBase<Streamer>>(`/api/streamer/search`, {
       channel: _id,
     });
-    console.log(`@@ Vip user`, data);
+
     return <StreamerDetail user={data!.data!} />;
   }
 
