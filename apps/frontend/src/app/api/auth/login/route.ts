@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { UserFromDetail } from '@types';
+import { AuthResponse, UserFromDetail } from '@types';
 import { ResponseBase } from '@shop/type';
 import { CatchAxiosError, Http, loadConfig } from '@utils';
 
@@ -12,8 +12,9 @@ export async function POST(req: Request) {
     const { data } = await Http.post<ResponseBase<UserFromDetail>>(`/api/auth/login`, body);
     const token = data.data!.accessToken;
     console.log(`@@ Server login`, data);
-    const response = NextResponse.json({
-      ...data.data,
+    const response = NextResponse.json<AuthResponse>({
+      user: data.data.user,
+      accessToken: data.data.accessToken,
       api: ApiUrl,
     });
     response.cookies.set('token', token, {

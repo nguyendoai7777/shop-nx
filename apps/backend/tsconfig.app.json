@@ -2,14 +2,14 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "module": "nodenext",
+//    "module": "nodenext",
+//    "moduleResolution": "nodenext",
     "types": ["node"],
     "rootDir": "src",
-    "moduleResolution": "nodenext",
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "isolatedModules": true,
+//    "isolatedModules": true,
     "target": "es2021",
     "baseUrl": "./",
     "noUnusedLocals": false,
@@ -27,14 +27,6 @@
       "@transformers": ["src/shared/transformers"],
       "@guards": ["src/shared/guards"]
     }
-    /*"plugins": [
-      {
-        "transform": "@nestjs/swagger/plugin",
-        "options": {
-          "dtoFileNameSuffix": [".dto.ts"]
-        }
-      }
-    ]*/
   },
   "include": ["src/**/*.ts"],
   "exclude": [

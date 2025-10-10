@@ -1,13 +1,14 @@
 /* eslint-disable */
-import { readFileSync } from 'fs';
-/*import { dirname } from 'node:path';
 // import { dirname } from 'path';
-import { fileURLToPath } from 'node:url';
+import {readFileSync} from 'fs';
+import {fileURLToPath} from 'url';
+import {dirname} from 'path';
+
+
+// @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 
-const __dirname = dirname(__filename);*/
-// Reading the SWC compilation config for the spec files
-
+const __dirname = dirname(__filename);
 const swcJestConfig = JSON.parse(
   readFileSync(`${__dirname}/.spec.swcrc`, 'utf-8')
 );
@@ -15,7 +16,7 @@ const swcJestConfig = JSON.parse(
 // Disable .swcrc look-up by SWC core because we're passing in swcJestConfig ourselves
 swcJestConfig.swcrc = false;
 
-module.exports = {
+export default {
   displayName: '@shop/backend',
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
@@ -24,7 +25,7 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: 'test-output/jest/coverage',
-  moduleNameMapper: {
+  /*moduleNameMapper: {
     '^@transformers$': `<rootDir>/src/shared/transformers`,
     '^@filters$': '<rootDir>src/shared/filters',
     '^@interceptors$': '<rootDir>src/shared/interceptors',
@@ -37,5 +38,5 @@ module.exports = {
     '^@loggers$': '<rootDir>src/shared/loggers',
     '^@decorators$': '<rootDir>src/shared/decorators',
     '^@guards$': `<rootDir>src/shared/guards`,
-  },
+  },*/
 };

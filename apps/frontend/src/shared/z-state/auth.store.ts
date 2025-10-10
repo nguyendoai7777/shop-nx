@@ -1,12 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { RegisterFormDto } from '@types';
+import { UserQueryResponseSchema } from '@shop/type';
 
 interface AuthStore {
   error: string;
   setError(error: string): void;
-  user: RegisterFormDto | undefined;
-  setUser(user: RegisterFormDto | undefined): void;
+  user: UserQueryResponseSchema | undefined;
+  setUser(user: UserQueryResponseSchema | undefined): void;
   clearError: () => void;
 }
 

@@ -1,7 +1,7 @@
 import { ClientConfiguration } from '@client';
 import { isPrivateRoute } from '@edge-runtime';
 import { ResponseBase } from '@shop/type';
-import { RegisterFormDto, UserFromDetail, UserFromDetailClient } from '@types';
+import { AuthResponse, RegisterFormDto, UserFromDetailClient } from '@types';
 import { zAuthStore } from '@z-state';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -19,7 +19,7 @@ export const useAuthContextHook = () => {
   useEffect(() => {
     fetch('/api/auth/me')
       .then((res) => res.json())
-      .then((data: UserFromDetailClient) => {
+      .then((data: AuthResponse) => {
         if (data.user) {
           setUser(data.user);
           ClientConfiguration.setMultiple({ token: data.accessToken, api: data.api });

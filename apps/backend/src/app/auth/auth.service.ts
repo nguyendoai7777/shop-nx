@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { verify } from 'argon2';
 import { ResponseTransformer } from '@transformers';
 import { EResMessage } from '@constants';
+import { AuthApiResponse } from '@shop/type';
 
 @Injectable()
 export class AuthService {
@@ -58,7 +59,7 @@ export class AuthService {
 
     const token = await this.jwt$$.signAsync(payload);
     const { password, ...user2 } = user;
-    return new ResponseTransformer({
+    return new ResponseTransformer<AuthApiResponse>({
       message: EResMessage.LoginSuccess,
       status: HttpStatus.OK,
       data: {

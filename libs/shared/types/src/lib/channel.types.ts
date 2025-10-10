@@ -1,17 +1,18 @@
 import { BaseRecord } from './common.types.js';
 
-interface ExternalLink extends BaseRecord{
-  shortname?: string
-  url: string
+export interface ExternalLinkResponseSchema {
+  id: number;
+  shortname?: string;
+  url: string;
 }
 
-export interface Channel extends BaseRecord{
-  followers: number
-  description: string
-  externalLinks: ExternalLink[]
+export interface Channel extends BaseRecord {
+  followers: number;
+  description: string;
+  externalLinks: ExternalLinkResponseSchema[];
 }
 
 export interface RegisterChannelResponse {
-  channel: string
-  verified: boolean
+  channel: string;
+  verified: boolean;
 }

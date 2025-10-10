@@ -3,8 +3,8 @@
   "compilerOptions": {
     "outDir": "./out-tsc/jest",
     "types": ["jest", "node"],
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+//    "module": "nodenext",
+//    "moduleResolution": "nodenext",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },

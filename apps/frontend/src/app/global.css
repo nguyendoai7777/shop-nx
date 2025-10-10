@@ -42,6 +42,10 @@ body {
   }
 }
 
+.mask-right {
+  mask-image: linear-gradient(to left, transparent 0, transparent 0, #000 40px, #000 100%);
+}
+
 input {
   color: #fff;
 
@@ -74,4 +78,20 @@ input:-webkit-autofill:active {
 
 .btn-base {
   @apply bg-gray-300/10 hover:bg-gray-300/25
+}
+
+@keyframes spin-smooth {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation-name: spin-smooth;
+  animation-timing-function: linear; /* xoay đều */
+  animation-iteration-count: infinite;
+  transform-origin: center center; /* quay quanh tâm */
 }

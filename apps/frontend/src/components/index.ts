@@ -4,3 +4,5 @@ export * from './login/login';
 export * from './register/register';
 export * from './navlink/navlink';
 export * from './svg/svg-client';
+export * from './text-ellipsis/text-ellipsis';
+export * from './renderer';

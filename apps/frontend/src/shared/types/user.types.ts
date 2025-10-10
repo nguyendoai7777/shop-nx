@@ -1,8 +1,8 @@
-import { type CreateUserDto } from '@shop/dto';
+import { UserQueryResponseSchema } from '@shop/type';
 
 export interface UserFromDetail {
   accessToken: string;
-  user: CreateUserDto;
+  user: UserQueryResponseSchema;
 }
 
 export interface UserFromDetailClient extends UserFromDetail {
