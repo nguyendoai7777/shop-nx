@@ -16,7 +16,7 @@ describe('PageLogoService', () => {
   it('should fetch and log favicon URL from YouTube channel', async () => {
     const testUrl = 'https://www.youtube.com/@kayffchill';
     const href = await service.getIcon(testUrl);
-    console.log(chalk.green('🔗 Favicon URL:'), href);
+    console.log(chalk.green.bold('🔗 Favicon URL:'), href);
     // Có thể assert cơ bản
     expect(typeof href).toBe('string');
     expect(href).toContain('youtube.com'); // favicon nằm cùng domain

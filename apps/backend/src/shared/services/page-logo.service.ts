@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-
 @Injectable()
 export class PageLogoService {
   async getIcon(url: string): Promise<string | null> {

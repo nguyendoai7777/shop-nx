@@ -36,8 +36,7 @@
         "devTargetName": "dev",
         "serveStaticTargetName": "serve-static",
         "buildDepsTargetName": "build-deps",
-        "watchDepsTargetName": "watch-deps",
-
+        "watchDepsTargetName": "watch-deps"
       }
     },
     {
@@ -65,7 +64,7 @@
           "targetName": "typecheck"
         }
       },
-      "exclude": ["libs/shared/dto/*", "libs/shared/types/*"]
+      "exclude": ["libs/shared/dto/*", "libs/shared/types/*", "libs/shared/adapter/*"]
     }
   ],
   "targetDefaults": {
