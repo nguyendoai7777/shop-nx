@@ -17,6 +17,7 @@ datasource db {
 model ExternalLink {
   id        Int     @id @default(autoincrement())
   channelId Int
+  avatarUrl String?
   url       String
   shortname String? // ví dụ: "twitter", "facebook", "instagram"
   channel   Channel @relation(fields: [channelId], references: [id])

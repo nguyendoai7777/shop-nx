@@ -52,6 +52,9 @@ export const MuiThemeConfig = createTheme({
           '&.Mui-focused': {
             color: '#fff',
           },
+          '&.Mui-error': {
+            color: '#ff6b6b', // Màu label khi có lỗi
+          },
         },
       },
     },
@@ -84,11 +87,11 @@ export const MuiThemeConfig = createTheme({
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: 'rgba(255,255,255,0.5)',
           },
-          '&:hover .MuiOutlinedInput-notchedOutline': {
+          '&:hover:not(.Mui-error) .MuiOutlinedInput-notchedOutline': {
             borderColor: 'oklch(1 0 0 / 0.85)',
             borderWidth: 1,
           },
-          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+          '&.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline': {
             borderColor: `oklch(1 0 0 / 0.85)`,
             borderWidth: 1,
           },

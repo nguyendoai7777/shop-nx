@@ -21,8 +21,8 @@
     "noUnusedLocals": false,
     "baseUrl": ".",
     "paths": {
-      "@shop/dto": ["libs/shared/dto/src/index.ts"],
-      "@shop/adapter": ["libs/shared/adapter/src/index.ts"]
+      "@shop/adapter": ["libs/shared/adapter/src/index.ts"],
+      "@shop/dto": ["libs/shared/dto/src/index.ts"]
     }
   }
 }

@@ -10,9 +10,6 @@
       "path": "../../libs/shared/dto"
     },
     {
-      "path": "../../libs/shared/adapter"
-    },
-    {
       "path": "./tsconfig.app.json"
     },
     {

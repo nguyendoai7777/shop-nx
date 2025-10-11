@@ -3,5 +3,4 @@ export * from './cookie.utils';
 export * from './http.util';
 export * from './mui.theme.util';
 export * from './catch-error.util';
-export * from './json.util';
 // export * from './http-client.util';

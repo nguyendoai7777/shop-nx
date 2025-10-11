@@ -33,10 +33,11 @@ const ChannelDescription: FCC<TextEllipsisClickableProps> = ({ content, children
             render={(item, i) => (
               <a
                 target="_blank"
-                className="block hover:underline duration-150 hover:text-sky-500 text-gray-300"
+                className="flex items-center gap-2 hover:underline duration-150 hover:text-sky-500 text-gray-300"
                 href={item.url}
                 key={item.id}
               >
+                {item.avatarUrl ? <img className="w-4 h-4" src={item.avatarUrl} alt="logo" /> : <div className="w-3 h-3 bg-pink-800"></div>}
                 {item.shortname}
               </a>
             )}

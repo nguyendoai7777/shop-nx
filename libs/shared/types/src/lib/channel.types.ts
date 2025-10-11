@@ -4,6 +4,7 @@ export interface ExternalLinkResponseSchema {
   id: number;
   shortname?: string;
   url: string;
+  avatarUrl?: string;
 }
 
 export interface Channel extends BaseRecord {

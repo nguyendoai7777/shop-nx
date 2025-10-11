@@ -95,3 +95,17 @@ input:-webkit-autofill:active {
   animation-iteration-count: infinite;
   transform-origin: center center; /* quay quanh tâm */
 }
+
+.CButton {
+  &.sm {
+    height: 36px;
+  }
+
+  &.md {
+    height: 40px;
+  }
+
+  &.lg {
+    height: 44px;
+  }
+}

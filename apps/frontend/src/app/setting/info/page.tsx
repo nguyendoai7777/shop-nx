@@ -4,6 +4,7 @@ import { zAuthStore } from '@z-state';
 import { lazy, useState } from 'react';
 import { Alert, AlertColor, ButtonBase, Dialog, Snackbar, Tooltip } from '@mui/material';
 import { SvgClient } from '@components';
+const EditUserInfo = lazy(() => import('../component/edit-info'));
 // import ConfirmProDialog from '../component/confirm-pro';
 const ConfirmProDialog = lazy(() => import('../component/confirm-pro'));
 
@@ -22,7 +23,6 @@ const SettingInfoPagePage: FCC<SettingInfoPageProps> = () => {
   });
 
   const [openAlert, setOpenAlert] = useState(false);
-
   return (
     <>
       <div className="flex flex-1">
@@ -38,7 +38,6 @@ const SettingInfoPagePage: FCC<SettingInfoPageProps> = () => {
             ) : (
               <></>
             )}
-            {/*<Image src="/avatar.webp" alt="avatar" width={48} height={48} />*/}
           </div>
           <div>
             {user?.verified ? (
@@ -57,9 +56,7 @@ const SettingInfoPagePage: FCC<SettingInfoPageProps> = () => {
             &nbsp;
           </div>
         </div>
-        <div className="flex-1 bg-blue-600">
-          <div className="banner">1</div>
-        </div>
+        {user?.verified ? <EditUserInfo /> : <></>}
       </div>
       <Dialog open={openPro} onClose={closeDialog}>
         <ConfirmProDialog openAlert={setOpenAlert} setAlertMsg={setMsg} onClose={closeDialog} />

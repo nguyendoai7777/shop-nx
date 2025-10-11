@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+import chalk from 'chalk';
+
+
 @Injectable()
 export class PageLogoService {
   async getIcon(url: string): Promise<string | null> {
@@ -38,7 +41,7 @@ export class PageLogoService {
 
       return href;
     } catch (error) {
-      console.error('Error fetching icon:', error);
+      console.error(chalk.red.bold(`Error fetching icon:`), error);
       return null;
     }
   }
