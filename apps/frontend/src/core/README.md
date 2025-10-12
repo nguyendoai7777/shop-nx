@@ -1,0 +1,1 @@
+### code trong này  dùng chung cho cả client và server

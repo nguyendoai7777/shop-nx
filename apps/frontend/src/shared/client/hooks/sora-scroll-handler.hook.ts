@@ -32,9 +32,7 @@ export const ESoraScrollDistance = {
 export type SoraScrollDistanceType = keyof typeof ESoraScrollDistance;
 
 export const useSoraScrollbar = () => {
-  const [scrollPosition, setScrollPosition] = useState<SoraScrollDistanceType>(
-    ESoraScrollDistance.None
-  );
+  const [scrollPosition, setScrollPosition] = useState<SoraScrollDistanceType>(ESoraScrollDistance.None);
 
   const handleScroll = (instance: OverlayScrollbars) => {
     const { viewport } = instance.elements();

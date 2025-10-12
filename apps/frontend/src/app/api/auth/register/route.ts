@@ -1,4 +1,4 @@
-import { CatchAxiosError, Http } from '@utils';
+import { CatchAxiosError, Http } from '@server/utils';
 import { ResponseBase } from '@shop/type';
 import { NextResponse } from 'next/server';
 

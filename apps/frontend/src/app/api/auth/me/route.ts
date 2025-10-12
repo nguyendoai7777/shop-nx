@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { ResponseBase } from '@shop/type';
 import { UserFromDetail } from '@types';
-import { Http, loadConfig } from '@utils';
+import { Http, loadConfig } from '@server/utils';
 
 // simple verify (có thể gọi BE verify nếu cần)
 export async function GET() {

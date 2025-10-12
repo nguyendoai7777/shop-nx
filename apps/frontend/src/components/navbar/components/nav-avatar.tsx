@@ -2,8 +2,9 @@
 import { RegisterFormDto } from '@types';
 import { Avatar } from '@mui/material';
 import { useMemo } from 'react';
+import { UserQueryResponseSchema } from '@shop/type';
 
-interface __User extends Omit<RegisterFormDto, 'password'> {
+interface __User extends UserQueryResponseSchema {
   avatar?: string;
 }
 
@@ -23,9 +24,7 @@ const NavAvatar: FCC<NavAvatarProps> = (props) => {
   return avatar ? (
     <Avatar alt={naming.full} src={avatar} />
   ) : (
-    <div className="w-9 h-9 rounded-full text-center content-center border border-gray-400 ">
-      {naming.short}
-    </div>
+    <div className="w-9 h-9 rounded-full text-center content-center border border-gray-400 ">{naming.short}</div>
   );
 };
 

@@ -1,7 +1,7 @@
 import { Streamer } from '@shop/type';
 import { SvgClient } from '@components';
-import { json } from '@utils';
 import ChannelDescription from './text-ellipsis-clickable';
+import { json } from '@client/utils';
 
 export interface StreamerDetailProps {
   user: Streamer;
@@ -52,7 +52,7 @@ export const StreamerDetail: FCC<StreamerDetailProps> = ({ user }) => {
             {}
           </div>
 
-          <ChannelDescription content={user.channelRef.description} links={user.channelRef.externalLinks}/>
+          <ChannelDescription content={user.channelRef.description} links={user.channelRef.externalLinks} />
 
           <div>ok</div>
         </div>

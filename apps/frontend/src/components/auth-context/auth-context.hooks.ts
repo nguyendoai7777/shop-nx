@@ -1,11 +1,11 @@
-import { ClientConfiguration } from '@client';
-import { isPrivateRoute } from '@edge-runtime';
 import { ResponseBase } from '@shop/type';
 import { AuthResponse, RegisterFormDto, UserFromDetailClient } from '@types';
-import { zAuthStore } from '@z-state';
+import { zAuthStore } from '@client/z-state';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useStore } from 'zustand/react';
+import { ClientConfiguration } from '@client/utils';
+import { isPrivateRoute } from '@core/route';
 
 export const useAuthContextHook = () => {
   const { clearError, setError, setUser } = useStore(zAuthStore, (state) => state);

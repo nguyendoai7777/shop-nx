@@ -1,4 +1,4 @@
-import { Http, json } from '@utils';
+import { Http } from '@server/utils';
 import { ResponseBase, Streamer } from '@shop/type';
 import { StreamerDetail } from './streamer-detail';
 

@@ -14,7 +14,11 @@ class HttpResource<R> {
   subscribe(caller: HttpResourceCaller<R>): void;
 
   // Overload 2: callbacks
-  subscribe(next?: (data: R) => void, error?: (err: R) => void, origin?: (response: AxiosResponse<R> | undefined) => void): void;
+  subscribe(
+    next?: (data: R) => void,
+    error?: (err: R) => void,
+    origin?: (response: AxiosResponse<R> | undefined) => void
+  ): void;
 
   subscribe(
     arg1?: HttpResourceCaller<R> | ((data: R) => void),

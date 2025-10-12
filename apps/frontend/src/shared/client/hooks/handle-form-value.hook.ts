@@ -3,10 +3,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 type ValueChangeFn<T> = (value: T) => void;
 
-export const useFormChange = <T extends object>(
-  initial: T,
-  onChange?: ValueChangeFn<T>
-) => {
+export const useFormChange = <T extends object>(initial: T, onChange?: ValueChangeFn<T>) => {
   const [value, setValue] = useState<T>(initial);
 
   // cập nhật parent khi state thay đổi
@@ -16,9 +13,7 @@ export const useFormChange = <T extends object>(
 
   // hàm handle input
   const handleInput = (
-    e:
-      | FormEvent<HTMLInputElement | HTMLTextAreaElement>
-      | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: FormEvent<HTMLInputElement | HTMLTextAreaElement> | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     key: keyof T
   ) => {
     setValue((prev) => ({

@@ -1,22 +1,19 @@
 'use client';
 
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useStore } from 'zustand/react';
+import { Button, DialogTitle } from '@mui/material';
+import { OverlayScrollbarsComponent, OverlayScrollbarsComponentRef } from 'overlayscrollbars-react';
 import { AuthDialogProps, LoginFormDto, RegisterFormDto } from '@types';
 import { useAuth } from '../auth-context/auth-context';
 import { Login } from '../login/login';
 import { Register } from '../register/register';
-import { zAuthStore } from '@z-state';
-import { useStore } from 'zustand/react';
-import { Button, DialogTitle } from '@mui/material';
+import { zAuthStore } from '@client/z-state';
+import { ESoraScrollDistance, useSoraScrollbar } from '@client/hooks';
 import { DialogFooter } from 'next/dist/client/components/react-dev-overlay/ui/components/dialog';
-import {
-  OverlayScrollbarsComponent,
-  OverlayScrollbarsComponentRef,
-} from 'overlayscrollbars-react';
-import { ESoraScrollDistance, useSoraScrollbar } from '@hooks';
 
 const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
-  const scrollRef = useRef<OverlayScrollbarsComponentRef<'div'>>(null);
+  const scrollRef = useRef<OverlayScrollbarsComponentRef>(null);
   const { login, register, loading } = useAuth();
   const { error } = useStore(zAuthStore, (state) => state);
   const { scrollPosition, handleScroll } = useSoraScrollbar();
@@ -46,7 +43,6 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
 
   useEffect(() => {
     setIsLogin(!isRegister);
-
   }, []);
 
   const LabelMode = useCallback(() => {
@@ -74,35 +70,30 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
         {...(scrollPosition === ESoraScrollDistance.None && { 'at-none': '' })}
       >
         <div className="flex flex-col gap-y-5 w-120 py-2" id="AuthForm">
-          {isLogin ? (
-            <Login valueChange={setLoginValue} />
-          ) : (
-            <Register valueChange={setRegisterValue} />
-          )}
+          {isLogin ? <Login valueChange={setLoginValue} /> : <Register valueChange={setRegisterValue} />}
         </div>
       </OverlayScrollbarsComponent>
 
       <DialogFooter className="px-6">
         <div className="flex flex-col gap-3">
-          <div className="py-1 text-sm text-[#ff2929] min-h-4 h-4 leading-4">
-            {error}
-          </div>
+          <div className="py-1 text-sm text-[#ff2929] min-h-4 h-4 leading-4">{error}</div>
           <Button
             loading={loading}
             fullWidth
             loadingPosition="start"
             type="submit"
-            variant="contained"
+            variant="text"
             onClick={handleSubmit}
-            className="disabled:!text-gray-400 disabled:!bg-gray-700 disbled:!cursor-not-allowed"
+            className="!bg-pink-800/90 hover:!bg-pink-800 disabled:!text-gray-400 disabled:!bg-gray-700 disbled:!cursor-not-allowed "
           >
             <LabelMode />
           </Button>
           <Button
+            variant="text"
             fullWidth
             type="button"
             onClick={() => onClose?.()}
-            className="!bg-gray-700 !px-6 hover:!bg-gray-600 !text-white"
+            className="!bg-gray-300/10 hover:!bg-gray-300/25"
           >
             Đóng
           </Button>

@@ -1,20 +1,15 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { isPrivateRoute } from '@edge-runtime';
+import { isPrivateRoute } from '@core/route';
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const token = req.cookies.get('token')?.value; // token bạn set sau khi login
   // Nếu truy cập /user/* mà chưa login thì redirect về "/"
   // Bỏ qua static files và API routes
-  if (
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/api') ||
-    pathname.includes('.')
-  ) {
+  if (pathname.startsWith('/_next') || pathname.startsWith('/api') || pathname.includes('.')) {
     return NextResponse.next();
   }
-
 
   if (isPrivateRoute(pathname) && !token) {
     // Redirect về / với query param

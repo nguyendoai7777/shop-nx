@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { loadConfig } from './config-loader.util';
-import { CatchAxiosInterceptorError, Cookie } from '@utils';
+import { CatchAxiosInterceptorError, Cookie } from './index';
 
 const httpServer = axios.create({
   headers: { 'Content-Type': 'application/json' },

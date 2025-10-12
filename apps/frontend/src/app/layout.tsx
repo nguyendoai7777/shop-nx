@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { AuthContextProvider, Navbar } from '@components';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
-import { MuiThemeConfig } from '@utils';
+import { MuiThemeConfig } from '@server/utils';
 import './global.css';
 import 'overlayscrollbars/overlayscrollbars.css';
 import { BodyScrollbarInitializer } from './scrollbar-initializer';

@@ -1,6 +1,5 @@
 import { UserProfile } from './user-profile';
-/*import { fetchUserDetail } from '../server-actions';
-
+/*
 export async function generateMetadata(): Promise<Metadata> {
   const user = await fetchUserDetail();
   const title = `Page of ${user.data?.name}`,

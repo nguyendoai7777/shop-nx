@@ -1,6 +1,6 @@
 'use client';
 import { useStore } from 'zustand/react';
-import { zAuthStore } from '@z-state';
+import { zAuthStore } from '@client/z-state';
 import { lazy, useState } from 'react';
 import { Alert, AlertColor, ButtonBase, Dialog, Snackbar, Tooltip } from '@mui/material';
 import { SvgClient } from '@components';
@@ -32,7 +32,10 @@ const SettingInfoPagePage: FCC<SettingInfoPageProps> = () => {
             {user?.verified ? (
               <Tooltip title="Verified" placement="top">
                 <div className="">
-                  <SvgClient className={`${user?.verified ? 'text-purple-400' : 'text-gray-400'} !w-3 !h-3`} href="Verified" />
+                  <SvgClient
+                    className={`${user?.verified ? 'text-purple-400' : 'text-gray-400'} !w-3 !h-3`}
+                    href="Verified"
+                  />
                 </div>
               </Tooltip>
             ) : (
@@ -68,7 +71,13 @@ const SettingInfoPagePage: FCC<SettingInfoPageProps> = () => {
         autoHideDuration={5000}
         onClose={() => setOpenAlert(false)}
       >
-        <Alert className="!text-white" onClose={() => setOpenAlert(false)} severity={msg.type} variant="filled" sx={{ width: '100%' }}>
+        <Alert
+          className="!text-white"
+          onClose={() => setOpenAlert(false)}
+          severity={msg.type}
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
           {msg.msg}
         </Alert>
       </Snackbar>

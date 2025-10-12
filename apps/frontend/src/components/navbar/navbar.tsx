@@ -7,7 +7,7 @@ import { Button, Dialog } from '@mui/material';
 import NavAvatar from './components/nav-avatar';
 import dynamic from 'next/dynamic';
 import { useStore } from 'zustand/react';
-import { zAuthStore } from '@z-state';
+import { zAuthStore } from '@client/z-state';
 import Link from 'next/link';
 
 const UserSettingMenu = dynamic(() => import('./components/user-setting-menu'), { ssr: false });
@@ -43,7 +43,11 @@ export default function Navbar() {
   };
   return (
     <>
-      {open ? <UserSettingMenu id={MenuAnchorId} anchorEl={anchorEl} open={open} handleClose={handleClose} logout={logout} /> : <></>}
+      {open ? (
+        <UserSettingMenu id={MenuAnchorId} anchorEl={anchorEl} open={open} handleClose={handleClose} logout={logout} />
+      ) : (
+        <></>
+      )}
       <div className="sticky top-0 z-100">
         <div className="h-6 bg-dark"></div>
         <nav className="flex gap-x-2 items-center p-2 rounded-full bg-[#63636336] !backdrop-blur-[5px] !backdrop-saturate-[1]">
@@ -62,10 +66,16 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Button onClick={() => handleAuthMode(false)} className="!rounded-full !bg-gray-700 !px-6 hover:!bg-gray-600 !text-white">
+                <Button
+                  onClick={() => handleAuthMode(false)}
+                  className="!rounded-full !bg-gray-700 !px-6 hover:!bg-gray-600 !text-white"
+                >
                   Đăng nhập
                 </Button>
-                <Button onClick={() => handleAuthMode(true)} className="!rounded-full !bg-gray-700 !px-6 hover:!bg-gray-600 !text-white">
+                <Button
+                  onClick={() => handleAuthMode(true)}
+                  className="!rounded-full !bg-gray-700 !px-6 hover:!bg-gray-600 !text-white"
+                >
                   Đăng ký
                 </Button>
               </>

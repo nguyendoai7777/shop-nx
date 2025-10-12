@@ -1,11 +1,10 @@
 'use client';
 import { Button, Menu } from '@mui/material';
-import { Settings, Person, Logout } from '@mui/icons-material';
+import { Logout, Person, Settings } from '@mui/icons-material';
 import Link from 'next/link';
-import { ReactNode, useEffect } from 'react';
-import { HttpClient } from '@client';
+import { ReactNode } from 'react';
 import { useStore } from 'zustand/react';
-import { zAuthStore } from '@z-state';
+import { zAuthStore } from '@client/z-state';
 
 export interface UserSettingMenuProps {
   id: string;
@@ -13,10 +12,6 @@ export interface UserSettingMenuProps {
   open: boolean;
   handleClose(e: RMouseEvent<HTMLElement>): void;
   logout(): void;
-}
-
-function StyledListHeader(props: { className: string; children: ReactNode }) {
-  return null;
 }
 
 const UserSettingMenu: FCC<UserSettingMenuProps> = ({ id, anchorEl, open, handleClose, logout }) => {
@@ -50,7 +45,7 @@ const UserSettingMenu: FCC<UserSettingMenuProps> = ({ id, anchorEl, open, handle
               top: 0,
               right: 14,
               width: 10,
-            height: 10,
+              height: 10,
               bgcolor: 'background.paper',
               transform: 'translateY(-50%) rotate(45deg)',
               zIndex: 0,

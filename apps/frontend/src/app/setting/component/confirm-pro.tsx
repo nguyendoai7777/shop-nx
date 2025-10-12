@@ -1,11 +1,11 @@
 import { AlertColor, ButtonBase, FormControlLabel, Radio, RadioGroup, TextField } from '@mui/material';
-import { useFormChange } from '@hooks';
-import { httpResource } from '@factory';
-import { HttpClient } from '@client';
+import { useFormChange } from '@client/hooks';
 import { RegisterChannelResponse, ResponseBase } from '@shop/type';
-import { AxiosResponse } from 'axios';
+
 import { useStore } from 'zustand/react';
-import { zAuthStore } from '@z-state';
+import { zAuthStore } from '@client/z-state';
+import { httpResource } from '@core/http';
+import { HttpClient } from '@client/utils';
 
 export interface ConfirmProDialogProps {
   onClose(): void;
@@ -29,7 +29,7 @@ const ConfirmProDialog: FCC<ConfirmProDialogProps> = ({ onClose, setAlertMsg, op
   };
   const handleRegisterPro = async () => {
     httpResource(HttpClient.post<ResponseBase<RegisterChannelResponse>>(`/api/user/channel`, value)).subscribe({
-      next({data: {channel, verified}, message}) {
+      next({ data: { channel, verified }, message }) {
         setAlertMsg({
           type: 'success',
           msg: message,
@@ -40,13 +40,15 @@ const ConfirmProDialog: FCC<ConfirmProDialogProps> = ({ onClose, setAlertMsg, op
           setUser({
             ...user,
             verified: verified,
-            channel:channel,
+            channel: channel,
           });
-        httpResource(HttpClient.put(`/api/user/channel`, {
-          description: "",
-          externalLinks: [],
-          channel
-        })).subscribe();
+        httpResource(
+          HttpClient.put(`/api/user/channel`, {
+            description: '',
+            externalLinks: [],
+            channel,
+          })
+        ).subscribe();
       },
       error(err) {
         setAlertMsg({
@@ -58,10 +60,6 @@ const ConfirmProDialog: FCC<ConfirmProDialogProps> = ({ onClose, setAlertMsg, op
     });
   };
 
-  const handleCloseAlert = () => {
-    openAlert(false);
-    openAlert(false);
-  };
   return (
     <>
       <div className="text-white pt-4 py-2 w-80">
@@ -79,15 +77,38 @@ const ConfirmProDialog: FCC<ConfirmProDialogProps> = ({ onClose, setAlertMsg, op
           name="purchaseSubscriptionMethod"
           color="#fff"
         >
-          <FormControlLabel className="pl-6 duration-150 hover:bg-gray-500/25 !mr-0" value={1} control={<Radio />} label="1 tháng" />
-          <FormControlLabel className="pl-6 duration-150 hover:bg-gray-500/25 !mr-0" value={6} control={<Radio />} label="6 tháng" />
-          <FormControlLabel className="pl-6 duration-150 hover:bg-gray-500/25 !mr-0" value={12} control={<Radio />} label="1 năm" />
+          <FormControlLabel
+            className="pl-6 duration-150 hover:bg-gray-500/25 !mr-0"
+            value={1}
+            control={<Radio />}
+            label="1 tháng"
+          />
+          <FormControlLabel
+            className="pl-6 duration-150 hover:bg-gray-500/25 !mr-0"
+            value={6}
+            control={<Radio />}
+            label="6 tháng"
+          />
+          <FormControlLabel
+            className="pl-6 duration-150 hover:bg-gray-500/25 !mr-0"
+            value={12}
+            control={<Radio />}
+            label="1 năm"
+          />
         </RadioGroup>
         <div className="px-6 my-2">
-          <TextField fullWidth size="small" label={`Mã nhận dạng kênh`} name="channel" onChange={(e) => handleInput(e, 'channel')} />
+          <TextField
+            fullWidth
+            size="small"
+            label={`Mã nhận dạng kênh`}
+            name="channel"
+            onChange={(e) => handleInput(e, 'channel')}
+          />
           <div className="mt-1 w-fit text-xs rounded px-2 pb-0.5 bg-gray-400/20">/streamer/@{value.channel}</div>
         </div>
-        <p className="px-6 text-sm pb-2 text-gray-400">Không thể hoàn tác hoặc thay đổi sau khi đã đăng ký, vui lòng cân nhắc kỹ.</p>
+        <p className="px-6 text-sm pb-2 text-gray-400">
+          Không thể hoàn tác hoặc thay đổi sau khi đã đăng ký, vui lòng cân nhắc kỹ.
+        </p>
         <div className="flex justify-end px-2 gap-2 pt-2 border-t border-gray-600">
           <ButtonBase className="duration-150 !rounded-full hover:!bg-btn-base-hover-bg" onClick={onClose}>
             <div className="w-25 py-1.5">Hủy</div>

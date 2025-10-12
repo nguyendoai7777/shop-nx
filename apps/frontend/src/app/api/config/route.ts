@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { loadConfig } from '@utils';
+import { loadConfig } from '@server/utils';
 
 export async function GET() {
-  return NextResponse.json(loadConfig())
+  return NextResponse.json(loadConfig());
 }

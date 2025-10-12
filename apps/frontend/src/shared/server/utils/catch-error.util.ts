@@ -8,5 +8,10 @@ export const CatchAxiosError = <T>(error: unknown) => {
 };
 
 export class CatchAxiosInterceptorError<T> {
-  constructor(public message: string, public data: T, public status: number, path: string) {}
+  constructor(
+    public message: string,
+    public data: T,
+    public status: number,
+    path: string
+  ) {}
 }

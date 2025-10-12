@@ -1,6 +1,6 @@
 'use client';
 import { RegisterAction, RegisterFormDto } from '@types';
-import { useFocusElement, useFormChange } from '@hooks';
+import { useFocusElement, useFormChange } from '@client/hooks';
 import { TextField } from '@mui/material';
 
 export const Register: FCC<RegisterAction> = ({ valueChange }) => {
@@ -14,6 +14,7 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
       lastname: 'Anh',
       username: 'minhanh',
       email: 'ntma2003@gmail.com',
+      verified: false,
     },
     valueChange
   );

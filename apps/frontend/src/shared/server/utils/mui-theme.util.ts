@@ -58,10 +58,24 @@ export const MuiThemeConfig = createTheme({
         },
       },
     },
-    MuiInput: {
+    MuiTextField: {
       defaultProps: {
         size: 'small',
+        fullWidth: true,
       },
+      styleOverrides: {
+        root: {
+          '&.Mui-focused ': {
+            backgroundColor: 'oklch(1 0 0 / 0.08)',
+          },
+          '&': {
+            color: '#fff',
+            backgroundColor: 'oklch(1 0 0 / 0.05)',
+          },
+        },
+      },
+    },
+    MuiInput: {
       styleOverrides: {
         underline: {
           '&:before': {
@@ -78,9 +92,6 @@ export const MuiThemeConfig = createTheme({
       },
     },
     MuiOutlinedInput: {
-      defaultProps: {
-        size: 'small',
-      },
       styleOverrides: {
         root: {
           borderRadius: 6,
@@ -95,13 +106,13 @@ export const MuiThemeConfig = createTheme({
             borderColor: `oklch(1 0 0 / 0.85)`,
             borderWidth: 1,
           },
-          '&.Mui-focused input': {
+          /*'&.Mui-focused input': {
             backgroundColor: 'oklch(1 0 0 / 0.08)',
           },
           '& input': {
             color: '#fff',
             backgroundColor: 'oklch(1 0 0 / 0.05)',
-          },
+          },*/
         },
       },
     },
@@ -117,9 +128,9 @@ export const MuiThemeConfig = createTheme({
     MuiSnackbar: {
       styleOverrides: {
         root: {
-          color: '#fff'
-        }
-      }
-    }
+          color: '#fff',
+        },
+      },
+    },
   },
 });

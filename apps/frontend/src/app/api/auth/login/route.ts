@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { AuthResponse, UserFromDetail } from '@types';
 import { ResponseBase } from '@shop/type';
-import { CatchAxiosError, Http, loadConfig } from '@utils';
+import { CatchAxiosError, Http, loadConfig } from '@server/utils';
 
 export async function POST(req: Request) {
   const body = await req.json();
