@@ -11,7 +11,7 @@ interface HttpResourceCaller<R = {}, V = AxiosResponse> {
 
 class HttpResource<R> {
   constructor(private resource: Promise<AxiosResponse<R>>) {}
-  subscribe(caller: HttpResourceCaller<R>): void;
+  subscribe(subscriber: HttpResourceCaller<R>): void;
 
   // Overload 2: callbacks
   subscribe(

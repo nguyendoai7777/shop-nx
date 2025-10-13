@@ -29,16 +29,13 @@
     }
   },
   "include": ["src/**/*.ts"],
-  "exclude": [
-    "out-tsc",
-    "dist",
-    "jest.config.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
-  ],
+  "exclude": ["out-tsc", "dist", "jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "references": [
     {
       "path": "../../libs/shared/types/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/factory/tsconfig.lib.json"
     },
     {
       "path": "../../libs/shared/dto/tsconfig.lib.json"

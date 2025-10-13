@@ -1,48 +1,63 @@
 'use client';
 
 import { LoginAction, LoginFormDto } from '@types';
-import { useFocusElement, useFormChange } from '@client/hooks';
-import { IconButton, InputAdornment, TextField } from '@mui/material';
-import { useState } from 'react';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useFocusElement } from '@client/hooks';
+import { PasswordTextField } from '../form-field/password-text-field';
+import { useForm } from 'react-hook-form';
+import { ControlledTextField } from '../form-field/controller-text-field';
+import { useEffect, useMemo } from 'react';
 
 export const Login: FCC<LoginAction> = ({ valueChange }) => {
   useFocusElement('#AuthForm input');
-  const { handleInput } = useFormChange<LoginFormDto>(
-    {
+  const {
+    control,
+    formState: { errors, isValid },
+    watch,
+  } = useForm<LoginFormDto>({
+    defaultValues: {
       password: '',
       username: '',
     },
-    valueChange
-  );
-  const [showPassword, setShowPassword] = useState(false);
+    mode: 'onTouched',
+    reValidateMode: 'onChange',
+  });
+  useEffect(() => {
+    const subscription = watch(({ password, username }) => {
+      valueChange?.({
+        password: password ?? '',
+        username: username ?? '',
+      });
+    });
+    return () => subscription.unsubscribe();
+  }, []);
   return (
     <>
-      <TextField label="Tên đăng nhập / Email" name="username" onChange={(e) => handleInput(e, 'username')} />
-      <TextField
-        fullWidth
-        type="password"
-        name="password"
-        label="Mật khẩu"
-        onChange={(e) => handleInput(e, 'password')}
-      />
-      <TextField
-        name="password"
-        label="Mật khẩu"
-        type={showPassword ? 'text' : 'password'}
-        onChange={(e) => handleInput(e, 'password')}
-        slotProps={{
-          input: {
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword((show) => !show)} edge="end">
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
+      <div>
+        <ControlledTextField
+          controller={{
+            control,
+            name: 'username',
+            rules: { required: 'điền đi...' },
+          }}
+          textField={{
+            label: 'Tên đăng nhập / Email',
+          }}
+          textError={errors?.username?.message}
+        />
+      </div>
+      <div>
+        <ControlledTextField
+          component={PasswordTextField}
+          controller={{
+            control,
+            name: 'password',
+            rules: { required: 'điền đi...' },
+          }}
+          textField={{
+            label: 'Mật khẩu',
+          }}
+        />
+      </div>
     </>
   );
 };

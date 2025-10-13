@@ -2,9 +2,9 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@ne
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@decorators';
-import { ResponseTransformer } from '@transformers';
 import { ChannelDto, RegisterProChannel, type UserInfoByJWT, UserInfoDTO, UserPasswordDTO } from '@shop/dto';
 import { RegisterChannelResponse } from '@shop/type';
+import { ResponseTransformer } from '@shop/factory';
 
 @Controller('user')
 @ApiTags('User')
@@ -19,6 +19,16 @@ export class UserController {
       message: 'Success',
       data,
       status: HttpStatus.OK,
+    });
+  }
+
+  @Get(`setting`)
+  async setting(@User() user: UserInfoByJWT) {
+    const data = await this.userService.findUserSetting(user);
+    return new ResponseTransformer({
+      data,
+      status: 200,
+      message: 'OK',
     });
   }
 
@@ -39,11 +49,11 @@ export class UserController {
     });
   }
 
-  @Put('channel')
+  @Put('setting-info')
   updateChannel(@Body() payload: ChannelDto, @User() user: UserInfoByJWT) {
     console.log(`@@ Create Channel [user]`, user);
     console.log(`@@ Create Channel [channel]`, payload);
-    return this.userService.updateChannel(payload, user);
+    return this.userService.updateSettingInfo(payload, user);
   }
 
   @Post(`update-info`)

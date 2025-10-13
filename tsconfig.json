@@ -16,7 +16,7 @@
       "path": "./libs/shared/types"
     },
     {
-      "path": "./libs/shared/adapter"
+      "path": "./libs/shared/factory"
     }
   ]
 }

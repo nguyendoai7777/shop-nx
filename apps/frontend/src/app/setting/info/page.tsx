@@ -1,9 +1,13 @@
 'use client';
 import { useStore } from 'zustand/react';
 import { zAuthStore } from '@client/z-state';
-import { lazy, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { Alert, AlertColor, ButtonBase, Dialog, Snackbar, Tooltip } from '@mui/material';
 import { SvgClient } from '@components';
+import { Channel, ResponseBase, SettingInfoRequestBody } from '@shop/type';
+import { httpResource } from '@core/http';
+import { HttpClient } from '@client/utils';
+
 const EditUserInfo = lazy(() => import('../component/edit-info'));
 // import ConfirmProDialog from '../component/confirm-pro';
 const ConfirmProDialog = lazy(() => import('../component/confirm-pro'));
@@ -13,16 +17,29 @@ export interface SettingInfoPageProps {}
 const SettingInfoPagePage: FCC<SettingInfoPageProps> = () => {
   const { user } = useStore(zAuthStore, (state) => state);
   const [openPro, setOpenPro] = useState(false);
-
-  const closeDialog = () => {
-    setOpenPro(false);
-  };
+  const [channel, setChannel] = useState<Channel>();
   const [msg, setMsg] = useState({
     type: 'success' as AlertColor,
     msg: '',
   });
-
   const [openAlert, setOpenAlert] = useState(false);
+  useEffect(() => {
+    httpResource<ResponseBase<Channel>>(HttpClient.get(`/api/user/setting`)).subscribe({
+      next(res) {
+        setChannel(res.data);
+      },
+    });
+  }, []);
+  const closeDialog = () => {
+    setOpenPro(false);
+  };
+
+  const updateChannel = (data: SettingInfoRequestBody) => {
+    httpResource(HttpClient.put(`/api/user/setting-info`, data)).subscribe({
+      next(res) {},
+    });
+  };
+
   return (
     <>
       <div className="flex flex-1">
@@ -46,7 +63,7 @@ const SettingInfoPagePage: FCC<SettingInfoPageProps> = () => {
             {user?.verified ? (
               <div className="flex items-center gap-2">
                 <small className="">Kênh của bạn</small>
-                <small className="rounded underline text-gray-400">/streamer/{user.channel}</small>
+                <small className="rounded underline text-gray-400">/streamer/@{user.channel}</small>
               </div>
             ) : (
               <>
@@ -59,7 +76,11 @@ const SettingInfoPagePage: FCC<SettingInfoPageProps> = () => {
             &nbsp;
           </div>
         </div>
-        {user?.verified ? <EditUserInfo /> : <></>}
+        {user?.verified && channel ? (
+          <EditUserInfo channelName={user.channel ?? ''} channel={channel} save={updateChannel} />
+        ) : (
+          <></>
+        )}
       </div>
       <Dialog open={openPro} onClose={closeDialog}>
         <ConfirmProDialog openAlert={setOpenAlert} setAlertMsg={setMsg} onClose={closeDialog} />

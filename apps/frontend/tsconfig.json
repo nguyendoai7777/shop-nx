@@ -28,7 +28,7 @@
       "@client/hooks": ["src/shared/client/hooks"],
       "@client/utils": ["src/shared/client/utils"],
       "@core/http": ["src/core/http"],
-      "@core/route": ["src/core/route"],
+      "@core/route": ["src/core/route"]
     },
     "types": ["jest", "node"],
     "outDir": "dist",
@@ -43,17 +43,9 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    ".next/types/**/*.ts",
+    ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "out-tsc",
-    "dist",
-    "node_modules",
-    "jest.config.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts",
-    ".next"
-  ],
+  "exclude": ["out-tsc", "dist", "node_modules", "jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts", ".next"],
   "references": [
     {
       "path": "../../libs/shared/dto"

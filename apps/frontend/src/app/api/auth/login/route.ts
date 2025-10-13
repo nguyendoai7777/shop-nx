@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { AuthResponse, UserFromDetail } from '@types';
+import { AuthResponse } from '@types';
 import { ResponseBase } from '@shop/type';
 import { CatchAxiosError, Http, loadConfig } from '@server/utils';
 
@@ -9,13 +9,17 @@ export async function POST(req: Request) {
   // gọi tới backend server login
 
   try {
-    const { data } = await Http.post<ResponseBase<UserFromDetail>>(`/api/auth/login`, body);
-    const token = data.data!.accessToken;
-    console.log(`@@ Server login`, data);
-    const response = NextResponse.json<AuthResponse>({
-      user: data.data.user,
-      accessToken: data.data.accessToken,
-      api: ApiUrl,
+    const { data: res } = await Http.post<ResponseBase<AuthResponse>>(`/api/auth/login`, body);
+    const token = res.data!.accessToken;
+    console.log(`@@ Server login`, res);
+    const response = NextResponse.json<ResponseBase<AuthResponse>>({
+      data: {
+        user: res.data.user,
+        accessToken: res.data.accessToken,
+        api: ApiUrl,
+      },
+      message: res.message,
+      status: res.status,
     });
     response.cookies.set('token', token, {
       httpOnly: true,

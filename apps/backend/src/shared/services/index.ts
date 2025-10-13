@@ -1,2 +1,2 @@
-export * from './prisma-client/prisma-client.service';
-export * from './prisma-client/prisma-client.module';
+export * from './prisma-client';
+export * from './page-logo';

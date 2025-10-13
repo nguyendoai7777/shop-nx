@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ArticlesModule } from './articles/articles.module';
-import { PrismaClientModule } from '@services';
+import { PageLogoModule, PrismaClientModule } from '@services';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { APP_GUARD } from '@nestjs/core';

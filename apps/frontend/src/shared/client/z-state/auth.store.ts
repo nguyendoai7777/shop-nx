@@ -21,7 +21,7 @@ export const zAuthStore = create<AuthStore>()(
       clearError: () => set({ error: '' }),
     }),
     {
-      name: 'auth-store', // key trong localStorage
+      name: 'AuthStore', // key trong localStorage
     }
   )
 );

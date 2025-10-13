@@ -2,7 +2,7 @@ import { ArgumentsHost, Catch, HttpStatus } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { Prisma } from '@prismax';
 import { Response } from 'express';
-import { ResponseTransformer } from '@transformers';
+import { ResponseTransformer } from '@shop/factory';
 
 interface ORMErrorCode {
   message: string;
@@ -63,10 +63,7 @@ function mapPrismaError(exception: Prisma.PrismaClientKnownRequestError) {
 
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaClientExceptionFilter extends BaseExceptionFilter {
-  override catch(
-    exception: Prisma.PrismaClientKnownRequestError,
-    host: ArgumentsHost
-  ) {
+  override catch(exception: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
     console.info(`@@ PrismaClientKnownRequestError`, JSON.stringify(exception));
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();

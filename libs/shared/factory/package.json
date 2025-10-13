@@ -1,5 +1,5 @@
 {
-  "name": "@shop/adapter",
+  "name": "@shop/factory",
   "version": "0.0.1",
   "private": true,
   "type": "module",

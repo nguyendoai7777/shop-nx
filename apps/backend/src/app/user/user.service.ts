@@ -1,54 +1,16 @@
 import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 
-import { PrismaClientService } from '@services';
-import type { ChannelDto, PaginationDto, RBStreamerBy, RegisterProChannel, UserInfoByJWT, UserPasswordDTO } from '@shop/dto';
+import { PageLogoService, PrismaClientService } from '@services';
+import { ChannelDto, RegisterProChannel, UserInfoByJWT, UserPasswordDTO } from '@shop/dto';
 import { verifyPassword } from '@utils';
-import { omitKeyInArrObj, omitKeyInObj, ResponseTransformer } from '@transformers';
+import { ResponseTransformer } from '@shop/factory';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaClientService) {}
-
-  async findAll(options: PaginationDto) {
-    const { size, page, search } = options;
-
-    const key = <K extends keyof typeof this.prisma.user.fields>(key: K) => {
-      return this.prisma.user.fields[key].name;
-    };
-
-    const searchCol = [
-      {
-        [key('email')]: { contains: search },
-      },
-      {
-        [key('firstname')]: { contains: search },
-      },
-      {
-        [key('lastname')]: { contains: search },
-      },
-    ];
-
-    return this.prisma.$transaction([
-      this.prisma.user.findMany({
-        take: size,
-        skip: (page - 1) * size,
-        where: {
-          OR: searchCol,
-        },
-        /*select: {
-
-          id: true,
-          createAt: true,
-          email: true,
-        },*/
-        omit: {
-          password: true,
-          themeId: true,
-        },
-      }),
-      this.prisma.user.count(),
-    ]);
-  }
+  constructor(
+    private readonly prisma: PrismaClientService,
+    private readonly logo: PageLogoService
+  ) {}
 
   findOne(id: number) {
     return this.prisma.user.findUnique({
@@ -60,37 +22,6 @@ export class UserService {
         themeId: true,
       },
     });
-  }
-
-  async findOneBy(payload: RBStreamerBy) {
-    const user = await this.prisma.user.findFirst({
-      where: {
-        channel: payload.channel,
-      },
-
-      omit: {
-        password: true,
-        themeId: true,
-      },
-      include: {
-        channelRef: {
-          include: {
-            externalLinks: true,
-          },
-        },
-      },
-    });
-    // return user;
-    const cr = user!.channelRef!;
-    const _c = omitKeyInObj(cr, 'userId');
-    const _ex = omitKeyInArrObj(_c.externalLinks, 'channelId');
-    return {
-      ...user,
-      channelRef: {
-        ..._c,
-        externalLinks: _ex,
-      },
-    };
   }
 
   async createChannel(payload: RegisterProChannel, user: UserInfoByJWT) {
@@ -194,8 +125,15 @@ export class UserService {
     return _user;
   }
 
-  updateUserInfo() {
-    return `This action updates a #} user`;
+  findUserSetting(userInfo: UserInfoByJWT) {
+    return this.prisma.channel.findUnique({
+      where: {
+        userId: userInfo.id,
+      },
+      include: {
+        externalLinks: true,
+      },
+    });
   }
 
   async changePassword(dto: UserPasswordDTO, id: number) {
@@ -212,6 +150,47 @@ export class UserService {
       },
     });
   }
+
+  async updateSettingInfo(payload: ChannelDto, user: UserInfoByJWT) {
+    const channel = await this.prisma.channel.findUnique({
+      where: {
+        userId: user.id,
+      },
+    });
+    if (!channel) {
+      throw new BadRequestException('Không hợp lệ');
+    }
+    const links = await this.logo.signMultiple(payload.externalLinks);
+    const t$ = this.prisma.$transaction([
+      this.prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          channel: payload.channel,
+        },
+      }),
+      this.prisma.channel.update({
+        where: {
+          userId: user.id,
+        },
+        data: {
+          description: payload.description,
+          externalLinks: {
+            deleteMany: {},
+            create: links.map((l) => ({
+              shortname: l.shortname,
+              url: l.url,
+              avatarUrl: l.avatarUrl,
+            })),
+          },
+        },
+      }),
+    ]);
+
+    return t$;
+  }
+
   remove(id: number) {
     return `This action removes a #${id} user`;
   }

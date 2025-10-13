@@ -1,7 +1,7 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { map } from 'rxjs';
-import { ResponseTransformer } from '@transformers';
 import { ResponseBase } from '@shop/type';
+import { ResponseTransformer } from '@shop/factory';
 
 @Injectable()
 export class ResponseInterceptor<T> implements NestInterceptor<T, ResponseBase<T>> {

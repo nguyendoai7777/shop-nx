@@ -1,33 +1,63 @@
 'use client';
-import { IconButton, TextField } from '@mui/material';
+import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { motion } from 'motion/react';
 import { AnimateRenderer, CButton, ErrorHelper } from '@components';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Channel, SettingInfoRequestBody } from '@shop/type';
 
-export interface EditUserInfoProps {}
+export interface EditUserInfoProps {
+  channel: Channel;
+  channelName: string;
+  save?(data: SettingInfoRequestBody): void;
+}
 
-const EditUserInfo: FCC<EditUserInfoProps> = () => {
+const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save }) => {
   const {
     control,
     handleSubmit,
     formState: {
-      errors: { links },
+      errors: { externalLinks },
     },
-  } = useForm({
-    defaultValues: { links: [{ url: '', alias: '' }] },
+  } = useForm<SettingInfoRequestBody>({
+    defaultValues: {
+      channel: channelName,
+      externalLinks: channel.externalLinks,
+      description: channel.description,
+    },
     mode: 'onTouched',
     reValidateMode: 'onChange',
   });
 
-  const { fields, append, remove } = useFieldArray({ control, name: 'links' });
+  const { fields, append, remove } = useFieldArray({ control, name: 'externalLinks' });
 
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data: any) => save?.(data);
 
   return (
     <div className="w-full">
-      <div className="text-xl mb-3">Liên kết ngoài</div>
       <form className="flex flex-col gap-3 w-full" onSubmit={handleSubmit(onSubmit)}>
+        <div className="text-xl">Mã nhận dạng kênh</div>
+        <div className="mr-13">
+          <Controller
+            name="channel"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                slotProps={{
+                  input: {
+                    startAdornment: <InputAdornment position="start">@</InputAdornment>,
+                  },
+                }}
+              />
+            )}
+          />
+        </div>
+        <div className="text-xl">Mô tả kênh</div>
+        <div className="mr-13">
+          <Controller name="description" control={control} render={({ field }) => <TextField {...field} multiline />} />
+        </div>
+        <div className="text-xl">Liên kết ngoài</div>
         <AnimateRenderer
           list={fields}
           render={(item, index) => (
@@ -39,17 +69,19 @@ const EditUserInfo: FCC<EditUserInfoProps> = () => {
                 exit={{ opacity: 0, x: -15 }}
                 transition={{ duration: 0.3 }}
               >
-                <Controller
-                  name={`links.${index}.url`}
-                  control={control}
-                  rules={{ required: 'điền đi...' }}
-                  render={({ field }) => (
-                    <>
-                      <TextField {...field} size="small" label="URL" fullWidth error={!!links?.[index]?.url?.message} />
-                      <ErrorHelper>{links?.[index]?.url?.message}</ErrorHelper>
-                    </>
-                  )}
-                />
+                <>
+                  <Controller
+                    name={`externalLinks.${index}.url`}
+                    control={control}
+                    rules={{ required: 'điền đi...' }}
+                    render={({ field }) => (
+                      <>
+                        <TextField {...field} label="URL" error={!!externalLinks?.[index]?.url?.message} />
+                        <ErrorHelper>{externalLinks?.[index]?.url?.message}</ErrorHelper>
+                      </>
+                    )}
+                  />
+                </>
               </motion.div>
               <motion.div
                 className="flex flex-col gap-1 w-full"
@@ -59,18 +91,14 @@ const EditUserInfo: FCC<EditUserInfoProps> = () => {
                 transition={{ duration: 0.3 }}
               >
                 <Controller
-                  name={`links.${index}.alias`}
+                  name={`externalLinks.${index}.shortname`}
                   control={control}
                   rules={{ required: 'điền đi...' }}
                   render={({ field }) => (
-                    <TextField
-                      {...field}
-                      size="small"
-                      label="Alias"
-                      fullWidth
-                      helperText={links?.[index]?.alias?.message}
-                      error={!!links?.[index]?.alias?.message}
-                    />
+                    <>
+                      <TextField {...field} label="Alias" error={!!externalLinks?.[index]?.shortname?.message} />
+                      <ErrorHelper>{externalLinks?.[index]?.url?.message}</ErrorHelper>
+                    </>
                   )}
                 />
               </motion.div>
@@ -81,8 +109,8 @@ const EditUserInfo: FCC<EditUserInfoProps> = () => {
           )}
         />
 
-        <div className="flex justify-end gap-2 sticky buttom-0">
-          <CButton onClick={() => append({ url: '', alias: '' })}>Thêm link</CButton>
+        <div className="flex justify-end gap-2 sticky buttom-0 mr-13">
+          <CButton onClick={() => append({ url: '', shortname: '' })}>Thêm link</CButton>
 
           <CButton className="!bg-purple-500 hover:!bg-purple-500/90 min-w-25" type="submit">
             Lưu

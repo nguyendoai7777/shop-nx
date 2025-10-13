@@ -1,4 +1,4 @@
-import { AlertColor, ButtonBase, FormControlLabel, Radio, RadioGroup, TextField } from '@mui/material';
+import { AlertColor, ButtonBase, FormControlLabel, InputAdornment, Radio, RadioGroup, TextField } from '@mui/material';
 import { useFormChange } from '@client/hooks';
 import { RegisterChannelResponse, ResponseBase } from '@shop/type';
 
@@ -98,10 +98,13 @@ const ConfirmProDialog: FCC<ConfirmProDialogProps> = ({ onClose, setAlertMsg, op
         </RadioGroup>
         <div className="px-6 my-2">
           <TextField
-            fullWidth
-            size="small"
             label={`Mã nhận dạng kênh`}
             name="channel"
+            slotProps={{
+              input: {
+                startAdornment: <InputAdornment position="start">@</InputAdornment>,
+              },
+            }}
             onChange={(e) => handleInput(e, 'channel')}
           />
           <div className="mt-1 w-fit text-xs rounded px-2 pb-0.5 bg-gray-400/20">/streamer/@{value.channel}</div>

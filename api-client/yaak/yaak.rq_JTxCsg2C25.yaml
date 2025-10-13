@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_JTxCsg2C25
 createdAt: 2025-10-06T09:12:10.478055400
-updatedAt: 2025-10-06T09:42:10.426126100
+updatedAt: 2025-10-13T04:10:36.504791400
 workspaceId: wk_teknBTJbQe
 folderId: fl_3py5A3C6ch
 authentication: {}
@@ -29,5 +29,5 @@ headers:
 method: PUT
 name: UpdateChannel
 sortPriority: 499.9998000000001
-url: ${[ api_host ]}/user/channel
+url: ${[ api_host ]}/user/setting-info
 urlParameters: []

@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { StreamerController } from './streamer.controller';
-import { UserService } from '../user/user.service';
+import { StreamerService } from './streamer.service';
 
 @Module({
+  imports: [],
   controllers: [StreamerController],
-  providers: [UserService],
+  providers: [StreamerService],
 })
 export class StreamerModule {}

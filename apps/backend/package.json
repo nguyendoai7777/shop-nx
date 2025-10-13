@@ -81,8 +81,5 @@
         }
       }
     }
-  },
-  "dependencies": {
-     "@shop/dto": "0.0.1"
   }
 }

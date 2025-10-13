@@ -1,7 +1,6 @@
 'use client';
 
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { useStore } from 'zustand/react';
 import { Button, DialogTitle } from '@mui/material';
 import { OverlayScrollbarsComponent, OverlayScrollbarsComponentRef } from 'overlayscrollbars-react';
 import { AuthDialogProps, LoginFormDto, RegisterFormDto } from '@types';
@@ -15,7 +14,7 @@ import { DialogFooter } from 'next/dist/client/components/react-dev-overlay/ui/c
 const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
   const scrollRef = useRef<OverlayScrollbarsComponentRef>(null);
   const { login, register, loading } = useAuth();
-  const { error } = useStore(zAuthStore, (state) => state);
+  const { error } = zAuthStore();
   const { scrollPosition, handleScroll } = useSoraScrollbar();
 
   const [isLogin, setIsLogin] = useState(!isRegister);
@@ -24,7 +23,7 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
 
   const _exeLogin = async () => {
     const data = await login(loginValue!);
-    if (data.user) {
+    if (data.data?.user) {
       onClose?.();
     }
   };
@@ -58,18 +57,22 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
       <OverlayScrollbarsComponent
         ref={scrollRef}
         defer
-        className="px-6 pb-4 sora-scrollbar"
-        options={{}}
+        className="px-6 sora-scrollbar"
         events={{
           scroll: handleScroll,
           initialized: handleScroll,
           updated: handleScroll,
         }}
+        options={{
+          overflow: {
+            x: 'hidden',
+          },
+        }}
         {...(scrollPosition === ESoraScrollDistance.Top && { 'at-start': '' })}
         {...(scrollPosition === ESoraScrollDistance.Bottom && { 'at-end': '' })}
         {...(scrollPosition === ESoraScrollDistance.None && { 'at-none': '' })}
       >
-        <div className="flex flex-col gap-y-5 w-120 py-2" id="AuthForm">
+        <div className="flex flex-col gap-y-4 w-120 pt-2" id="AuthForm">
           {isLogin ? <Login valueChange={setLoginValue} /> : <Register valueChange={setRegisterValue} />}
         </div>
       </OverlayScrollbarsComponent>

@@ -64,7 +64,7 @@
           "targetName": "typecheck"
         }
       },
-      "exclude": ["libs/shared/dto/*", "libs/shared/types/*", "libs/shared/adapter/*"]
+      "exclude": ["libs/shared/dto/*", "libs/shared/types/*", "libs/shared/factory/*"]
     }
   ],
   "targetDefaults": {

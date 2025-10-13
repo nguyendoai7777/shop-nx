@@ -1,2 +1,2 @@
-export * from './main.store';
+export * from './toast.store';
 export * from './auth.store';

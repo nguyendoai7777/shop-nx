@@ -34,14 +34,6 @@ model Channel {
   externalLinks ExternalLink[]
 }
 
-model Subscription {
-  id           Int      @id @default(autoincrement())
-  subscription Int
-  userId       Int      @unique
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
 model User {
   id        Int      @id @default(autoincrement())
   lastname  String
@@ -60,6 +52,14 @@ model User {
   theme      Theme?      @relation(fields: [themeId], references: [id])
 
   @@fulltext([firstname, lastname, email, channel])
+}
+
+model Subscription {
+  id           Int      @id @default(autoincrement())
+  subscription Int
+  userId       Int      @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model UserPoint {

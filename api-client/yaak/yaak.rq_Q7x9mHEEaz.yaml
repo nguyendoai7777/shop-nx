@@ -1,8 +1,8 @@
 type: http_request
 model: http_request
-id: rq_zYoQtH2Jzh
-createdAt: 2025-09-29T04:43:26.155807600
-updatedAt: 2025-10-13T03:00:31.137457300
+id: rq_Q7x9mHEEaz
+createdAt: 2025-10-13T03:01:25.632587300
+updatedAt: 2025-10-13T03:01:35.900975500
 workspaceId: wk_teknBTJbQe
 folderId: fl_F2grL45rFq
 authentication: {}
@@ -12,7 +12,7 @@ bodyType: null
 description: ''
 headers: []
 method: GET
-name: Current
-sortPriority: 1000.0
-url: ${[ api_host ]}/user/current
+name: Setting
+sortPriority: 999.9999
+url: ${[ api_host ]}/user/setting
 urlParameters: []

@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 import { ResponseBase } from '@shop/type';
-import { HttpClient } from '@client';
-import { httpResource } from '@factory';
+import { httpResource } from '@core/http';
+import { HttpClient } from '@client/utils';
 
 export const UserProfile = () => {
   const handleLoadUsers = async () => {
@@ -18,7 +18,6 @@ export const UserProfile = () => {
         console.log(`@@ {} origin`, response);
       },
     });
-
 
     httpResource<ResponseBase<any>>(HttpClient.get(`/user/current`)).subscribe(
       (data) => {

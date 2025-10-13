@@ -1,35 +1,42 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { ResponseBase } from '@shop/type';
-import { UserFromDetail } from '@types';
+import { ResponseBase, UserQueryResponseSchema } from '@shop/type';
 import { Http, loadConfig } from '@server/utils';
+import { AuthResponse } from '@types';
+import { HttpStatus } from '@nestjs/common';
 
 // simple verify (có thể gọi BE verify nếu cần)
 export async function GET() {
   const cookieStore = await cookies();
   const { ApiUrl } = await loadConfig();
   const token = cookieStore.get('token')?.value;
-
+  const response = NextResponse.json<ResponseBase>({
+    message: 'Chưa đăng nhập',
+    status: HttpStatus.FORBIDDEN,
+  });
   if (!token) {
-    return NextResponse.json({ user: null });
+    return response;
   }
 
   // gọi BE để lấy user info
   try {
-    const { data } = await Http.get<ResponseBase<UserFromDetail>>(`/api/user/current`);
+    const { data } = await Http.get<ResponseBase<UserQueryResponseSchema>>(`/api/user/current`);
 
-    if (!data.data) {
-      return NextResponse.json({ user: null });
+    if (!data) {
+      return response;
     }
 
-    return NextResponse.json({
-      user: data.data,
-      accessToken: token,
-      api: ApiUrl,
+    return NextResponse.json<ResponseBase<AuthResponse>>({
+      data: {
+        user: data.data,
+        accessToken: token,
+        api: ApiUrl,
+      },
+      status: 400,
+      message: data.message,
     });
   } catch (error) {
-    const e = error as ResponseBase<any>;
-    const response = NextResponse.json(e);
+    // const e = error as ResponseBase<any>;
     response.cookies.set('token', '', {
       httpOnly: true,
       expires: new Date(0), // xóa cookie

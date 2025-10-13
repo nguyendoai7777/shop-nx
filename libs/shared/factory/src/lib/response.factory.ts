@@ -1,5 +1,4 @@
-import { ResponseWithPagination } from '@types';
-import { ResponseBase } from '@shop/type';
+import { ResponseBase, ResponseWithPagination } from '@shop/type';
 
 export class ResponseTransformer<T = void> {
   constructor(protected option: ResponseBase<T>) {}
@@ -8,7 +7,6 @@ export class ResponseTransformer<T = void> {
     return this.option;
   }
 }
-
 
 export class ResponsePaginationTransformer<T> extends ResponseTransformer<T> {
   constructor(public override option: ResponseWithPagination<T>) {

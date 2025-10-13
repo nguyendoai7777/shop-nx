@@ -39,7 +39,7 @@ export default async function StreamersPage() {
         {(data!.data ?? []).map((str) => (
           <CardButton key={str.id}>
             <Link
-              href={`/streamers/${str.verified ? (str.channel ?? str.id) : str.id}`}
+              href={`/streamers/${str.channel ? `@${str.channel}` : str.id}`}
               className={`StreamerCard overflow-hidden flex !ustify-start items-center gap-2 rounded-md bg-gray-700/50 p-3 duration-300 border border-transparent w-full ${
                 str.verified ? 'hover:border-purple-500' : 'hover:border-gray-600'
               } `}

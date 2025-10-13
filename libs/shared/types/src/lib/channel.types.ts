@@ -2,7 +2,7 @@ import { BaseRecord } from './common.types.js';
 
 export interface ExternalLinkResponseSchema {
   id: number;
-  shortname?: string;
+  shortname: string;
   url: string;
   avatarUrl?: string;
 }
@@ -16,4 +16,10 @@ export interface Channel extends BaseRecord {
 export interface RegisterChannelResponse {
   channel: string;
   verified: boolean;
+}
+
+export interface SettingInfoRequestBody {
+  channel: string;
+  externalLinks: Pick<ExternalLinkResponseSchema, 'shortname' | 'url'>[];
+  description: string;
 }

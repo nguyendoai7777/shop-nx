@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Global, Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import chalk from 'chalk';
-
+import type { ExternalLink } from '@shop/dto';
 
 @Injectable()
 export class PageLogoService {
@@ -44,5 +44,15 @@ export class PageLogoService {
       console.error(chalk.red.bold(`Error fetching icon:`), error);
       return null;
     }
+  }
+
+  async signMultiple(resource: ExternalLink[]) {
+    const r = await Promise.all(
+      resource.map(async (link) => ({
+        ...link,
+        avatarUrl: await this.getIcon(link.url),
+      }))
+    );
+    return r;
   }
 }

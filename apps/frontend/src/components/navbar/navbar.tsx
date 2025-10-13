@@ -6,8 +6,7 @@ import AuthDialog from '../auth/auth';
 import { Button, Dialog } from '@mui/material';
 import NavAvatar from './components/nav-avatar';
 import dynamic from 'next/dynamic';
-import { useStore } from 'zustand/react';
-import { zAuthStore } from '@client/z-state';
+import { zAuthStore, zToastStore } from '@client/z-state';
 import Link from 'next/link';
 
 const UserSettingMenu = dynamic(() => import('./components/user-setting-menu'), { ssr: false });
@@ -15,7 +14,8 @@ const UserSettingMenu = dynamic(() => import('./components/user-setting-menu'), 
 const MenuAnchorId = crypto.randomUUID();
 
 export default function Navbar() {
-  const { clearError, user } = useStore(zAuthStore, (state) => state);
+  const { closeToast } = zToastStore();
+  const { user, clearError } = zAuthStore();
   const { setLoading } = useAuth();
   const { logout } = useAuth();
   const [showLogin, setShowLogin] = useState(false);
@@ -38,8 +38,9 @@ export default function Navbar() {
 
   const destroyDialog = () => {
     setShowLogin(false);
-    clearError();
     setLoading(false);
+    closeToast();
+    clearError();
   };
   return (
     <>

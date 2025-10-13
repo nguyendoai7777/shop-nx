@@ -1,11 +1,6 @@
-import {
-  ExceptionFilter,
-  Catch,
-  ArgumentsHost,
-  NotFoundException,
-} from '@nestjs/common';
-import { Response,Request } from 'express';
-import { ResponseTransformer } from '@transformers';
+import { ExceptionFilter, Catch, ArgumentsHost, NotFoundException } from '@nestjs/common';
+import { Response, Request } from 'express';
+import { ResponseTransformer } from '@shop/factory';
 
 @Catch(NotFoundException)
 export class NotFoundFilter implements ExceptionFilter {

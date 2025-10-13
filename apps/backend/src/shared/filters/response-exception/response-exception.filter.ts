@@ -1,14 +1,6 @@
-import {
-  ArgumentsHost,
-  BadRequestException,
-  Catch,
-  ExceptionFilter,
-  HttpStatus,
-  Logger,
-} from '@nestjs/common';
+import { ArgumentsHost, BadRequestException, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
-import { ResponseTransformer } from '@transformers';
-import { WTLogger } from '@loggers';
+import { ResponseTransformer } from '@shop/factory';
 
 @Catch(BadRequestException)
 export class ResponseExceptionFilter<T> implements ExceptionFilter {
@@ -21,7 +13,7 @@ export class ResponseExceptionFilter<T> implements ExceptionFilter {
     if (exception.getResponse() instanceof ResponseTransformer) {
       errorMess = (exception.getResponse() as ResponseTransformer<T>).data;
     } else if (Array.isArray(isBadRequestFilter)) {
-      const errors = (isBadRequestFilter) as unknown as string[];
+      const errors = isBadRequestFilter as unknown as string[];
       // console.log(`@@ ey, `, errors);
       errorMess = {
         message: errors.length ? errors[0] : exception.message,
@@ -34,7 +26,6 @@ export class ResponseExceptionFilter<T> implements ExceptionFilter {
         status: HttpStatus.BAD_REQUEST,
       };
     }
-
 
     res.status(HttpStatus.BAD_REQUEST).json(errorMess);
   }

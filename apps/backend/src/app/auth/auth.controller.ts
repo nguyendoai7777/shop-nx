@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { type CreateUserDto, LoginDto } from '@shop/dto';
 import { verifyPassword } from '@utils';
-import { ResponseTransformer } from '@transformers';
+import { ResponseTransformer } from '@shop/factory';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -18,8 +18,8 @@ export class AuthController {
     return new ResponseTransformer({
       data,
       message: 'Đăng ký thành công',
-      status: HttpStatus.OK
-    })
+      status: HttpStatus.OK,
+    });
   }
 
   @ApiOperation({ summary: 'đăng nhập', description: 'Login' })

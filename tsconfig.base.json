@@ -19,10 +19,6 @@
     "customConditions": ["@shop/source"],
     "strictPropertyInitialization": false,
     "noUnusedLocals": false,
-    "baseUrl": ".",
-    "paths": {
-      "@shop/adapter": ["libs/shared/adapter/src/index.ts"],
-      "@shop/dto": ["libs/shared/dto/src/index.ts"]
-    }
+    "baseUrl": "."
   }
 }

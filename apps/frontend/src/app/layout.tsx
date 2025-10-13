@@ -7,6 +7,7 @@ import { MuiThemeConfig } from '@server/utils';
 import './global.css';
 import 'overlayscrollbars/overlayscrollbars.css';
 import { BodyScrollbarInitializer } from './scrollbar-initializer';
+import { ToastProvider } from '../components/toast/toast-provider';
 
 export const metadata: Metadata = {
   title: 'XD - d',
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </AuthContextProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
+        <ToastProvider />
       </body>
     </html>
   );

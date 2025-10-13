@@ -1,11 +1,8 @@
 import { BadRequestException, HttpStatus } from '@nestjs/common';
-import { ResponseTransformer } from '@transformers';
 import { hash } from 'argon2';
+import { ResponseTransformer } from '@shop/factory';
 
-export const verifyPassword = async (
-  password: string,
-  confirmPassword: string
-) => {
+export const verifyPassword = async (password: string, confirmPassword: string) => {
   if (confirmPassword !== password) {
     console.log(`@@ ??`);
     throw new BadRequestException(
@@ -20,5 +17,3 @@ export const verifyPassword = async (
     memoryCost: 2 ** 10,
   });
 };
-
-
