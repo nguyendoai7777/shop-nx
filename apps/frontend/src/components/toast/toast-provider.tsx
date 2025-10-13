@@ -9,21 +9,17 @@ export const ToastProvider: FCC = () => {
     anchorOrigin: { vertical: 'top', horizontal: 'right' } as const,
     autoHideDuration: 5000,
   };
-  return (
+  return message ? (
     <Snackbar open={open} onClose={closeToast} {...defaultSnackbarProps} {...config}>
-      {message ? (
-        <Alert
-          className="!text-white"
-          onClose={closeToast}
-          severity={message.type}
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          {message.msg}
-        </Alert>
-      ) : (
-        <></>
-      )}
+      <Alert
+        className="!text-white"
+        onClose={closeToast}
+        severity={message.type}
+        variant="filled"
+        sx={{ width: '100%' }}
+      >
+        {message.msg}
+      </Alert>
     </Snackbar>
-  );
+  ) : null;
 };

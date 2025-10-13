@@ -1,12 +1,13 @@
 'use client';
 import { useStore } from 'zustand/react';
-import { zAuthStore } from '@client/z-state';
+import { zAuthStore, zToastStore } from '@client/z-state';
 import { lazy, useEffect, useState } from 'react';
 import { Alert, AlertColor, ButtonBase, Dialog, Snackbar, Tooltip } from '@mui/material';
 import { SvgClient } from '@components';
 import { Channel, ResponseBase, SettingInfoRequestBody } from '@shop/type';
 import { httpResource } from '@core/http';
 import { HttpClient } from '@client/utils';
+import { AxiosResponse } from 'axios';
 
 const EditUserInfo = lazy(() => import('../component/edit-info'));
 // import ConfirmProDialog from '../component/confirm-pro';
@@ -15,7 +16,8 @@ const ConfirmProDialog = lazy(() => import('../component/confirm-pro'));
 export interface SettingInfoPageProps {}
 
 const SettingInfoPagePage: FCC<SettingInfoPageProps> = () => {
-  const { user } = useStore(zAuthStore, (state) => state);
+  const { user } = zAuthStore();
+  const { showToast } = zToastStore();
   const [openPro, setOpenPro] = useState(false);
   const [channel, setChannel] = useState<Channel>();
   const [msg, setMsg] = useState({
@@ -23,6 +25,7 @@ const SettingInfoPagePage: FCC<SettingInfoPageProps> = () => {
     msg: '',
   });
   const [openAlert, setOpenAlert] = useState(false);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     httpResource<ResponseBase<Channel>>(HttpClient.get(`/api/user/setting`)).subscribe({
       next(res) {
@@ -35,8 +38,17 @@ const SettingInfoPagePage: FCC<SettingInfoPageProps> = () => {
   };
 
   const updateChannel = (data: SettingInfoRequestBody) => {
-    httpResource(HttpClient.put(`/api/user/setting-info`, data)).subscribe({
-      next(res) {},
+    setLoading(true);
+    httpResource(HttpClient.put<ResponseBase>(`/api/user/setting-info`, data)).subscribe({
+      next(res) {
+        showToast({
+          type: 'success',
+          msg: res.message,
+        });
+      },
+      origin(response: AxiosResponse) {
+        setLoading(false);
+      },
     });
   };
 
@@ -77,7 +89,7 @@ const SettingInfoPagePage: FCC<SettingInfoPageProps> = () => {
           </div>
         </div>
         {user?.verified && channel ? (
-          <EditUserInfo channelName={user.channel ?? ''} channel={channel} save={updateChannel} />
+          <EditUserInfo loading={loading} channelName={user.channel ?? ''} channel={channel} save={updateChannel} />
         ) : (
           <></>
         )}

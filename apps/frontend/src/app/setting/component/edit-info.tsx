@@ -1,5 +1,5 @@
 'use client';
-import { IconButton, InputAdornment, TextField } from '@mui/material';
+import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { motion } from 'motion/react';
 import { AnimateRenderer, CButton, ErrorHelper } from '@components';
@@ -10,9 +10,10 @@ export interface EditUserInfoProps {
   channel: Channel;
   channelName: string;
   save?(data: SettingInfoRequestBody): void;
+  loading?: boolean;
 }
 
-const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save }) => {
+const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, loading = false }) => {
   const {
     control,
     handleSubmit,
@@ -60,6 +61,7 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save }) =>
         <div className="text-xl">Liên kết ngoài</div>
         <AnimateRenderer
           list={fields}
+          emptyComponent={<>Bạn chưa có liên kết nào</>}
           render={(item, index) => (
             <div key={item.id} className="flex gap-3 items-start">
               <motion.div
@@ -112,9 +114,16 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save }) =>
         <div className="flex justify-end gap-2 sticky buttom-0 mr-13">
           <CButton onClick={() => append({ url: '', shortname: '' })}>Thêm link</CButton>
 
-          <CButton className="!bg-purple-500 hover:!bg-purple-500/90 min-w-25" type="submit">
+          <CButton loading className="!bg-purple-500 hover:!bg-purple-500/90 min-w-25">
             Lưu
           </CButton>
+
+          <Button loadingPosition="start" loading={true} className="!bg-purple-500 hover:!bg-purple-500/90 min-w-25">
+            Lưu
+          </Button>
+          <Button loading variant="outlined">
+            Submit
+          </Button>
         </div>
       </form>
     </div>

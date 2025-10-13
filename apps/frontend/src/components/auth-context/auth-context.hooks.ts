@@ -64,14 +64,8 @@ export const useAuthContextHook = () => {
     try {
       const res = await fetch('/api/auth/logout');
       if (!res.ok) return false;
-
       setUser(void 0);
-      console.log({
-        currentUrl,
-        isPrivate: isPrivateRoute(currentUrl),
-      });
       if (isPrivateRoute(currentUrl)) {
-        console.log(`?? sao lai z nhi`);
         router.replace('/', {});
       }
       return true;
@@ -97,7 +91,6 @@ export const useAuthContextHook = () => {
       }
       const returnUrl = searchParams.get('returnUrl');
     } catch (e: any) {
-      console.log(`error`, e);
     } finally {
       setLoading(false);
     }

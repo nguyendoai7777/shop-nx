@@ -50,10 +50,15 @@ export class UserController {
   }
 
   @Put('setting-info')
-  updateChannel(@Body() payload: ChannelDto, @User() user: UserInfoByJWT) {
+  async updateChannel(@Body() payload: ChannelDto, @User() user: UserInfoByJWT) {
     console.log(`@@ Create Channel [user]`, user);
     console.log(`@@ Create Channel [channel]`, payload);
-    return this.userService.updateSettingInfo(payload, user);
+    const d = await this.userService.updateSettingInfo(payload, user);
+
+    return new ResponseTransformer({
+      message: 'Cập nhật thành công',
+      status: HttpStatus.OK,
+    });
   }
 
   @Post(`update-info`)
