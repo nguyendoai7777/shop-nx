@@ -1,10 +1,4 @@
-import {
-  ReactElement,
-  ReactNode,
-  MouseEvent,
-  createContext,
-  Context,
-} from 'react';
+import { ReactElement, ReactNode, MouseEvent, KeyboardEvent, Context, RefObject } from 'react';
 
 declare global {
   export type PropsWithChildren<P> = P & { children?: ReactNode };
@@ -17,11 +11,12 @@ declare global {
   export type FCC<P = {}> = FunctionComponent<P>;
 
   export type RMouseEvent<T> = MouseEvent<T>;
-
+  export type RKeyboardEvent<R> = KeyboardEvent<R>;
 }
 
 declare module 'react' {
-
   function createContext<T>(defaultValue: T): Context<T>;
   function createContext<T = undefined>(): Context<T>;
+  function useRef<T>(initialValue: T): RefObject<T>;
+  function useRef<T = undefined>(): RefObject<T>;
 }

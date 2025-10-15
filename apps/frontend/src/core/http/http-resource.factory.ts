@@ -1,12 +1,12 @@
 import { AxiosError, AxiosResponse } from 'axios';
 
-interface HttpResourceCaller<R = {}, V = AxiosResponse> {
+interface HttpResourceCaller<R, V = AxiosResponse> {
   next?(res: R): void;
   error?(err: R): void;
   /**
    * truyền lại response bất kể thành công hay thất bại
    * */
-  origin?(response: V): void;
+  completed?(response: V): void;
 }
 
 class HttpResource<R> {
@@ -32,7 +32,7 @@ class HttpResource<R> {
           arg3?.(res);
         } else {
           arg1?.next?.(res.data);
-          arg1?.origin?.(res);
+          arg1?.completed?.(res);
         }
       })
       .catch((err: AxiosError<R>) => {
@@ -42,7 +42,7 @@ class HttpResource<R> {
           arg3?.(err.response);
         } else {
           arg1?.error?.(errData);
-          arg1?.origin?.(err.response!);
+          arg1?.completed?.(err.response!);
         }
       });
   }

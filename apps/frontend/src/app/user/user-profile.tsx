@@ -14,7 +14,7 @@ export const UserProfile = () => {
       next(data) {
         console.log(`@@ {} user data`, data);
       },
-      origin(response) {
+      completed(response) {
         console.log(`@@ {} origin`, response);
       },
     });

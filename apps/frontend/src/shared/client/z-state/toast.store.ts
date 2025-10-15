@@ -21,22 +21,17 @@ interface ToastState {
   closeToast: () => void;
 }
 
-export const zToastStore = create<ToastState>()(
-  persist(
-    (set) => ({
-      open: false,
-      message: null,
-      config: {},
-      showToast: ({ msg, type = 'info', config = {} }) =>
-        set({
-          open: true,
-          message: { msg, type },
-          config,
-        }),
-      closeToast: () => set({ open: false, message: null }),
-    }),
-    {
-      name: 'ToastStore',
-    }
-  )
-);
+export const zToastStore = create<ToastState>()((set) => ({
+  open: false,
+  message: null,
+  config: {},
+  showToast: ({ msg, type = 'info', config = {} }) => {
+    console.log(`sao k show`);
+    set({
+      open: true,
+      message: { msg, type },
+      config,
+    });
+  },
+  closeToast: () => set({ open: false, message: null }),
+}));

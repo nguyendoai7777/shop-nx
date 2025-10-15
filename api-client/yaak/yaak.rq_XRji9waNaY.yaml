@@ -1,0 +1,87 @@
+type: http_request
+model: http_request
+id: rq_XRji9waNaY
+createdAt: 2025-10-14T10:31:40.794948
+updatedAt: 2025-10-14T10:31:44.083336100
+workspaceId: wk_teknBTJbQe
+folderId: fl_XY4UkxiVZQ
+authentication: {}
+authenticationType: null
+body:
+  text: '{"channel":"minhanhvip","externalLinks":[{"id":73,"channelId":1,"avatarUrl":"https://www.youtube.com/s/desktop/589d7fcc/img/favicon_144x144.png","url":"https://www.youtube.com/@battlecry.tinhaykhong","shortname":"BattleCrystal"},{"id":74,"channelId":1,"avatarUrl":"https://zypage.com/assets/img/favicon.ico","url":"https://zypage.com/sena96","shortname":"Sena36"},{"id":75,"channelId":1,"avatarUrl":"https://www.google.com/s2/favicons?domain=https://mail.google.com&sz=128","url":"https://mail.google.com/mail/u/0/#inbox?compose=fwmvGMBZkMtcFLTMgFwWzqbHGvpGKxLcBTxmRJkSgZCwSDfrPhDkZDpCNNHtPDgdXlMTfPbXJxWLgglZpgkXwwtJXrfnKXNHhWtLZGPhsljPXRDVfQgQ","shortname":"NguyenDoai"},{"id":76,"channelId":1,"avatarUrl":"https://static.xx.fbcdn.net/rsrc.php/y1/r/ay1hV6OlegS.ico","url":"https://www.facebook.com/thongtinchinhphu","shortname":"Thongtinchinhphu"}],"description":"Tin tức báo Thanh Niên - Đọc tin mới online - tin nhanh - tin 24h - thời sự\nKênh YouTube chính thức của Báo Thanh Niên. Đăng kí theo dõi kênh để xem những tin tức mới nhất: "}'
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Accept
+  value: application/json, text/plain, */*
+  id: null
+- enabled: true
+  name: Accept-Language
+  value: vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5
+  id: null
+- enabled: true
+  name: Authorization
+  value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlcm5hbWUiOiJkb2FpMiIsImVtYWlsIjoibmd1eWVuZG9haTc3NzcrMkBnbWFpbC5jb20iLCJpYXQiOjE3NjA0MzY4MTIsImV4cCI6MTc2MDUyMzIxMn0.v1SXv0kH7oAyrPmJWavofj8Sg1qMe0QVvg04SOUJHMY
+  id: null
+- enabled: true
+  name: Cache-Control
+  value: no-cache
+  id: null
+- enabled: true
+  name: Connection
+  value: keep-alive
+  id: null
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+- enabled: true
+  name: DNT
+  value: '1'
+  id: null
+- enabled: true
+  name: Origin
+  value: http://localhost:3001
+  id: null
+- enabled: true
+  name: Pragma
+  value: no-cache
+  id: null
+- enabled: true
+  name: Referer
+  value: http://localhost:3001/
+  id: null
+- enabled: true
+  name: Sec-Fetch-Dest
+  value: empty
+  id: null
+- enabled: true
+  name: Sec-Fetch-Mode
+  value: cors
+  id: null
+- enabled: true
+  name: Sec-Fetch-Site
+  value: same-site
+  id: null
+- enabled: true
+  name: User-Agent
+  value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+  id: null
+- enabled: true
+  name: sec-ch-ua
+  value: '"Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"'
+  id: null
+- enabled: true
+  name: sec-ch-ua-mobile
+  value: ?0
+  id: null
+- enabled: true
+  name: sec-ch-ua-platform
+  value: '"Windows"'
+  id: null
+method: PUT
+name: ''
+sortPriority: -1759120241632.0
+url: http://localhost:3000/api/user/setting-info
+urlParameters: []

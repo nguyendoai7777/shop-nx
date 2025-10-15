@@ -6,22 +6,21 @@ interface AuthStore {
   error: string;
   setError(error: string): void;
   user: UserQueryResponseSchema | undefined;
-  setUser(user: UserQueryResponseSchema | undefined): void;
+  setUser(user: Partial<UserQueryResponseSchema> | undefined): void;
   clearError: () => void;
 }
 
-export const zAuthStore = create<AuthStore>()(
-  persist(
-    (set) => ({
-      error: '',
-      setError: (error) => set({ error }),
-      user: void 0,
-      setUser: (user) => set({ user }),
+export const zAuthStore = create<AuthStore>()((set, get) => ({
+  error: '',
+  setError: (error) => set({ error }),
+  user: void 0,
+  setUser: (state) => {
+    const prv = get().user;
+    set({
+      // @ts-ignore
+      user: state ? { ...prv, ...state } : undefined,
+    });
+  },
 
-      clearError: () => set({ error: '' }),
-    }),
-    {
-      name: 'AuthStore', // key trong localStorage
-    }
-  )
-);
+  clearError: () => set({ error: '' }),
+}));

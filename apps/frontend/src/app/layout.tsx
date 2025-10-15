@@ -19,6 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className="bg-dark text-white px-4" data-overlayscrollbars-initialize>
         <BodyScrollbarInitializer />
+        <ToastProvider />
         <AppRouterCacheProvider options={{ key: 'css', enableCssLayer: true }}>
           <ThemeProvider theme={MuiThemeConfig}>
             <AuthContextProvider>
@@ -27,7 +28,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </AuthContextProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
-        <ToastProvider />
       </body>
     </html>
   );

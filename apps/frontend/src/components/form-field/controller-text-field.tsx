@@ -1,3 +1,4 @@
+'use client';
 import { TextField, TextFieldProps } from '@mui/material';
 import type { FieldPath, FieldValues, UseControllerProps } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
@@ -14,7 +15,7 @@ type ControllerConfig<
 // 🔹 Props chính của ControlledTextField
 export type ControlledTextFieldProps<T extends FieldValues, P extends TextFieldProps = TextFieldProps> = {
   controller: ControllerConfig<T>;
-  textField?: Omit<P, 'name' | 'value' | 'onChange'>;
+  controlProps?: Omit<P, 'name' | 'value' | 'onChange'>;
   textError?: string;
   component?: FormControlComponent<P>; // Mặc định là TextField
   disableFixedError?: boolean;
@@ -23,7 +24,7 @@ export type ControlledTextFieldProps<T extends FieldValues, P extends TextFieldP
 // 🔹 Implementation
 export const ControlledTextField = <T extends FieldValues, P extends TextFieldProps = TextFieldProps>({
   controller,
-  textField,
+  controlProps,
   textError,
   component,
   disableFixedError = false,
@@ -35,7 +36,7 @@ export const ControlledTextField = <T extends FieldValues, P extends TextFieldPr
       {...controller}
       render={({ field }) => (
         <>
-          <Component {...(field as any)} {...(textField as P)} error={!!textError} />
+          <Component {...(field as any)} {...(controlProps as P)} error={!!textError} />
           {disableFixedError ? (
             <>{textError ? <ErrorHelper>{textError}</ErrorHelper> : <></>}</>
           ) : (

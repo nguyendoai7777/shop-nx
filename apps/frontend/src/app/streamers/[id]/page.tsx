@@ -1,34 +1,35 @@
 import { Http } from '@server/utils';
 import { ResponseBase, Streamer } from '@shop/type';
-import { StreamerDetail } from './streamer-detail';
-
-export interface StreamerDetailProps {}
-/*export async function generateStaticParams() {
-  const posts = await fetch('https://.../posts').then((res) => res.json())
-
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
-}*/
-
+import { StreamerDetail } from './components';
+const NoData = ({ id }: { id: any }) => (
+  <div className="text-center mt-20 text-3xl">
+    Không tồn tại <b>{id}</b>
+  </div>
+);
 const StreamerDetailPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const _id = decodeURIComponent(id);
-  if (_id.startsWith('@')) {
-    const { data } = await Http.post<ResponseBase<Streamer>>(`/api/streamer/search`, {
-      channel: _id,
-    });
+  const isChannel = _id.startsWith('@');
+  const endpoint = isChannel ? '/api/streamer/search' : `/api/streamer/${_id}`;
+  const method = isChannel ? 'post' : 'get';
+  const userChannel = isChannel ? _id : id;
+  const payload = isChannel ? { channel: _id.slice(1) } : undefined;
 
-    return <StreamerDetail user={data!.data!} />;
+  try {
+    const { data } = await Http[method]<ResponseBase<Streamer>>(endpoint, payload);
+
+    if (!data?.data) {
+      return <NoData id={userChannel} />;
+    }
+
+    return <StreamerDetail user={data.data} />;
+  } catch {
+    return (
+      <div className="text-center mt-20 text-3xl">
+        Không tồn tại <b>{_id}</b>
+      </div>
+    );
   }
-
-  const { data } = await Http.get<ResponseBase<Streamer>>(`/api/streamer/${id}`);
-
-  if (!data.data) {
-    return <div>Fail to load</div>;
-  }
-  console.log(`@@ Server Component`, { id });
-  return <StreamerDetail user={data!.data!} />;
 };
 
 export default StreamerDetailPage;

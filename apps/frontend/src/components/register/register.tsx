@@ -10,10 +10,10 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
     {
       confirmPassword: 'MinhAnh@2003',
       password: 'MinhAnh@2003',
-      firstname: 'Minh',
-      lastname: 'Anh',
-      username: 'minhanh',
-      email: 'ntma2003@gmail.com',
+      firstname: 'Nguyen Hoa',
+      lastname: 'Binh',
+      username: 'sharkbinh',
+      email: 'sharkbinh@gmail.com',
       verified: false,
     },
     valueChange

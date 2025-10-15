@@ -7,12 +7,13 @@ import { AuthDialogProps, LoginFormDto, RegisterFormDto } from '@types';
 import { useAuth } from '../auth-context/auth-context';
 import { Login } from '../login/login';
 import { Register } from '../register/register';
-import { zAuthStore } from '@client/z-state';
+import { zAuthStore, zToastStore } from '@client/z-state';
 import { ESoraScrollDistance, useSoraScrollbar } from '@client/hooks';
-import { DialogFooter } from 'next/dist/client/components/react-dev-overlay/ui/components/dialog';
 
 const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
   const scrollRef = useRef<OverlayScrollbarsComponentRef>(null);
+  const { showToast } = zToastStore();
+
   const { login, register, loading } = useAuth();
   const { error } = zAuthStore();
   const { scrollPosition, handleScroll } = useSoraScrollbar();
@@ -29,9 +30,13 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
   };
 
   const _exeRegister = async () => {
-    const res = await register(registerValue!);
-    if (res.data) {
+    const data = await register(registerValue!);
+    if (data.data) {
       onClose?.();
+      showToast({
+        type: 'success',
+        msg: data.message + ', đăng nhập nhé!',
+      });
     }
   };
 
@@ -77,7 +82,7 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
         </div>
       </OverlayScrollbarsComponent>
 
-      <DialogFooter className="px-6">
+      <div className="px-6">
         <div className="flex flex-col gap-3">
           <div className="py-1 text-sm text-[#ff2929] min-h-4 h-4 leading-4">{error}</div>
           <Button
@@ -112,7 +117,7 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
             <LabelMode />
           </button>
         </div>
-      </DialogFooter>
+      </div>
     </>
   );
 };

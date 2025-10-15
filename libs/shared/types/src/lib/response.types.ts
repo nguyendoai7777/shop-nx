@@ -9,7 +9,7 @@ export interface ResponseBaseShape<T> {
 }
 
 export type ResponseBase<T = void> = [T] extends [void]
-  ? Omit<ResponseBaseShape<T>, 'data'>
+  ? Prettify<Omit<ResponseBaseShape<T>, 'data'>>
   : Required<ResponseBaseShape<T>>;
 
 export type ResponseWithPagination<T> = ResponseBase<T> & {

@@ -1,20 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-
-export class ExternalLink {
-  @ApiProperty({
-    description: `tên ngắn của link liên kết như fb, toptop, ...`,
-    type: 'string',
-    required: false
-  })
-  shortname?: string
-
-  @ApiProperty({
-    description: `link liên kết như fb, topto, ...`,
-    type: 'string',
-  })
-  url: string
-}
+import { IsDefined, IsNotEmpty, IsNumber, IsString, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class RegisterProChannel {
   @IsDefined({ message: 'channel không được để trống' })
@@ -40,6 +26,24 @@ export class RegisterProChannel {
   subscription: number;
 }
 
+export class ExternalLink {
+  @ApiProperty({
+    description: `tên ngắn của link liên kết như fb, toptop, ...`,
+    type: 'string',
+    required: false,
+  })
+  shortname?: string;
+
+  @IsDefined({ message: 'url không được để trống' })
+  @IsNotEmpty({ message: 'url không được để trống' })
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: `link liên kết như fb, topto, ...`,
+    type: 'string',
+  })
+  url: string;
+}
 export class ChannelDto {
   @IsDefined({ message: 'channel không được để trống' })
   @IsNotEmpty({ message: 'channel không được để trống' })
@@ -59,19 +63,19 @@ export class ChannelDto {
   })
   description?: string;
 
+  @ValidateNested({ each: true })
+  @Type(() => ExternalLink)
   @ApiProperty({
-    description: `link liên kết như fb, topto, ...`
+    description: `danh sách link liên kết như fb, topto, ...`,
   })
-  externalLinks: ExternalLink[]
+  externalLinks: ExternalLink[];
 }
 
 export class UpdateChannelDto {
-
   @ApiProperty({
     description: `tên kênh`,
     type: 'string',
     required: false,
   })
   channel: string;
-
 }

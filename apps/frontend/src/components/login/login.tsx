@@ -11,12 +11,12 @@ export const Login: FCC<LoginAction> = ({ valueChange }) => {
   useFocusElement('#AuthForm input');
   const {
     control,
-    formState: { errors, isValid },
+    formState: { errors },
     watch,
   } = useForm<LoginFormDto>({
     defaultValues: {
-      password: '',
-      username: '',
+      password: 'MinhAnh@2003',
+      username: 'sharkbinh',
     },
     mode: 'onTouched',
     reValidateMode: 'onChange',
@@ -39,7 +39,7 @@ export const Login: FCC<LoginAction> = ({ valueChange }) => {
             name: 'username',
             rules: { required: 'điền đi...' },
           }}
-          textField={{
+          controlProps={{
             label: 'Tên đăng nhập / Email',
           }}
           textError={errors?.username?.message}
@@ -53,7 +53,7 @@ export const Login: FCC<LoginAction> = ({ valueChange }) => {
             name: 'password',
             rules: { required: 'điền đi...' },
           }}
-          textField={{
+          controlProps={{
             label: 'Mật khẩu',
           }}
         />

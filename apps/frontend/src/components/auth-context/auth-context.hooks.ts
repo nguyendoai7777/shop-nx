@@ -19,6 +19,7 @@ export const useAuthContextHook = () => {
       .then((res) => res.json())
       .then(({ data }: ResponseBase<AuthResponse>) => {
         if (data?.user) {
+          console.log(data);
           setUser(data.user);
           ClientConfiguration.setMultiple({ token: data.accessToken, api: data.api });
         } else {
@@ -31,8 +32,6 @@ export const useAuthContextHook = () => {
   const login = async (payload: RegisterFormDto) => {
     clearError();
     setLoading(true);
-    // const {} = await HttpClient.post(`/api/auth/login`)
-
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
@@ -65,6 +64,7 @@ export const useAuthContextHook = () => {
       const res = await fetch('/api/auth/logout');
       if (!res.ok) return false;
       setUser(void 0);
+      console.log(`k logout a`);
       if (isPrivateRoute(currentUrl)) {
         router.replace('/', {});
       }
@@ -82,20 +82,18 @@ export const useAuthContextHook = () => {
       body: JSON.stringify(payload),
     });
     setError('');
-    const data: ResponseBase<RegisterFormDto> = await res.json();
     try {
+      const data: ResponseBase<RegisterFormDto> = await res.json();
       if (data.status !== 200) {
         setError(data?.message);
       } else {
-        // setToastMsg(data.message + ', ' + 'đăng nhập nhé!');
+        // setUser({ verified: true, channel: data.data.channel });
+        const returnUrl = searchParams.get('returnUrl');
       }
-      const returnUrl = searchParams.get('returnUrl');
-    } catch (e: any) {
+      return data;
     } finally {
       setLoading(false);
     }
-    setLoading(false);
-    return data;
   };
 
   return {

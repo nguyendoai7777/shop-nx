@@ -1,4 +1,4 @@
-import SettingInfoPagePage from './info/page';
+import SettingInfoPage from './info/setting-info-page';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,9 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function SettingPage() {
-  return (
-    <>
-      <SettingInfoPagePage />
-    </>
-  );
+  return <SettingInfoPage />;
 }

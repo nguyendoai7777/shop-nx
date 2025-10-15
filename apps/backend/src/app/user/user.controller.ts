@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@decorators';
 import { ChannelDto, RegisterProChannel, type UserInfoByJWT, UserInfoDTO, UserPasswordDTO } from '@shop/dto';
-import { RegisterChannelResponse } from '@shop/type';
+import { ExternalLinkResponseSchema, RegisterChannelResponse, SettingInfoRequestBody } from '@shop/type';
 import { ResponseTransformer } from '@shop/factory';
+import chalk from 'chalk';
 
 @Controller('user')
 @ApiTags('User')
@@ -34,31 +35,36 @@ export class UserController {
 
   @Post('channel')
   async createChannel(@Body() payload: RegisterProChannel, @User() user: UserInfoByJWT) {
-    if (!payload.channel.startsWith('@')) {
-      payload.channel = '@' + payload.channel;
-    }
-    console.log(`@@ Create Channel [channel]`, payload);
-    await this.userService.createChannel(payload, user);
+    const channel = await this.userService.createChannel(payload, user);
     return new ResponseTransformer<RegisterChannelResponse>({
       message: 'Đăng ký kênh thành công',
       status: 200,
       data: {
         channel: payload.channel,
         verified: true,
+        channelRef: {
+          id: channel.id,
+          createdAt: channel.createdAt as any,
+          followers: 0,
+          updatedAt: channel.updatedAt as any,
+          description: channel.description ?? '',
+          externalLinks: [],
+        },
       },
     });
   }
 
   @Put('setting-info')
   async updateChannel(@Body() payload: ChannelDto, @User() user: UserInfoByJWT) {
-    console.log(`@@ Create Channel [user]`, user);
-    console.log(`@@ Create Channel [channel]`, payload);
-    const d = await this.userService.updateSettingInfo(payload, user);
-
-    return new ResponseTransformer({
-      message: 'Cập nhật thành công',
-      status: HttpStatus.OK,
-    });
+    try {
+      const d = await this.userService.updateSettingInfo(payload, user);
+      return new ResponseTransformer({
+        message: 'Cập nhật thành công',
+        status: HttpStatus.OK,
+      });
+    } catch (e) {
+      throw new BadRequestException(e);
+    }
   }
 
   @Post(`update-info`)

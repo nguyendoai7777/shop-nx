@@ -30,4 +30,14 @@ describe('PageLogoService', () => {
     expect(typeof href).toBe('string');
     expect(href).toContain('fbcdn');
   }, 20000);
+
+  it('Email to', async () => {
+    const testUrl =
+      'https://mail.google.com/mail/u/0/#inbox?compose=fwmvGMBZkMtcFLTMgFwWzqbHGvpGKxLcBTxmRJkSgZCwSDfrPhDkZDpCNNHtPDgdXlMTfPbXJxWLgglZpgkXwwtJXrfnKXNHhWtLZGPhsljPXRDVfQgQ';
+    const href = await service.getIcon(testUrl);
+    console.log(chalk.green.bold('🔗 Gmail Favicon URL:'), href);
+    // Có thể assert cơ bản
+    expect(typeof href).toBe('string');
+    expect(href).toContain('mail');
+  }, 20000);
 });

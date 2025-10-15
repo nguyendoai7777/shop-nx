@@ -28,6 +28,24 @@ export const MuiThemeConfig = createTheme({
         },
       },
     },
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          borderRadius: 6,
+          color: '#fff',
+        },
+      },
+    },
+
+    MuiCircularProgress: {
+      styleOverrides: {
+        root: {
+          color: 'currentcolor',
+        },
+      },
+    },
+
     MuiButton: {
       styleOverrides: {
         root: {

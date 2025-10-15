@@ -1,5 +1,6 @@
 import type { CreateUserDto } from '@shop/dto';
-import { Channel } from './channel.types.js';
+import { Channel, SettingInfoRequestBody } from './channel.types.js';
+import { Maybe } from './common.types.js';
 
 export interface Streamer extends Omit<CreateUserDto, 'password' | 'confirmPassword'> {
   id: number;
@@ -11,10 +12,14 @@ export interface UserQueryResponseSchema {
   firstname: string;
   username: string;
   email: string;
-  channel: string | null;
+  channel: Maybe | string;
   verified: boolean;
   createdAt: Date | string;
   updatedAt: Date | string;
   id: number;
   themeId: number | null;
 }
+
+export type UserEditSettingError = {
+  [K in keyof SettingInfoRequestBody]?: string;
+};

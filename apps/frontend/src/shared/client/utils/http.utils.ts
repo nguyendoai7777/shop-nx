@@ -8,8 +8,10 @@ const httpServer = axios.create({
 httpServer.interceptors.request.use(
   async (config) => {
     const { api, token } = await ClientConfiguration.getAll();
-    config.baseURL = api;
-    console.log(`@Init HttpClient`);
+    const crossDomainUrl = config.url?.startsWith('http') ?? false;
+    const vrl = config.url?.replace(/^\/+/, '') ?? '';
+
+    config.url = crossDomainUrl ? config.url : api + '/api/' + vrl;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

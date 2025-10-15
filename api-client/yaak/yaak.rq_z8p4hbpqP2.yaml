@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_z8p4hbpqP2
 createdAt: 2025-10-06T07:05:18.822681800
-updatedAt: 2025-10-08T09:35:53.023709300
+updatedAt: 2025-10-14T05:42:15.766311500
 workspaceId: wk_teknBTJbQe
 folderId: fl_3py5A3C6ch
 authentication: {}
@@ -10,7 +10,7 @@ authenticationType: null
 body:
   text: |-
     {
-      "channel": "@minhanhVVip"
+      "channel": "tadaX"
     }
 bodyType: application/json
 description: ''

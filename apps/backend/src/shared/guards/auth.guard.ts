@@ -1,11 +1,8 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
+import chalk from 'chalk';
+import { Deeppink, DodgeBlue } from '../constants/color.const';
 
 function pathToRegex(pattern: string): RegExp {
   // Bước 1: thay thế glob ** và *
@@ -28,12 +25,7 @@ function isOpenRoute(url: string, routes: string[]): boolean {
   const path = url.split('?')[0].split('#')[0];
   return routes.some((pattern) => pathToRegex(pattern).test(path));
 }
-const openRoutes = [
-  '/api/streamer',
-  '/api/streamer/**',
-  '/api/auth/**',
-  '/api/public/**',
-];
+const openRoutes = ['/api/streamer', '/api/streamer/**', '/api/auth/**', '/api/public/**'];
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -43,9 +35,10 @@ export class AuthGuard implements CanActivate {
 
     // if (request.url.startsWith('/api/auth')) return true;
     // if (openRoutes.includes(request.url))
-    console.log(`@@ [${request.method}] route`, {
+    console.log(chalk.hex(Deeppink).bold(`@@`), chalk.hex(DodgeBlue).bold(`[${request.method}]`));
+    console.log({
       url: request.url,
-      isPublic: isOpenRoute(request.url, openRoutes)
+      isPublic: isOpenRoute(request.url, openRoutes),
     });
     if (isOpenRoute(request.url, openRoutes)) {
       return true;

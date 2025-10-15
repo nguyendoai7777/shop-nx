@@ -1,7 +1,6 @@
 import { Streamer } from '@shop/type';
 import { SvgClient } from '@components';
-import ChannelDescription from './text-ellipsis-clickable';
-import { json } from '@client/utils';
+import ChannelDescription from './channel-desc';
 
 export interface StreamerDetailProps {
   user: Streamer;
@@ -11,8 +10,8 @@ export const StreamerDetail: FCC<StreamerDetailProps> = ({ user }) => {
   return (
     <div className="mt-4">
       <div className="relative">
-        <img alt="intro" className="w-full h-auto" src="/banner.jpg" />
-        <div className=" absolute left-2  w-45 h-45 z-20 top-[calc(100%-90px)]">
+        <img alt="intro" className="w-full h-auto aspect-[16/2.5]" src="/banner.jpg" />
+        <div className="absolute left-2  w-45 h-45 z-20 top-[calc(100%-90px)]">
           <div className="relative h-full">
             <div className="rounded-full overflow-hidden absolute inset-5 h-fit">
               <img alt="avatar" width={160} height={160} src="/avt.jpg" />
@@ -56,9 +55,7 @@ export const StreamerDetail: FCC<StreamerDetailProps> = ({ user }) => {
 
           <div>ok</div>
         </div>
-        <div className="w-2/3">
-          <pre>{json(user)}</pre>
-        </div>
+        <div className="w-2/3"></div>
       </div>
     </div>
   );

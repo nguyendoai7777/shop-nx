@@ -4,6 +4,7 @@ import { PageLogoService, PrismaClientService } from '@services';
 import { ChannelDto, RegisterProChannel, UserInfoByJWT, UserPasswordDTO } from '@shop/dto';
 import { verifyPassword } from '@utils';
 import { ResponseTransformer } from '@shop/factory';
+import chalk from 'chalk';
 
 @Injectable()
 export class UserService {
@@ -58,7 +59,7 @@ export class UserService {
     });
 
     if (!_user && !sub) {
-      const [$user, $sub] = await this.prisma.$transaction([
+      const [$user, $channel, $sub] = await this.prisma.$transaction([
         this.prisma.user.update({
           where: {
             id: user.id,
@@ -71,6 +72,17 @@ export class UserService {
             password: true,
           },
         }),
+        this.prisma.channel.create({
+          data: {
+            userId: user.id,
+            description: '',
+            externalLinks: {
+              createMany: {
+                data: [],
+              },
+            },
+          },
+        }),
         this.prisma.subscription.create({
           data: {
             subscription: payload.subscription,
@@ -78,14 +90,12 @@ export class UserService {
           },
         }),
       ]);
-      return {};
+      return $channel;
     }
-    throw new BadRequestException(
-      new ResponseTransformer<void>({
-        message: `không biết lỗi gì`,
-        status: HttpStatus.BAD_REQUEST,
-      })
-    );
+    throw new BadRequestException({
+      message: `không biết lỗi gì`,
+      status: HttpStatus.BAD_REQUEST,
+    });
   }
 
   async updateChannel(payload: ChannelDto, user: UserInfoByJWT) {
@@ -157,10 +167,37 @@ export class UserService {
         userId: user.id,
       },
     });
+
+    console.log(chalk.bold.red`@@ channel`, channel, user.id);
+
     if (!channel) {
       throw new BadRequestException('Không hợp lệ');
     }
+
+    const [existedUser, currentUser] = await Promise.all([
+      this.prisma.user.findUnique({
+        where: {
+          channel: payload.channel,
+        },
+      }),
+      await this.prisma.user.findUnique({
+        where: {
+          id: user.id,
+        },
+      }),
+    ]);
+
+    if (existedUser && existedUser.channel !== currentUser?.channel) {
+      throw new BadRequestException({
+        message: 'Đã tồn tại kênh này rồi, vui lòng nhập kênh khác',
+        data: {
+          channel: `Đã tồn tại kênh này rồi, vui lòng nhập kênh khác`,
+        },
+        status: HttpStatus.FORBIDDEN,
+      });
+    }
     const links = await this.logo.signMultiple(payload.externalLinks);
+    console.log(chalk.bold.green(`Links`, JSON.stringify(links)));
     const t$ = this.prisma.$transaction([
       this.prisma.user.update({
         where: {

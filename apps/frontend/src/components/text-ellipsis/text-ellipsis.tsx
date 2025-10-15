@@ -36,17 +36,10 @@ export const TextEllipsis = <T extends ElementType = 'div'>({
     return () => window.removeEventListener('resize', checkOverflow);
   }, [children]);
 
-  const handleClick = (e: RMouseEvent<HTMLElement>): void => {
-    if (isOverflowing) {
-      ellipsis?.(e);
-    }
-  };
-
   return (
     <Component
       ref={textRef}
       className={`line-clamp-1 ${isOverflowing ? 'cursor-pointer mask-right' : ''} ${className}`}
-      onClick={handleClick}
       {...props}
     >
       {children}
