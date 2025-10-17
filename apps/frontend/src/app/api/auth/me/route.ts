@@ -3,16 +3,17 @@ import { cookies } from 'next/headers';
 import { ResponseBase, UserQueryResponseSchema } from '@shop/type';
 import { Http, loadConfig } from '@server/utils';
 import { AuthResponse } from '@types';
-import { HttpStatus } from '@nestjs/common';
+import chalk from 'chalk';
 
 // simple verify (có thể gọi BE verify nếu cần)
 export async function GET() {
   const cookieStore = await cookies();
   const { ApiUrl } = await loadConfig();
   const token = cookieStore.get('token')?.value;
+  console.log(chalk.bold.green`API /me`, token);
   const response = NextResponse.json<ResponseBase>({
     message: 'Chưa đăng nhập',
-    status: HttpStatus.FORBIDDEN,
+    status: 403,
   });
   if (!token) {
     return response;

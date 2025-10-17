@@ -1,0 +1,101 @@
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  HttpStatus,
+  Post,
+  UploadedFiles,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
+import { UploadImageDto } from './dto/media.dto';
+import { User } from '@decorators';
+import type { UserInfoByJWT } from '@shop/dto';
+import { existsSync, unlinkSync, writeFileSync } from 'node:fs';
+import { mkdirSync } from 'fs';
+import { join } from 'node:path';
+import { extname } from 'path';
+import { MediaService } from './media.service';
+import { ResponseTransformer } from '@shop/factory';
+import { UserProfileImage } from '@shop/type';
+import { MediaImagAllowedMsg, MediaImageMimes } from '@shop/platform';
+
+@Controller('media')
+export class MediaController {
+  constructor(private readonly mds: MediaService) {}
+
+  @Post('upload')
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        { name: 'avatar', maxCount: 1 },
+        { name: 'banner', maxCount: 1 },
+      ],
+      {
+        storage: memoryStorage(),
+        limits: {
+          fileSize: 2 * 1024 ** 2,
+        },
+        fileFilter(_, file, callback) {
+          if (MediaImageMimes.includes(file.mimetype)) {
+            callback(null, true);
+          } else {
+            callback(
+              new BadRequestException({
+                message: `Chỉ chấp nhận file ảnh (${MediaImagAllowedMsg.toUpperCase()})`,
+                status: HttpStatus.FORBIDDEN,
+              }),
+              false
+            );
+          }
+        },
+      }
+    )
+  )
+  async uploadFiles(@UploadedFiles() files: UploadImageDto, @Body() body: UploadImageDto, @User() user: UserInfoByJWT) {
+    const banner = files.banner?.[0];
+    const avatar = files.avatar?.[0];
+    const savedPath = join(__dirname, '../public', 'profile-img');
+    if (!existsSync(savedPath)) {
+      mkdirSync(savedPath, { recursive: true });
+    }
+    const userPath = join(__dirname, '../public', 'profile-img', `${user.id}`);
+    if (!existsSync(userPath)) mkdirSync(userPath, { recursive: true });
+
+    const result: UserProfileImage = {
+      banner: null,
+      avatar: null,
+    };
+
+    if (banner && banner.buffer) {
+      const ext = extname(banner.originalname);
+      const n = Date.now();
+      const bannerPath = join(userPath, `banner_${n}${ext}`);
+      try {
+        unlinkSync(bannerPath);
+      } catch {}
+      writeFileSync(bannerPath, banner.buffer); // ✅ buffer có giá trị
+      result.banner = `/profile-img/${user.id}/banner_${n}${ext}`;
+    }
+
+    if (avatar && avatar.buffer) {
+      const ext = extname(avatar.originalname);
+      const n = Date.now();
+      const avatarPath = join(userPath, `avatar_${n}${ext}`);
+      try {
+        unlinkSync(avatarPath);
+      } catch {}
+      writeFileSync(avatarPath, avatar.buffer); // ✅ buffer có giá trị
+      result.avatar = `/profile-img/${user.id}/avatar_${n}${ext}`;
+    }
+
+    await this.mds.updateUserImage({ avatar: result.avatar, banner: result.banner }, user);
+
+    return new ResponseTransformer({
+      message: 'Upload thành công',
+      status: HttpStatus.OK,
+      data: result,
+    });
+  }
+}

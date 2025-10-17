@@ -11,7 +11,8 @@ export const Login: FCC<LoginAction> = ({ valueChange }) => {
   useFocusElement('#AuthForm input');
   const {
     control,
-    formState: { errors },
+    formState: { errors, defaultValues: dv },
+
     watch,
   } = useForm<LoginFormDto>({
     defaultValues: {
@@ -22,6 +23,10 @@ export const Login: FCC<LoginAction> = ({ valueChange }) => {
     reValidateMode: 'onChange',
   });
   useEffect(() => {
+    valueChange?.({
+      password: dv?.password ?? '',
+      username: dv?.username ?? '',
+    });
     const subscription = watch(({ password, username }) => {
       valueChange?.({
         password: password ?? '',

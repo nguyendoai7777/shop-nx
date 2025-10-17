@@ -7,7 +7,12 @@ export interface Streamer extends Omit<CreateUserDto, 'password' | 'confirmPassw
   channelRef: Channel;
 }
 
-export interface UserQueryResponseSchema {
+export interface UserProfileImage {
+  avatar?: string | null;
+  banner?: string | null;
+}
+
+export interface UserQueryResponseSchema extends UserProfileImage {
   lastname: string;
   firstname: string;
   username: string;

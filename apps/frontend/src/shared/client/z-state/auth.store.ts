@@ -7,6 +7,8 @@ interface AuthStore {
   setError(error: string): void;
   user: UserQueryResponseSchema | undefined;
   setUser(user: Partial<UserQueryResponseSchema> | undefined): void;
+  apiUrl: string;
+  setApiUrl(url: string): void;
   clearError: () => void;
 }
 
@@ -21,6 +23,7 @@ export const zAuthStore = create<AuthStore>()((set, get) => ({
       user: state ? { ...prv, ...state } : undefined,
     });
   },
-
+  apiUrl: '',
+  setApiUrl: (apiUrl) => set({ apiUrl }),
   clearError: () => set({ error: '' }),
 }));

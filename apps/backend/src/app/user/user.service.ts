@@ -135,7 +135,19 @@ export class UserService {
     return _user;
   }
 
-  findUserSetting(userInfo: UserInfoByJWT) {
+  findUserSettingInfo(user: UserInfoByJWT) {
+    return this.prisma.user.findUnique({
+      where: {
+        id: user.id,
+      },
+      omit: {
+        password: true,
+      },
+    });
+  }
+
+  findUserSettingChannel(userInfo: UserInfoByJWT) {
+    console.log(userInfo);
     return this.prisma.channel.findUnique({
       where: {
         userId: userInfo.id,

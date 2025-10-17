@@ -7,7 +7,7 @@ import { ClientConfiguration } from '@client/utils';
 import { isPrivateRoute } from '@core/route';
 
 export const useAuthContextHook = () => {
-  const { clearError, setError, setUser } = zAuthStore();
+  const { clearError, setError, setUser, setApiUrl } = zAuthStore();
   const searchParams = useSearchParams();
   const router = useRouter();
   const currentUrl = usePathname();
@@ -19,8 +19,8 @@ export const useAuthContextHook = () => {
       .then((res) => res.json())
       .then(({ data }: ResponseBase<AuthResponse>) => {
         if (data?.user) {
-          console.log(data);
           setUser(data.user);
+          setApiUrl(data.api);
           ClientConfiguration.setMultiple({ token: data.accessToken, api: data.api });
         } else {
           setUser(void 0);
@@ -32,6 +32,7 @@ export const useAuthContextHook = () => {
   const login = async (payload: RegisterFormDto) => {
     clearError();
     setLoading(true);
+    console.log(`payload`, payload);
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',

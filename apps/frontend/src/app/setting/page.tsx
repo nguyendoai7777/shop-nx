@@ -1,10 +1,9 @@
-import SettingInfoPage from './info/setting-info-page';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Cài đặt - Thông tin cá nhân',
+  title: 'Cài đặt',
 };
 
 export default function SettingPage() {
-  return <SettingInfoPage />;
+  return 'Setting Page';
 }

@@ -1,28 +1,23 @@
 'use client';
-import { RegisterFormDto } from '@types';
-import { Avatar } from '@mui/material';
 import { useMemo } from 'react';
 import { UserQueryResponseSchema } from '@shop/type';
-
-interface __User extends UserQueryResponseSchema {
-  avatar?: string;
-}
+import { ForwardImg } from '@components';
 
 export interface NavAvatarProps {
-  user: __User;
+  user: UserQueryResponseSchema;
 }
 
-const NavAvatar: FCC<NavAvatarProps> = (props) => {
-  const { avatar, firstname = '', lastname = '', username, email } = props.user;
+const NavAvatar: FCC<NavAvatarProps> = ({ user }) => {
+  const { avatar, firstname = '', lastname = '' } = user;
   const naming = useMemo(() => {
     return {
-      short: (firstname.charAt(0) + lastname.charAt(0)!).toUpperCase(),
+      short: (firstname.charAt(0) + lastname.charAt(0)!).replace(/\s/, '').toUpperCase(),
       full: firstname + ' ' + lastname,
     };
   }, [firstname, lastname]);
 
   return avatar ? (
-    <Avatar alt={naming.full} src={avatar} />
+    <ForwardImg alt={naming.short} src={avatar} asMuiAvatar />
   ) : (
     <div className="w-9 h-9 rounded-full text-center content-center border border-gray-400 ">{naming.short}</div>
   );

@@ -11,7 +11,7 @@ export class ResponseExceptionFilter<T> implements ExceptionFilter {
 
     let errorMess: any;
     const isBadRequestFilter = (exception.getResponse() as BadRequestException).message;
-    const tryAsResponseTransformer = (exception.getResponse() as any).response;
+    const tryAsResponseTransformer = exception.getResponse() as any;
     console.log(`<=====================>`);
     console.log(chalk.bold.hex('#ff1493')`@BadRequestException`, exception.getResponse());
     if (tryAsResponseTransformer instanceof ResponseTransformer) {

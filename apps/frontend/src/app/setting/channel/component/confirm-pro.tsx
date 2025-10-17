@@ -81,7 +81,9 @@ const ConfirmProDialog: FCC<ConfirmProDialogProps> = ({ onClose, onSave }) => {
         </div>
         <div className="px-6 text-xs py-3 text-gray-400 border-t border-gray-600">
           Không thể hoàn tác hoặc thay đổi sau khi đã đăng ký, vui lòng cân nhắc kỹ.
-          <p className="mt-1">Sau khi đăng ký, bạn sẽ có thể thêm cách thông tin như mô tả kênh, liên kết ngoài, ...</p>
+          <div className="mt-1">
+            Sau khi đăng ký, bạn sẽ có thể thêm cách thông tin như mô tả kênh, liên kết ngoài, ...
+          </div>
         </div>
         <div className="flex justify-end px-2 gap-2 pt-3 border-t border-gray-600">
           <ButtonBase className="duration-150 !rounded-full hover:!bg-btn-base-hover-bg" onClick={onClose}>

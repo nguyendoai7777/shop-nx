@@ -25,4 +25,4 @@ select * from channel;
 
 select * from externallink;
 
-select * from user;
+select * from channel ;

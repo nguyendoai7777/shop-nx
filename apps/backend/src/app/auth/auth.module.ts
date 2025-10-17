@@ -9,7 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
       global: true,
       secret: process.env['SECRET_KEY'],
       signOptions: {
-        expiresIn: '1d',
+        expiresIn: '7d',
       },
     }),
   ],
@@ -17,3 +17,9 @@ import { JwtModule } from '@nestjs/jwt';
   providers: [AuthService],
 })
 export class AuthModule {}
+
+/*
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzksInVzZXJuYW1lIjoic2hhcmtiaW5oIiwiZW1haWwiOiJzaGFya2JpbmhAZ21haWwuY29tIiwiaWF0IjoxNzYwNjgyMzMxLCJleHAiOjE3NjEyODcxMzF9.oQgl1fUH4v5pdg_0FQPCY9ZrLFp1FK5EDGrz5poWbEg
+
+*/

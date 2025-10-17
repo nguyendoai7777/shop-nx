@@ -1,5 +1,6 @@
 export const Deeppink = '#ff1493';
 export const DodgeBlue = '#1e90ff';
+export const Purple = '#9810fa';
 
 export const HexPalette = {
   Deeppink,

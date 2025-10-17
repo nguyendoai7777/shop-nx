@@ -26,7 +26,6 @@ export const zToastStore = create<ToastState>()((set) => ({
   message: null,
   config: {},
   showToast: ({ msg, type = 'info', config = {} }) => {
-    console.log(`sao k show`);
     set({
       open: true,
       message: { msg, type },

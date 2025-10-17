@@ -27,7 +27,7 @@ const SettingChanelPage: FCC<SettingInfoPageProps> = () => {
   const [loading, setLoading] = useState(false);
   const [asyncError, setAsyncError] = useState<any>();
   useEffect(() => {
-    httpResource<ResponseBase<Channel>>(HttpClient.get(`user/setting`)).subscribe({
+    httpResource<ResponseBase<Channel>>(HttpClient.get(`user/setting-channel`)).subscribe({
       next(res) {
         setChannel(res.data);
       },
@@ -39,7 +39,7 @@ const SettingChanelPage: FCC<SettingInfoPageProps> = () => {
 
   const updateChannel = (data: SettingInfoRequestBody) => {
     setLoading(true);
-    httpResource(HttpClient.put<ResponseBase<{}>>(`user/setting-info`, data)).subscribe({
+    httpResource(HttpClient.put<ResponseBase<{}>>(`user/setting-channel`, data)).subscribe({
       next(res) {
         showToast({
           type: 'success',
@@ -77,7 +77,7 @@ const SettingChanelPage: FCC<SettingInfoPageProps> = () => {
           });
         setChannel(channelRef);
         httpResource(
-          HttpClient.put<ResponseBase>(`user/setting-info`, {
+          HttpClient.put<ResponseBase>(`user/setting-channel`, {
             description: '',
             externalLinks: [],
             channel,

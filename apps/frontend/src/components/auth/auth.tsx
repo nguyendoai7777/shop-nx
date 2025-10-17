@@ -23,6 +23,7 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
   const [loginValue, setLoginValue] = useState<LoginFormDto>();
 
   const _exeLogin = async () => {
+    console.log(loginValue);
     const data = await login(loginValue!);
     if (data.data?.user) {
       onClose?.();
@@ -30,6 +31,7 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
   };
 
   const _exeRegister = async () => {
+    console.log(registerValue);
     const data = await register(registerValue!);
     if (data.data) {
       onClose?.();

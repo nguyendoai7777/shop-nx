@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../libs/shared/platform"
+    },
+    {
       "path": "../../libs/shared/types"
     },
     {

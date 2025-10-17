@@ -36,10 +36,10 @@ export class AuthService {
       },
     });
 
-    const err = new ResponseTransformer({
+    const err = {
       message: `Thông tin đăng nhập không chính xác.`,
       status: HttpStatus.UNAUTHORIZED,
-    });
+    };
 
     if (!user) {
       throw new BadRequestException(err);

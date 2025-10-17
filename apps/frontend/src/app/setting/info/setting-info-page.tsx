@@ -1,9 +1,13 @@
 'use client';
-import './setting-info-page.scss';
-import { ImageUpload, PickImage } from './components/image-upload';
 
-export default function SettingInfoPage() {
-  const handlePickImage = (data: PickImage) => {};
+import { ImageUpload } from './components/image-upload';
+import { TextField } from '@mui/material';
 
-  return <ImageUpload onPick={handlePickImage} />;
-}
+const SettingInfoPage = () => {
+  return (
+    <div className="flex-1">
+      <TextField />
+    </div>
+  );
+};
+export default SettingInfoPage;

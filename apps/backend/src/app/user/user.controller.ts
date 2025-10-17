@@ -1,4 +1,15 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  UseInterceptors,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@decorators';
@@ -6,6 +17,7 @@ import { ChannelDto, RegisterProChannel, type UserInfoByJWT, UserInfoDTO, UserPa
 import { ExternalLinkResponseSchema, RegisterChannelResponse, SettingInfoRequestBody } from '@shop/type';
 import { ResponseTransformer } from '@shop/factory';
 import chalk from 'chalk';
+import { FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('user')
 @ApiTags('User')
@@ -23,12 +35,22 @@ export class UserController {
     });
   }
 
-  @Get(`setting`)
-  async setting(@User() user: UserInfoByJWT) {
-    const data = await this.userService.findUserSetting(user);
+  @Get(`setting-user`)
+  async settingInfo(@User() user: UserInfoByJWT) {
+    const data = await this.userService.findUserSettingInfo(user);
     return new ResponseTransformer({
       data,
-      status: 200,
+      status: HttpStatus.OK,
+      message: 'Success',
+    });
+  }
+
+  @Get(`setting-channel`)
+  async settingChannel(@User() user: UserInfoByJWT) {
+    const data = await this.userService.findUserSettingChannel(user);
+    return new ResponseTransformer({
+      data,
+      status: HttpStatus.OK,
       message: 'OK',
     });
   }
@@ -38,7 +60,7 @@ export class UserController {
     const channel = await this.userService.createChannel(payload, user);
     return new ResponseTransformer<RegisterChannelResponse>({
       message: 'Đăng ký kênh thành công',
-      status: 200,
+      status: HttpStatus.OK,
       data: {
         channel: payload.channel,
         verified: true,
@@ -54,7 +76,7 @@ export class UserController {
     });
   }
 
-  @Put('setting-info')
+  @Put('setting-channel')
   async updateChannel(@Body() payload: ChannelDto, @User() user: UserInfoByJWT) {
     try {
       const d = await this.userService.updateSettingInfo(payload, user);

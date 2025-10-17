@@ -51,6 +51,9 @@
       "path": "../../libs/shared/dto"
     },
     {
+      "path": "../../libs/shared/platform"
+    },
+    {
       "path": "../../libs/shared/types"
     }
   ]
