@@ -1,17 +1,8 @@
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  HttpStatus,
-  Post,
-  UploadedFiles,
-  UseInterceptors,
-} from '@nestjs/common';
+import { BadRequestException, Controller, HttpStatus, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
-import { UploadImageDto } from './dto/media.dto';
 import { User } from '@decorators';
-import type { UserInfoByJWT } from '@shop/dto';
+import { UploadImageDto, type UserInfoByJWT } from '@shop/dto';
 import { existsSync, unlinkSync, writeFileSync } from 'node:fs';
 import { mkdirSync } from 'fs';
 import { join } from 'node:path';
@@ -35,7 +26,7 @@ export class MediaController {
       {
         storage: memoryStorage(),
         limits: {
-          fileSize: 2 * 1024 ** 2,
+          fileSize: 10 * 1024 ** 2,
         },
         fileFilter(_, file, callback) {
           if (MediaImageMimes.includes(file.mimetype)) {
@@ -53,7 +44,7 @@ export class MediaController {
       }
     )
   )
-  async uploadFiles(@UploadedFiles() files: UploadImageDto, @Body() body: UploadImageDto, @User() user: UserInfoByJWT) {
+  async uploadFiles(@UploadedFiles() files: UploadImageDto, @User() user: UserInfoByJWT) {
     const banner = files.banner?.[0];
     const avatar = files.avatar?.[0];
     const savedPath = join(__dirname, '../public', 'profile-img');

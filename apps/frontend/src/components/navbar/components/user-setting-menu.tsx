@@ -68,7 +68,7 @@ const UserSettingMenu: FCC<UserSettingMenuProps> = ({ id, anchorEl, open, handle
         </Link>
       </li>
       <li onClick={handleClose}>
-        <Link href="/setting">
+        <Link href="/setting/info">
           <Button fullWidth className={_className} startIcon={<Settings />}>
             Cài đặt
           </Button>

@@ -6,18 +6,17 @@ import {
   Get,
   HttpStatus,
   Param,
+  Patch,
   Post,
   Put,
-  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@decorators';
-import { ChannelDto, RegisterProChannel, type UserInfoByJWT, UserInfoDTO, UserPasswordDTO } from '@shop/dto';
-import { ExternalLinkResponseSchema, RegisterChannelResponse, SettingInfoRequestBody } from '@shop/type';
+import { ChannelDto, RegisterProChannel, UpdateUserProfileDto, type UserInfoByJWT, UserPasswordDTO } from '@shop/dto';
+import { RegisterChannelResponse } from '@shop/type';
 import { ResponseTransformer } from '@shop/factory';
-import chalk from 'chalk';
-import { FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { c, removeEmptyFields, verifyPassword } from '@utils';
 
 @Controller('user')
 @ApiTags('User')
@@ -89,9 +88,16 @@ export class UserController {
     }
   }
 
-  @Post(`update-info`)
-  updateUserInfo(@Body() dto: UserInfoDTO, @User() user: any) {
-    return `ok`;
+  @Patch('update-profile')
+  async updateUserProfile(@Body() payload: UpdateUserProfileDto, @User() user: UserInfoByJWT) {
+    if (payload.password) {
+      payload.password = await verifyPassword(payload.password, payload.confirmPassword!);
+    }
+    await this.userService.updateUserInfoSetting(removeEmptyFields(payload), user.id);
+    return new ResponseTransformer({
+      message: 'Cập nhật thành công',
+      status: HttpStatus.OK,
+    });
   }
 
   @Post(`change-password`)

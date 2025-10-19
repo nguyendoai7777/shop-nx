@@ -1,9 +1,8 @@
 import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { PageLogoService, PrismaClientService } from '@services';
-import { ChannelDto, RegisterProChannel, UserInfoByJWT, UserPasswordDTO } from '@shop/dto';
+import type { ChannelDto, RegisterProChannel, UpdateUserProfileDto, UserInfoByJWT, UserPasswordDTO } from '@shop/dto';
 import { verifyPassword } from '@utils';
-import { ResponseTransformer } from '@shop/factory';
 import chalk from 'chalk';
 
 @Injectable()
@@ -238,6 +237,16 @@ export class UserService {
     ]);
 
     return t$;
+  }
+
+  updateUserInfoSetting(data: UpdateUserProfileDto, userId: number) {
+    return this.prisma.user.update({
+      where: { id: userId },
+      data,
+      omit: {
+        password: true,
+      },
+    });
   }
 
   remove(id: number) {

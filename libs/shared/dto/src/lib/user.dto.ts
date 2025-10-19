@@ -6,8 +6,11 @@ import {
   Matches,
   MaxLength,
   MinLength,
+  Validate,
+  ValidateIf,
 } from 'class-validator';
 import { ApiProperty, IntersectionType } from '@nestjs/swagger';
+import { PasswordMatchConstraint } from '../decorators/password-matcher.decorator.js';
 
 export class UserInfoDTO {
   @IsEmail({}, { message: 'Email Không đúng định dạng' })
@@ -38,18 +41,13 @@ export class UserInfoDTO {
     type: 'string',
   })
   lastname: string;
-
-
 }
 
 export class UserPasswordDTO {
-  @Matches(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/,
-    {
-      message:
-        'Password phải chứa ít nhất 1 chữ thường, 1 chữ hoa, 1 số và 1 ký tự đặc biệt',
-    }
-  )
+  @ValidateIf((o) => o.password !== undefined && o.password !== '')
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/, {
+    message: 'Password phải chứa ít nhất 1 chữ thường, 1 chữ hoa, 1 số và 1 ký tự đặc biệt',
+  })
   @MinLength(8, { message: 'Mật khẩu ít nhất 8 ký tự' })
   @IsDefined({ message: 'Mật khẩu không được để trống' })
   @IsNotEmpty({ message: 'Mật khẩu ít nhất 8 ký tự' })
@@ -60,20 +58,19 @@ export class UserPasswordDTO {
     type: 'string',
   })
   password: string;
-
+  @ValidateIf((o) => o.password !== undefined && o.password !== '')
+  @Validate(PasswordMatchConstraint)
+  @IsNotEmpty({ message: 'confirmPassword Vui lòng xác nhận lại mật khẩu' })
   @IsNotEmpty()
   @IsString()
   @ApiProperty({
     example: '123@!Fvxs',
+    required: false,
   })
   confirmPassword?: string;
 }
 
-export class CreateUserDto extends IntersectionType(
-  UserInfoDTO,
-  UserPasswordDTO,
-
-) {
+export class CreateUserDto extends IntersectionType(UserInfoDTO, UserPasswordDTO) {
   @MinLength(6, { message: 'username tối thiểu 6 ký tự' })
   @MaxLength(32, { message: 'username tối đa 32 ký tự' })
   @IsDefined({ message: 'Email không được để trống' })
@@ -86,9 +83,8 @@ export class CreateUserDto extends IntersectionType(
   })
   username: string;
 
-
-  verified: boolean
-  channel?: string
+  verified: boolean;
+  channel?: string;
 }
 
 export interface UserInfoByJWT {
@@ -100,12 +96,12 @@ export interface UserInfoByJWT {
   exp: number;
 }
 
-
 export class RBStreamerBy {
   @IsNotEmpty()
   @IsString()
   @ApiProperty({
-    description: `để tim streamer theo channel khi đã đăng ký pro`, type: 'string'
+    description: `để tim streamer theo channel khi đã đăng ký pro`,
+    type: 'string',
   })
-  channel: string
+  channel: string;
 }

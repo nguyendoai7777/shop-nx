@@ -11,6 +11,7 @@ export class RegisterProChannel {
     description: `tên kênh`,
     type: 'string',
     required: true,
+    example: 'ZP SeniGauGau',
   })
   channel: string;
 
@@ -22,6 +23,7 @@ export class RegisterProChannel {
     description: `gói đăng ký trong bao lâu`,
     type: 'string',
     required: true,
+    example: 6,
   })
   subscription: number;
 }
@@ -31,6 +33,7 @@ export class ExternalLink {
     description: `tên ngắn của link liên kết như fb, toptop, ...`,
     type: 'string',
     required: false,
+    example: 'SenaGauGau',
   })
   shortname?: string;
 
@@ -41,6 +44,7 @@ export class ExternalLink {
   @ApiProperty({
     description: `link liên kết như fb, topto, ...`,
     type: 'string',
+    example: `https://www.youtube.com/s/desktop/9af06a99/img/favicon_144x144.png`,
   })
   url: string;
 }
@@ -53,6 +57,7 @@ export class ChannelDto {
     description: `tên kênh`,
     type: 'string',
     required: true,
+    example: 'senagaugau',
   })
   channel: string;
 
@@ -60,6 +65,7 @@ export class ChannelDto {
     description: `Mô tả kênh`,
     type: 'string',
     required: false,
+    example: 'Đây là Kênh ...',
   })
   description?: string;
 
@@ -67,15 +73,12 @@ export class ChannelDto {
   @Type(() => ExternalLink)
   @ApiProperty({
     description: `danh sách link liên kết như fb, topto, ...`,
+    example: <ExternalLink[]>[
+      {
+        url: 'https://www.youtube.com/s/desktop/9af06a99/img/favicon_144x144.png',
+        shortname: 'YT SenaGauGau',
+      },
+    ],
   })
   externalLinks: ExternalLink[];
-}
-
-export class UpdateChannelDto {
-  @ApiProperty({
-    description: `tên kênh`,
-    type: 'string',
-    required: false,
-  })
-  channel: string;
 }
