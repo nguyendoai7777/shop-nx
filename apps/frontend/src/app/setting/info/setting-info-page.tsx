@@ -5,9 +5,10 @@ import { zAuthStore } from '@client/z-state';
 import { CButton, ControlledTextField, PasswordTextField } from '@components';
 import { useUpdateProfileService } from './update-profile.service';
 import { PasswordValidation } from '@client/validators';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import './setting-info-page.scss';
 import { UploadFile } from './update-user-profile.type';
+import { Checkbox, FormControlLabel } from '@mui/material';
 
 const SettingInfoPage = () => {
   const { user } = zAuthStore();
@@ -15,6 +16,7 @@ const SettingInfoPage = () => {
   const [takeOne, setTakeOne] = useState(0);
   const [banner, setBanner] = useState<UploadFile>();
   const [avatar, setAvatar] = useState<UploadFile>();
+  const [showPassword, setShowPassword] = useState(false);
   const {
     control,
     watch,
@@ -30,6 +32,12 @@ const SettingInfoPage = () => {
       setTakeOne(1);
     }
   }, [user]);
+
+  const handleShowPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log({ event: event.target.checked });
+    setShowPassword(event.target.checked);
+  };
+
   return (
     <div className="flex-1">
       <ImageUpload
@@ -68,11 +76,11 @@ const SettingInfoPage = () => {
                   },
                 },
               }}
-              component={PasswordTextField}
               textError={errors.password?.message}
               controlProps={{
                 className: '!mt-3',
                 label: 'Mật khẩu',
+                type: showPassword ? 'text' : 'password',
               }}
             />
             <ControlledTextField
@@ -86,16 +94,20 @@ const SettingInfoPage = () => {
                   },
                 },
               }}
-              component={PasswordTextField}
               textError={errors.confirmPassword?.message}
               controlProps={{
                 className: '!mt-3',
                 label: 'Xác nhận mật khẩu',
+                type: showPassword ? 'text' : 'password',
               }}
             />
-            <CButton onClick={() => handleUpdate({ banner, avatar })} className="!ml-auto">
-              Cập nhật
-            </CButton>
+            <div className="flex items-center justify-between">
+              <FormControlLabel
+                control={<Checkbox checked={showPassword} onChange={handleShowPasswordChange} />}
+                label={<span className="select-none">Hiện mật khẩu</span>}
+              />
+              <CButton onClick={() => handleUpdate({ banner, avatar })}>Cập nhật</CButton>
+            </div>
           </>
         ) : (
           <div>Loading</div>

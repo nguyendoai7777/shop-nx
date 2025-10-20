@@ -16,7 +16,7 @@ import { User } from '@decorators';
 import { ChannelDto, RegisterProChannel, UpdateUserProfileDto, type UserInfoByJWT, UserPasswordDTO } from '@shop/dto';
 import { RegisterChannelResponse } from '@shop/type';
 import { ResponseTransformer } from '@shop/factory';
-import { c, removeEmptyFields, verifyPassword } from '@utils';
+import { removeEmptyFields, verifyPassword } from '@utils';
 
 @Controller('user')
 @ApiTags('User')

@@ -11,6 +11,8 @@ import { MediaService } from './media.service';
 import { ResponseTransformer } from '@shop/factory';
 import { UserProfileImage } from '@shop/type';
 import { MediaImagAllowedMsg, MediaImageMimes } from '@shop/platform';
+import { getCwd } from 'nx/src/utils/path';
+import { deleteFileStartsWith } from '../../shared/utils/file-manager/file-manager.util';
 
 @Controller('media')
 export class MediaController {
@@ -47,13 +49,17 @@ export class MediaController {
   async uploadFiles(@UploadedFiles() files: UploadImageDto, @User() user: UserInfoByJWT) {
     const banner = files.banner?.[0];
     const avatar = files.avatar?.[0];
+    console.log(`getCwd()`, getCwd());
     const savedPath = join(__dirname, '../public', 'profile-img');
     if (!existsSync(savedPath)) {
       mkdirSync(savedPath, { recursive: true });
     }
     const userPath = join(__dirname, '../public', 'profile-img', `${user.id}`);
     if (!existsSync(userPath)) mkdirSync(userPath, { recursive: true });
-
+    console.log({
+      savedPath,
+      userPath,
+    });
     const result: UserProfileImage = {
       banner: null,
       avatar: null,
@@ -64,7 +70,7 @@ export class MediaController {
       const n = Date.now();
       const bannerPath = join(userPath, `banner_${n}${ext}`);
       try {
-        unlinkSync(bannerPath);
+        deleteFileStartsWith('banner', user.id);
       } catch {}
       writeFileSync(bannerPath, banner.buffer); // ✅ buffer có giá trị
       result.banner = `/profile-img/${user.id}/banner_${n}${ext}`;
@@ -75,9 +81,11 @@ export class MediaController {
       const n = Date.now();
       const avatarPath = join(userPath, `avatar_${n}${ext}`);
       try {
-        unlinkSync(avatarPath);
+        // unlinkSync(avatarPath);
+        deleteFileStartsWith('avatar', user.id);
       } catch {}
       writeFileSync(avatarPath, avatar.buffer); // ✅ buffer có giá trị
+      console.log(`@@ write file`, avatarPath);
       result.avatar = `/profile-img/${user.id}/avatar_${n}${ext}`;
     }
 

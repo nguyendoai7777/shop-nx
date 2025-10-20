@@ -41,8 +41,26 @@ export const useUpdateProfileService = () => {
   const handleUpdate = async (img: PickImage) => {
     const data = form.getValues();
     httpResource(handleUploadFile(img)).subscribe({
-      next() {
-        httpResource(HttpClient.patch<ResponseBase<any>>('/user/update-profile', data)).subscribe();
+      next(res) {
+        const {
+          data: { avatar, banner },
+        } = res;
+        avatar &&
+          setUser({
+            avatar,
+          });
+        banner &&
+          setUser({
+            banner,
+          });
+        httpResource(HttpClient.patch<ResponseBase<any>>('/user/update-profile', data)).subscribe({
+          next(res) {
+            showToast({
+              type: 'success',
+              msg: res.message,
+            });
+          },
+        });
       },
       error(err) {
         showToast({
