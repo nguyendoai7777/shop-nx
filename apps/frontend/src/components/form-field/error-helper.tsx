@@ -4,7 +4,7 @@ export interface ErrorHelperProps {}
 
 export const ErrorHelper: FCC<ErrorHelperProps> = ({ children }) => {
   return (
-    <div className="h-5 pl-3">
+    <div className="h-5 pl-3 flex items-center">
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={children?.toString()}

@@ -9,3 +9,4 @@ export * from './renderer';
 export * from './button/button';
 export * from './image/forward-img';
 export * from './form-field';
+export * from './donate/donate';

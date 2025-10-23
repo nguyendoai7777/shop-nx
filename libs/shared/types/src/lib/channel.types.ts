@@ -12,6 +12,7 @@ export interface Channel extends BaseRecord {
   followers: number;
   description: string;
   externalLinks: ExternalLinkResponseSchema[];
+  minReceive?: number;
 }
 
 export interface ChannelResponseSchema {
@@ -33,6 +34,7 @@ export interface SettingInfoRequestBody {
   channel: string;
   externalLinks: Pick<ExternalLinkResponseSchema, 'shortname' | 'url'>[];
   description: string;
+  minReceive?: number;
 }
 
 export interface RegisterChannelReqBody extends RegisterProChannel {}

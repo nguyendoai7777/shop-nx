@@ -39,7 +39,7 @@ const SettingChanelPage: FCC<SettingInfoPageProps> = () => {
 
   const updateChannel = (data: SettingInfoRequestBody) => {
     setLoading(true);
-    httpResource(HttpClient.put<ResponseBase<{}>>(`user/setting-channel`, data)).subscribe({
+    httpResource(HttpClient.put<ResponseBase<{}>>(`/user/setting-channel`, data)).subscribe({
       next(res) {
         showToast({
           type: 'success',

@@ -9,16 +9,14 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "forceConsistentCasingInFileNames": true,
-    "types": [
-      "node",
-      "express",
-      "multer"
-    ],
+    "types": ["node", "express", "multer"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "references": []
+  "include": ["src/**/*.ts"],
+  "references": [
+    {
+      "path": "../platform/tsconfig.lib.json"
+    }
+  ]
 }

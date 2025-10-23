@@ -1,7 +1,6 @@
 import { readdirSync, unlinkSync } from 'node:fs';
 import { join } from 'node:path';
 import { deleteFileStartsWith } from './file-manager.util';
-import { getCwd } from 'nx/src/utils/path';
 
 jest.mock('node:fs', () => ({
   readdir: jest.fn(),
@@ -23,9 +22,10 @@ describe('FileManager', () => {
     const deleted = deleteFileStartsWith('avatar', 27);
 
     expect(mockUnlink).toHaveBeenCalledTimes(1);
-    expect(mockUnlink).toHaveBeenCalledWith(join(getCwd(), 'public', 'profile-img', '27', 'avatar_1760807616179.JPG'));
+    expect(mockUnlink).toHaveBeenCalledWith(
+      join(__dirname, '../public', 'profile-img', '27', 'avatar_1760807616179.JPG')
+    );
 
-    console.log(`@@ Test runner`, deleted);
     expect(deleted).toEqual(['avatar_1760807616179.JPG']);
     expect(deleted).not.toContain(['banner_1760807580399.JPG']);
   });

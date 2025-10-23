@@ -2,10 +2,11 @@
 import { IconButton, InputAdornment } from '@mui/material';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { motion } from 'motion/react';
-import { AnimateRenderer, CButton, ControlledTextField } from '@components';
+import { AnimateRenderer, CButton, ControlledTextField, ControlledIntField } from '@components';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Channel, SettingInfoRequestBody, UserEditSettingError } from '@shop/type';
 import { useEffect } from 'react';
+import { MinReceive, vnd, vndText } from '@shop/platform';
 
 export interface EditUserInfoProps {
   channel: Channel;
@@ -20,20 +21,23 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
     control,
     handleSubmit,
     setError,
+    watch,
     formState: {
-      errors: { externalLinks, channel: channelError },
+      errors: { externalLinks, channel: channelError, minReceive: minReceiveError },
     },
   } = useForm<SettingInfoRequestBody>({
     defaultValues: {
       channel: channelName,
       externalLinks: channel.externalLinks, // {url: string; shortname?: string }[]
       description: channel.description,
+      minReceive: channel.minReceive,
     },
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
 
   const { fields, append, remove } = useFieldArray({ control, name: 'externalLinks' });
+  const receive = watch('minReceive');
 
   const onSubmit = (data: any) => save?.(data);
 
@@ -56,8 +60,8 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
   return (
     <div className="w-full">
       <form className="flex flex-col gap-3 w-full" onKeyDown={handleKeydown} onSubmit={handleSubmit(onSubmit)}>
-        <div className="text-xl">Mã nhận dạng kênh</div>
         <div className="mr-13">
+          <div className="text-xl mb-2">Mã nhận dạng kênh</div>
           <ControlledTextField
             controller={{
               control,
@@ -73,8 +77,32 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
             }}
           />
         </div>
-        <div className="text-xl">Mô tả kênh</div>
+
         <div className="mr-13">
+          <div className="text-xl">
+            Donate tối thiểu
+            {receive ? (
+              <code className="block w-fit mb-2 bg-gray-300/15 rounded font-light text-sm px-2">
+                {vnd(receive)} ~ {vndText(receive)}
+              </code>
+            ) : (
+              <></>
+            )}
+          </div>
+          <ControlledTextField
+            controller={{
+              control,
+              name: `minReceive`,
+              rules: {
+                min: { value: MinReceive, message: `Tối thiểu ${vnd(MinReceive)} nhé.` },
+              },
+            }}
+            component={ControlledIntField}
+            textError={minReceiveError?.message}
+          />
+        </div>
+        <div className="mr-13">
+          <div className="text-xl mb-2">Mô tả kênh</div>
           <ControlledTextField
             controller={{
               control,

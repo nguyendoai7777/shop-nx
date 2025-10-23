@@ -15,7 +15,6 @@ import { NotFoundFilter } from './shared/filters/notfound-exception/notfound-exc
 import chalk from 'chalk';
 import { Purple } from './shared/constants/color.const';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { join } from 'node:path';
 
 configDotenv({
   path: '/.env',
@@ -28,13 +27,11 @@ async function bootstrap() {
   });
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new ResponseExceptionFilter(), new PrismaClientExceptionFilter(), new NotFoundFilter());
-  // app.useLogger(new WTLogger());
   app.useGlobalInterceptors(new NoCacheInterceptor(), new ResponseInterceptor());
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
   app.enableCors({});
-  // app.useStaticAssets(join(__dirname, '../public'), {prefix: '/public'});
   const config = new DocumentBuilder()
     .setTitle('Shop app api')
     .setDescription('The cats API description')
@@ -44,7 +41,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, documentFactory);
 
   await app.listen(port);
-
   console.log(
     chalk.yellow.bold`🚀 Application is running on: `,
     chalk.hex(Purple).underline.bold(`http://localhost:${port}/${globalPrefix}`)

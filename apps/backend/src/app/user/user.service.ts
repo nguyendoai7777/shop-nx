@@ -224,6 +224,7 @@ export class UserService {
         },
         data: {
           description: payload.description,
+          minReceive: payload.minReceive,
           externalLinks: {
             deleteMany: {},
             create: links.map((l) => ({

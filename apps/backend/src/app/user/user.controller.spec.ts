@@ -4,7 +4,6 @@ import { UserInfoByJWT } from '@shop/dto';
 import { ResponseTransformer } from '@shop/factory';
 import { HttpStatus } from '@nestjs/common';
 import { UserService } from './user.service';
-
 jest.mock('./user.service');
 
 describe('UserController', () => {

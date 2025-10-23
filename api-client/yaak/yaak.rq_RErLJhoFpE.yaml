@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_RErLJhoFpE
 createdAt: 2025-10-06T08:28:39.482812500
-updatedAt: 2025-10-08T04:02:48.364661300
+updatedAt: 2025-10-23T07:59:06.628851600
 workspaceId: wk_teknBTJbQe
 folderId: fl_3py5A3C6ch
 authentication: {}
@@ -12,6 +12,7 @@ body:
     {
       "description": "thêm cho doai3",
       "channel": "@doai33",
+      "minReceive": 20000,
       "externalLinks": [
         {
           "shortname": "facebook",
@@ -29,5 +30,5 @@ headers:
 method: PUT
 name: Update
 sortPriority: 999.9998
-url: ${[ api_host ]}/user/channel
+url: ${[ api_host ]}/user/setting-channel
 urlParameters: []

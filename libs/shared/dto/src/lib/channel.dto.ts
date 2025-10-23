@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsNotEmpty, IsNumber, IsString, ValidateNested } from 'class-validator';
+import { IsDefined, IsNotEmpty, IsNumber, IsOptional, IsString, Min, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
+import { MinReceive } from '@shop/platform';
 
 export class RegisterProChannel {
   @IsDefined({ message: 'channel không được để trống' })
@@ -60,6 +61,19 @@ export class ChannelDto {
     example: 'senagaugau',
   })
   channel: string;
+
+  // MinReceive = 8000
+  @Min(MinReceive, { message: `minReceive Tối thiểu ${MinReceive} nhé.` })
+  @Type(() => Number)
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({
+    description: `Mô tả kênh`,
+    type: 'number',
+    required: false,
+    example: 10000,
+  })
+  minReceive?: number;
 
   @ApiProperty({
     description: `Mô tả kênh`,

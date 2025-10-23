@@ -1,5 +1,5 @@
 import { Streamer } from '@shop/type';
-import { SvgClient } from '@components';
+import { Donate, SvgClient } from '@components';
 import ChannelDescription from './channel-desc';
 
 export interface StreamerDetailProps {
@@ -53,7 +53,7 @@ export const StreamerDetail: FCC<StreamerDetailProps> = ({ user }) => {
 
           <ChannelDescription content={user.channelRef.description} links={user.channelRef.externalLinks} />
 
-          <div>ok</div>
+          <Donate />
         </div>
         <div className="w-2/3"></div>
       </div>
