@@ -13,8 +13,8 @@ import {
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@decorators';
-import { ChannelDto, RegisterProChannel, UpdateUserProfileDto, type UserInfoByJWT, UserPasswordDTO } from '@shop/dto';
-import { RegisterChannelResponse } from '@shop/type';
+import { ChannelDto, RegisterProChannel, UpdateUserProfileDto, UserPasswordDTO } from '@shop/dto';
+import type { RegisterChannelResponse, UserJWT } from '@shop/type';
 import { ResponseTransformer } from '@shop/factory';
 import { removeEmptyFields, verifyPassword } from '@utils';
 
@@ -24,7 +24,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get(`current`)
-  async current(@User() user: UserInfoByJWT) {
+  async current(@User() user: UserJWT) {
     const data = await this.userService.findOne(user.id);
 
     return new ResponseTransformer({
@@ -35,7 +35,7 @@ export class UserController {
   }
 
   @Get(`setting-user`)
-  async settingInfo(@User() user: UserInfoByJWT) {
+  async settingInfo(@User() user: UserJWT) {
     const data = await this.userService.findUserSettingInfo(user);
     return new ResponseTransformer({
       data,
@@ -45,7 +45,7 @@ export class UserController {
   }
 
   @Get(`setting-channel`)
-  async settingChannel(@User() user: UserInfoByJWT) {
+  async settingChannel(@User() user: UserJWT) {
     const data = await this.userService.findUserSettingChannel(user);
     return new ResponseTransformer({
       data,
@@ -55,7 +55,7 @@ export class UserController {
   }
 
   @Post('channel')
-  async createChannel(@Body() payload: RegisterProChannel, @User() user: UserInfoByJWT) {
+  async createChannel(@Body() payload: RegisterProChannel, @User() user: UserJWT) {
     const channel = await this.userService.createChannel(payload, user);
     return new ResponseTransformer<RegisterChannelResponse>({
       message: 'Đăng ký kênh thành công',
@@ -76,7 +76,7 @@ export class UserController {
   }
 
   @Put('setting-channel')
-  async updateChannel(@Body() payload: ChannelDto, @User() user: UserInfoByJWT) {
+  async updateChannel(@Body() payload: ChannelDto, @User() user: UserJWT) {
     try {
       const d = await this.userService.updateSettingInfo(payload, user);
       return new ResponseTransformer({
@@ -89,7 +89,7 @@ export class UserController {
   }
 
   @Patch('update-profile')
-  async updateUserProfile(@Body() payload: UpdateUserProfileDto, @User() user: UserInfoByJWT) {
+  async updateUserProfile(@Body() payload: UpdateUserProfileDto, @User() user: UserJWT) {
     if (payload.password) {
       payload.password = await verifyPassword(payload.password, payload.confirmPassword!);
     }
@@ -101,7 +101,7 @@ export class UserController {
   }
 
   @Post(`change-password`)
-  changePassword(@User() user: UserInfoByJWT, @Body() dto: UserPasswordDTO) {
+  changePassword(@User() user: UserJWT, @Body() dto: UserPasswordDTO) {
     return this.userService.changePassword(dto, user.id);
   }
 

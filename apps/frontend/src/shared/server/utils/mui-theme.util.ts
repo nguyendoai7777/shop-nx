@@ -7,6 +7,23 @@ export const MuiThemeConfig = createTheme({
     mode: 'dark',
   },
   components: {
+    MuiSelect: {
+      defaultProps: {
+        size: 'small',
+        variant: 'outlined',
+      },
+      styleOverrides: {
+        root: {
+          '&.Mui-focused ': {
+            backgroundColor: 'oklch(1 0 0 / 0.08)',
+          },
+          '&': {
+            color: '#fff',
+            backgroundColor: 'oklch(1 0 0 / 0.05)',
+          },
+        },
+      },
+    },
     MuiDialog: {
       styleOverrides: {
         paper: {
@@ -58,7 +75,7 @@ export const MuiThemeConfig = createTheme({
         {
           props: { size: 'medium' },
           style: {
-            height: '36px',
+            height: '40px',
           },
         },
       ],
@@ -71,16 +88,12 @@ export const MuiThemeConfig = createTheme({
             color: '#fff',
           },
           '&.Mui-error': {
-            color: '#ff6b6b', // Màu label khi có lỗi
+            color: '#ff6b6b',
           },
         },
       },
     },
     MuiTextField: {
-      defaultProps: {
-        size: 'small',
-        fullWidth: true,
-      },
       styleOverrides: {
         root: {
           '&.Mui-focused ': {
@@ -124,13 +137,6 @@ export const MuiThemeConfig = createTheme({
             borderColor: `oklch(1 0 0 / 0.85)`,
             borderWidth: 1,
           },
-          /*'&.Mui-focused input': {
-            backgroundColor: 'oklch(1 0 0 / 0.08)',
-          },
-          '& input': {
-            color: '#fff',
-            backgroundColor: 'oklch(1 0 0 / 0.05)',
-          },*/
         },
       },
     },

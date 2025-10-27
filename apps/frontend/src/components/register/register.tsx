@@ -1,7 +1,7 @@
 'use client';
 import { RegisterAction, RegisterFormDto } from '@types';
 import { useFocusElement, useFormChange } from '@client/hooks';
-import { TextField } from '@mui/material';
+import { CTextField } from '../form-field';
 
 export const Register: FCC<RegisterAction> = ({ valueChange }) => {
   useFocusElement('#AuthForm input');
@@ -21,14 +21,14 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
 
   return (
     <>
-      <TextField
+      <CTextField
         fullWidth
         name="username"
         label="Tên đăng nhập"
         value={value.username}
         onChange={(e) => handleInput(e, 'username')}
       />
-      <TextField
+      <CTextField
         fullWidth
         type="email"
         label="Email"
@@ -37,7 +37,7 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
         onChange={(e) => handleInput(e, 'email')}
       />
       <div className="flex gap-3">
-        <TextField
+        <CTextField
           fullWidth
           type="text"
           label="Họ, tên đệm"
@@ -45,7 +45,7 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
           value={value.firstname}
           onChange={(e) => handleInput(e, 'firstname')}
         />
-        <TextField
+        <CTextField
           fullWidth
           type="text"
           label="Tên"
@@ -54,7 +54,7 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
           onChange={(e) => handleInput(e, 'lastname')}
         />
       </div>
-      <TextField
+      <CTextField
         fullWidth
         type="password"
         label="Mật khẩu"
@@ -62,7 +62,7 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
         value={value.password}
         onChange={(e) => handleInput(e, 'password')}
       />
-      <TextField
+      <CTextField
         fullWidth
         type="password"
         label="Xác nhận mật khẩu"

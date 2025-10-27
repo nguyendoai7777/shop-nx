@@ -1,9 +1,10 @@
 'use client';
-import { TextField, TextFieldProps } from '@mui/material';
+import { TextFieldProps } from '@mui/material';
 import type { FieldPath, FieldValues, UseControllerProps } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { ErrorHelper } from './error-helper';
 import { ComponentType } from 'react';
+import { CTextField } from './text-field';
 
 type FormControlComponent<P> = ComponentType<P & { value?: any; onChange?: (event: any) => void }>;
 
@@ -12,12 +13,12 @@ type ControllerConfig<
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   TTransformedValues = TFieldValues,
 > = UseControllerProps<TFieldValues, TName, TTransformedValues>;
-// 🔹 Props chính của ControlledTextField
+
 export type ControlledTextFieldProps<T extends FieldValues, P extends TextFieldProps = TextFieldProps> = {
   controller: ControllerConfig<T>;
   controlProps?: Omit<P, 'name' | 'value' | 'onChange'>;
   textError?: string;
-  component?: FormControlComponent<P>; // Mặc định là TextField
+  component?: FormControlComponent<P>;
   disableFixedError?: boolean;
 };
 
@@ -29,7 +30,7 @@ export const ControlledTextField = <T extends FieldValues, P extends TextFieldPr
   component,
   disableFixedError = false,
 }: ControlledTextFieldProps<T, P>) => {
-  const Component = component || TextField;
+  const Component = component || CTextField;
 
   return (
     <Controller

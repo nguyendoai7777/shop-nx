@@ -1,6 +1,7 @@
 'use client';
-import { TextField, TextFieldProps } from '@mui/material';
-import { ChangeEvent, useState, KeyboardEvent } from 'react';
+import { TextFieldProps } from '@mui/material';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { CTextField } from './text-field';
 
 export type ControlledIntFieldProps = Omit<TextFieldProps, 'onChange' | 'value'> & {
   value?: number;
@@ -39,7 +40,21 @@ export const ControlledIntField: FCC<ControlledIntFieldProps> = ({ value, onChan
     onChange?.(vx);
   };
 
-  return <TextField {...props} value={value} onChange={handleChange} onKeyDown={handleKeyPress} />;
+  return (
+    <CTextField
+      {...props}
+      value={value}
+      onChange={handleChange}
+      onKeyDown={handleKeyPress}
+      slotProps={{
+        input: {
+          inputProps: {
+            maxLength: 12,
+          },
+        },
+      }}
+    />
+  );
 };
 
 export default ControlledIntField;

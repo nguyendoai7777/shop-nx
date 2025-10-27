@@ -49,18 +49,67 @@ model User {
   avatar    String?
   banner    String?
 
-  channelRef Channel?    @relation("UserChannel")
-  points     UserPoint[]
-  themeId    Int?
-  theme      Theme?      @relation(fields: [themeId], references: [id])
+  channelRef Channel? @relation("UserChannel")
+
+  wallet            Wallet?
+  sentDonations     Donation[] @relation("DonationSender")
+  receivedDonations Donation[] @relation("DonationReceiver")
 
   @@fulltext([firstname, lastname, email, channel])
 }
 
 model Wallet {
-  userId  Int     @id
-  user    User    @relation(fields: [userId], references: [id])
-  balance Decimal @default(0) @db.Decimal(20, 2)
+  userId  Int @id
+  balance Int @default(0)
+
+  user         User                @relation(fields: [userId], references: [id])
+  transactions WalletTransaction[]
+}
+
+model Donation {
+  id        Int      @id @default(autoincrement())
+  amount    Int
+  message   String?
+  createdAt DateTime @default(now())
+
+  senderId Int
+  sender   User @relation("DonationSender", fields: [senderId], references: [id])
+
+  receiverId Int
+  receiver   User @relation("DonationReceiver", fields: [receiverId], references: [id])
+
+  // liên kết đến giao dịch trong ví nếu cần
+  senderTransactionId   Int?
+  receiverTransactionId Int?
+}
+
+model WalletTransaction {
+  id          Int               @id @default(autoincrement())
+  walletId    Int
+  wallet      Wallet            @relation(fields: [walletId], references: [userId])
+  type        TransactionType
+  amount      Int
+  status      TransactionStatus @default(PENDING)
+  referenceId Int? // Liên kết Donation hoặc giao dịch ngoài
+  externalRef String? // Mã giao dịch từ momo / bank
+  note        String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+enum TransactionType {
+  DEPOSIT // nạp tiền
+  WITHDRAW // rút tiền
+  DONATE_SENT // gửi donate
+  DONATE_RECEIVED // nhận donate
+  REFUND // hoàn tiền
+}
+
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  CANCELLED
 }
 
 model Subscription {
@@ -69,29 +118,4 @@ model Subscription {
   userId       Int      @unique
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-}
-
-model UserPoint {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  points    Int
-  reason    String // ví dụ: "donation", "redemption", "bonus"
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-}
-
-model Setting {
-  id    Int    @id @default(autoincrement())
-  key   String @unique
-  value String
-}
-
-//
-// --- THEME ---
-//
-model Theme {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-
-  users User[]
 }

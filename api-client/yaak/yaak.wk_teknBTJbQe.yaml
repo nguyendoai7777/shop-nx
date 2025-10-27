@@ -2,9 +2,9 @@ type: workspace
 model: workspace
 id: wk_teknBTJbQe
 createdAt: 2025-07-15T09:34:03.925369400
-updatedAt: 2025-10-23T07:56:59.582021700
+updatedAt: 2025-10-27T04:18:15.830978100
 authentication:
-  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzksInVzZXJuYW1lIjoic2hhcmtiaW5oIiwiZW1haWwiOiJzaGFya2JpbmhAZ21haWwuY29tIiwiaWF0IjoxNzYwNjk3MjgzLCJleHAiOjE3NjEzMDIwODN9.Nos1j5ZMnYDTDg98RgarKs03RVnHvI2zvBHrPkUo8l4
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJzaGFya2JpbmgyIiwiZW1haWwiOiJzaGFya2JpbmgyQGdtYWlsLmNvbSIsImlhdCI6MTc2MTUzNjY0MSwiZXhwIjoxNzYyMTQxNDQxfQ.eEh0fDV3fTvIsLk5wReemhmQtjyEjHshBjvuZhksTaY
 authenticationType: bearer
 description: ''
 headers:

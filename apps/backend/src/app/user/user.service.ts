@@ -1,9 +1,10 @@
 import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { PageLogoService, PrismaClientService } from '@services';
-import type { ChannelDto, RegisterProChannel, UpdateUserProfileDto, UserInfoByJWT, UserPasswordDTO } from '@shop/dto';
+import type { ChannelDto, RegisterProChannel, UpdateUserProfileDto, UserPasswordDTO } from '@shop/dto';
 import { verifyPassword } from '@utils';
 import chalk from 'chalk';
+import { UserJWT } from '@shop/type';
 
 @Injectable()
 export class UserService {
@@ -19,12 +20,11 @@ export class UserService {
       },
       omit: {
         password: true,
-        themeId: true,
       },
     });
   }
 
-  async createChannel(payload: RegisterProChannel, user: UserInfoByJWT) {
+  async createChannel(payload: RegisterProChannel, user: UserJWT) {
     const __user = (await this.prisma.user.findUnique({
       where: {
         id: user.id,
@@ -97,7 +97,7 @@ export class UserService {
     });
   }
 
-  async updateChannel(payload: ChannelDto, user: UserInfoByJWT) {
+  async updateChannel(payload: ChannelDto, user: UserJWT) {
     const _user = await this.prisma.user.update({
       where: { id: user.id },
       data: {
@@ -134,7 +134,7 @@ export class UserService {
     return _user;
   }
 
-  findUserSettingInfo(user: UserInfoByJWT) {
+  findUserSettingInfo(user: UserJWT) {
     return this.prisma.user.findUnique({
       where: {
         id: user.id,
@@ -145,7 +145,7 @@ export class UserService {
     });
   }
 
-  findUserSettingChannel(userInfo: UserInfoByJWT) {
+  findUserSettingChannel(userInfo: UserJWT) {
     console.log(userInfo);
     return this.prisma.channel.findUnique({
       where: {
@@ -172,7 +172,7 @@ export class UserService {
     });
   }
 
-  async updateSettingInfo(payload: ChannelDto, user: UserInfoByJWT) {
+  async updateSettingInfo(payload: ChannelDto, user: UserJWT) {
     const channel = await this.prisma.channel.findUnique({
       where: {
         userId: user.id,

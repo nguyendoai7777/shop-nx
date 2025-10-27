@@ -30,7 +30,7 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
       channel: channelName,
       externalLinks: channel.externalLinks, // {url: string; shortname?: string }[]
       description: channel.description,
-      minReceive: channel.minReceive,
+      minReceive: channel.minReceive ?? MinReceive,
     },
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -116,7 +116,6 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
         <div className="text-xl">Liên kết ngoài</div>
         <AnimateRenderer
           list={fields}
-          emptyComponent={<>Bạn chưa có liên kết nào</>}
           render={(item, index) => (
             <div key={item.id} className="flex gap-3 items-start">
               <motion.div

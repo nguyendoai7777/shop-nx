@@ -87,15 +87,6 @@ export class CreateUserDto extends IntersectionType(UserInfoDTO, UserPasswordDTO
   channel?: string;
 }
 
-export interface UserInfoByJWT {
-  name: string;
-  id: number;
-  username: string;
-  email: string;
-  iat: number;
-  exp: number;
-}
-
 export class RBStreamerBy {
   @IsNotEmpty()
   @IsString()

@@ -1,11 +1,8 @@
 import type { CreateUserDto } from '@shop/dto';
 import { Channel, SettingInfoRequestBody } from './channel.types.js';
 import { Maybe } from './common.types.js';
-
-export interface Streamer extends Omit<CreateUserDto, 'password' | 'confirmPassword'> {
-  id: number;
-  channelRef: Channel;
-}
+import { IsNotEmpty, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export interface UserProfileImage {
   avatar?: string | null;
@@ -22,9 +19,21 @@ export interface UserQueryResponseSchema extends UserProfileImage {
   createdAt: Date | string;
   updatedAt: Date | string;
   id: number;
-  themeId: number | null;
 }
 
 export type UserEditSettingError = {
   [K in keyof SettingInfoRequestBody]?: string;
 };
+
+export interface UserJWT {
+  name: string;
+  id: number;
+  username: string;
+  email: string;
+  iat: number;
+  exp: number;
+}
+
+export interface Streamer extends UserQueryResponseSchema {
+  channelRef: Channel;
+}

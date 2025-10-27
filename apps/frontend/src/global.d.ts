@@ -1,4 +1,6 @@
 import { ReactElement, ReactNode, MouseEvent, KeyboardEvent, Context, RefObject } from 'react';
+import { Prettify } from '@shop/type';
+import { MotionNodeAnimationOptions, MotionNodeLayoutOptions } from 'motion';
 
 declare global {
   export type PropsWithChildren<P> = P & { children?: ReactNode };
@@ -12,6 +14,8 @@ declare global {
 
   export type RMouseEvent<T> = MouseEvent<T>;
   export type RKeyboardEvent<R> = KeyboardEvent<R>;
+
+  // App
 }
 
 declare module 'react' {

@@ -3,3 +3,8 @@ export const MediaImagAllowedMsg = MediaImageMimes.map((v) => v.replace('image/'
 export const MediaImageAllowed = MediaImageMimes.join(', ');
 
 export const MinReceive = 8_000;
+
+export const SOCKET_IO_EVENT = {
+  join: 'join',
+  public_new_donate_by_room: 'public_new_donate_by_room',
+};

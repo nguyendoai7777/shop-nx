@@ -1,0 +1,27 @@
+type: http_request
+model: http_request
+id: rq_P3vzyC7Nd5
+createdAt: 2025-10-27T04:17:59.985537300
+updatedAt: 2025-10-27T09:08:44.239353800
+workspaceId: wk_teknBTJbQe
+folderId: fl_b6qizyHfHB
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "amount": 9999,
+      "message": "Telegram"
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: mMuXFSNDNj
+method: POST
+name: Donate [id]
+sortPriority: 999.9996
+url: ${[ api_host ]}/donate/1
+urlParameters: []

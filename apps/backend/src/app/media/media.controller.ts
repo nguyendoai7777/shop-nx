@@ -2,14 +2,14 @@ import { BadRequestException, Controller, HttpStatus, Post, UploadedFiles, UseIn
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { User } from '@decorators';
-import { UploadImageDto, type UserInfoByJWT } from '@shop/dto';
+import { UploadImageDto } from '@shop/dto';
 import { existsSync, writeFileSync } from 'node:fs';
 import { mkdirSync } from 'fs';
 import { join } from 'node:path';
 import { extname } from 'path';
 import { MediaService } from './media.service';
 import { ResponseTransformer } from '@shop/factory';
-import { UserProfileImage } from '@shop/type';
+import type { UserJWT, UserProfileImage } from '@shop/type';
 import { MediaImagAllowedMsg, MediaImageMimes } from '@shop/platform';
 import { deleteFileStartsWith } from '@utils';
 
@@ -45,7 +45,7 @@ export class MediaController {
       }
     )
   )
-  async uploadFiles(@UploadedFiles() files: UploadImageDto, @User() user: UserInfoByJWT) {
+  async uploadFiles(@UploadedFiles() files: UploadImageDto, @User() user: UserJWT) {
     const banner = files.banner?.[0];
     const avatar = files.avatar?.[0];
 

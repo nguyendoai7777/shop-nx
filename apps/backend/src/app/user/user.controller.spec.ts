@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller';
-import { UserInfoByJWT } from '@shop/dto';
 import { ResponseTransformer } from '@shop/factory';
 import { HttpStatus } from '@nestjs/common';
 import { UserService } from './user.service';
+import { UserJWT } from '@shop/type';
 jest.mock('./user.service');
 
 describe('UserController', () => {
@@ -38,7 +38,7 @@ describe('UserController', () => {
       password: '',
       confirmPassword: '',
     };
-    const user: UserInfoByJWT = { id: 1, email: 'jon@gmail.com', name: 'John', exp: 1, iat: 1, username: 'johnxx' };
+    const user: UserJWT = { id: 1, email: 'jon@gmail.com', name: 'John', exp: 1, iat: 1, username: 'johnxx' };
     (userService.updateUserInfoSetting as jest.Mock).mockResolvedValueOnce(undefined);
     const result = await controller.updateUserProfile(payload, user);
     expect(userService.updateUserInfoSetting).toHaveBeenCalledWith(
@@ -63,7 +63,7 @@ describe('UserController', () => {
       password: 'mr@dxd&123',
       confirmPassword: 'mr@dxd&123',
     };
-    const user: UserInfoByJWT = { id: 1, email: 'jon@gmail.com', name: 'John', exp: 1, iat: 1, username: 'johnxx' };
+    const user: UserJWT = { id: 1, email: 'jon@gmail.com', name: 'John', exp: 1, iat: 1, username: 'johnxx' };
     (userService.updateUserInfoSetting as jest.Mock).mockResolvedValueOnce(undefined);
     const result = await controller.updateUserProfile(payload, user);
     expect(userService.updateUserInfoSetting).toHaveBeenCalledWith(

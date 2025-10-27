@@ -1,13 +1,14 @@
 'use client';
 import { useState } from 'react';
-import { IconButton, InputAdornment, TextField, TextFieldProps } from '@mui/material';
+import { IconButton, InputAdornment, TextFieldProps } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { CTextField } from './text-field';
 
 export function PasswordTextField(props: TextFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <TextField
+    <CTextField
       {...props}
       type={showPassword ? 'text' : 'password'}
       variant="outlined"

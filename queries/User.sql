@@ -21,8 +21,21 @@ update user set channel = null, verified = false where id = 81;
 delete from subscription where userId = 81;
 delete from channel where userId = 81;
 
+select * from user;
+
 select * from channel;
 
 select * from externallink;
 
-select * from channel;
+update user set avatar = null, banner = null where id = 3;
+
+select * from wallet;
+
+select * from donation;
+
+select * from wallet where userId = 3;
+
+delete from user where id = 79;
+delete from channel where userId = 79;
+
+update wallet set balance = 100000000 where userId = 4

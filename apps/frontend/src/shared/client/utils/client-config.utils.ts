@@ -24,7 +24,7 @@ export class ClientConfiguration {
     this.markReady();
   };
 
-  static setMultiple = <Obj extends Record<keyof typeof ClientConfig, string>>(obj: Obj) => {
+  static setMultiple = <Obj extends Partial<Record<keyof typeof ClientConfig, string>>>(obj: Obj) => {
     Object.entries(obj).forEach(([key, value]) => {
       this.set(key as keyof typeof ClientConfig, value);
     });

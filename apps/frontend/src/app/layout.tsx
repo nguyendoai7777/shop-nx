@@ -4,10 +4,10 @@ import { AuthContextProvider, Navbar } from '@components';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import { MuiThemeConfig } from '@server/utils';
-import './global.css';
 import 'overlayscrollbars/overlayscrollbars.css';
 import { BodyScrollbarInitializer } from './scrollbar-initializer';
 import { ToastProvider } from '../components/toast/toast-provider';
+import './global.css';
 
 export const metadata: Metadata = {
   title: 'XD - d',
@@ -18,11 +18,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-dark text-white px-4" data-overlayscrollbars-initialize>
-        <BodyScrollbarInitializer />
-        <ToastProvider />
-        <AppRouterCacheProvider options={{ key: 'css', enableCssLayer: true }}>
+        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={MuiThemeConfig}>
             <AuthContextProvider>
+              <BodyScrollbarInitializer />
+              <ToastProvider />
               <Navbar />
               {children}
             </AuthContextProvider>

@@ -1,0 +1,26 @@
+type: http_request
+model: http_request
+id: rq_kvdEokTM6k
+createdAt: 2025-10-23T10:30:57.214774100
+updatedAt: 2025-10-23T10:52:16.202675800
+workspaceId: wk_teknBTJbQe
+folderId: fl_5euVQ45Yda
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "amount": 1000
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: DCgwWkSr9A
+method: POST
+name: Deposit
+sortPriority: 999.9997
+url: ${[ api_host ]}/wallet/deposit
+urlParameters: []

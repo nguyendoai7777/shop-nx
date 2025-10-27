@@ -1,9 +1,10 @@
 import { Body, Controller, Get, HttpStatus, Param, Post, Query } from '@nestjs/common';
-import { TransformParams } from '@decorators';
+import { SlugNumber, TransformParams } from '@decorators';
 import { PaginationDto, RBStreamerBy } from '@shop/dto';
 import { ApiTags } from '@nestjs/swagger';
 import { StreamerService } from './streamer.service';
 import { ResponsePaginationTransformer, ResponseTransformer } from '@shop/factory';
+import { RSBDonation } from '@shop/type';
 
 @Controller('streamer')
 @ApiTags('Streamer')
@@ -33,6 +34,15 @@ export class StreamerController {
       data,
       status: 200,
       message: 'OK',
+    });
+  }
+  @Get('donate-history/:id')
+  async getDonateList(@SlugNumber('id') id: number) {
+    const data = await this.ss.findDonateHistory(id);
+    return new ResponseTransformer<RSBDonation[]>({
+      message: 'OK',
+      data,
+      status: HttpStatus.OK,
     });
   }
 

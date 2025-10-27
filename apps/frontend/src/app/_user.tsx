@@ -6,7 +6,7 @@ export interface _UserProps {}
 
 const _UserPage: FCC<_UserProps> = () => {
   const { user } = zAuthStore();
-  return <div>{json(user)}</div>;
+  return <code>{json(user)}</code>;
 };
 
 export default _UserPage;

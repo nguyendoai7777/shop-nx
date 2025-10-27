@@ -23,6 +23,7 @@ export const useAuthContextHook = () => {
           setApiUrl(data.api);
           ClientConfiguration.setMultiple({ token: data.accessToken, api: data.api });
         } else {
+          ClientConfiguration.setMultiple({ api: data.api });
           setUser(void 0);
         }
       })
@@ -32,7 +33,6 @@ export const useAuthContextHook = () => {
   const login = async (payload: RegisterFormDto) => {
     clearError();
     setLoading(true);
-    console.log(`payload`, payload);
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',

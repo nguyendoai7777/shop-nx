@@ -10,10 +10,13 @@ export async function GET() {
   const cookieStore = await cookies();
   const { ApiUrl } = await loadConfig();
   const token = cookieStore.get('token')?.value;
-  console.log(chalk.bold.green`API /me`, token);
-  const response = NextResponse.json<ResponseBase>({
+  console.log(chalk.bold.green`API /me Token`, token);
+  const response = NextResponse.json<ResponseBase<{ api: string }>>({
     message: 'Chưa đăng nhập',
     status: 403,
+    data: {
+      api: ApiUrl,
+    },
   });
   if (!token) {
     return response;
@@ -23,6 +26,7 @@ export async function GET() {
   try {
     const { data } = await Http.get<ResponseBase<UserQueryResponseSchema>>(`/api/user/current`);
 
+    console.log(chalk.bold.green`API /me Data`, data);
     if (!data) {
       return response;
     }

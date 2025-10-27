@@ -1,10 +1,10 @@
 import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaClientService } from '@services';
-import { CreateUserDto, LoginDto, UserInfoByJWT } from '@shop/dto';
+import { CreateUserDto, LoginDto } from '@shop/dto';
 import { JwtService } from '@nestjs/jwt';
 import { verify } from 'argon2';
 import { EResMessage } from '@constants';
-import { AuthApiResponse } from '@shop/type';
+import { AuthApiResponse, UserJWT } from '@shop/type';
 import { ResponseTransformer } from '@shop/factory';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class AuthService {
     private readonly jwt$$: JwtService
   ) {}
 
-  create(data: CreateUserDto) {
+  async create(data: CreateUserDto) {
     return this.prisma.user.create({
       data: {
         password: data.password,
@@ -22,6 +22,11 @@ export class AuthService {
         firstname: data.firstname,
         lastname: data.lastname,
         username: data.username,
+        wallet: {
+          create: {
+            balance: 0,
+          },
+        },
       },
       omit: {
         password: true,
@@ -51,7 +56,7 @@ export class AuthService {
       throw new BadRequestException(err);
     }
 
-    const payload: Partial<UserInfoByJWT> = {
+    const payload: Partial<UserJWT> = {
       id: user.id,
       username: user.username,
       email: user.email,

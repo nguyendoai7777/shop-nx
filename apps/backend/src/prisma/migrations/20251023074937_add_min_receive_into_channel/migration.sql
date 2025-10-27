@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `channel` ADD COLUMN `minReceive` BIGINT NOT NULL DEFAULT 8000;

@@ -40,7 +40,6 @@ export class StreamerService {
         },*/
         omit: {
           password: true,
-          themeId: true,
         },
       }),
       this.prisma.user.count(),
@@ -55,7 +54,6 @@ export class StreamerService {
 
       omit: {
         password: true,
-        themeId: true,
       },
       include: {
         channelRef: {
@@ -85,7 +83,30 @@ export class StreamerService {
       },
       omit: {
         password: true,
-        themeId: true,
+      },
+    });
+  }
+
+  async findDonateHistory(streamerId: number) {
+    return this.prisma.donation.findMany({
+      where: { receiverId: streamerId },
+      orderBy: { createdAt: 'desc' },
+      take: 10,
+      include: {
+        sender: {
+          select: {
+            id: true,
+            firstname: true,
+            lastname: true,
+            avatar: true, // nếu bạn muốn hiển thị avatar người donate
+          },
+        },
+      },
+      omit: {
+        receiverTransactionId: true,
+        senderTransactionId: true,
+        senderId: true,
+        receiverId: true,
       },
     });
   }

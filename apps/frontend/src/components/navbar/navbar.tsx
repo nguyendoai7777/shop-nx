@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../auth-context/auth-context';
 import AuthDialog from '../auth/auth';
 import { Button, Dialog } from '@mui/material';
