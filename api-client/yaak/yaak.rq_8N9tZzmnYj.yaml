@@ -1,0 +1,26 @@
+type: http_request
+model: http_request
+id: rq_8N9tZzmnYj
+createdAt: 2025-10-28T04:30:36.853771500
+updatedAt: 2025-10-28T04:46:56.092402300
+workspaceId: wk_teknBTJbQe
+folderId: fl_b6qizyHfHB
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Top 10 [id]
+sortPriority: 999.9995
+url: ${[ api_host ]}/streamer/donate-top/1
+urlParameters:
+- enabled: true
+  name: filter
+  value: today
+  id: TuBqVbyG8i
+- enabled: true
+  name: ''
+  value: ''
+  id: eUCKQtYPui

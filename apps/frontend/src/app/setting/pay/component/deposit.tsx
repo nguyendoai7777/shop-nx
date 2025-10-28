@@ -1,5 +1,5 @@
 'use client';
-import { CButton, ControlGroup, ControlledIntField, ControlledTextField, Keydown } from '@components';
+import { CButton, ControlGroup, ControlledIntField, ControlledField, Keydown } from '@components';
 import { vnd } from '@shop/platform';
 import { usePaymentService } from '../payment.service';
 import { useForm } from 'react-hook-form';
@@ -38,7 +38,7 @@ export const Deposit: FCC<DepositProps> = ({}) => {
       <Keydown.enter enter={() => handleSubmit(_handleSubmit)()}>
         <ControlGroup>
           <div className="flex-1">
-            <ControlledTextField
+            <ControlledField
               controller={{
                 control,
                 name: 'amount',

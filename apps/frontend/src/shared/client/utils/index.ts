@@ -7,3 +7,4 @@
 export * from './client-config.utils';
 export * from './http.utils';
 export * from './json.util';
+export * from './platform.utils';

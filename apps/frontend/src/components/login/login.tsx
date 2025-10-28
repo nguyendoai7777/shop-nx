@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import { LoginAction, LoginFormDto } from '@types';
 import { useFocusElement } from '@client/hooks';
-import { ControlledTextField, PasswordTextField } from '../form-field';
+import { ControlledField, PasswordTextField } from '../form-field';
 
 export const Login: FCC<LoginAction> = ({ valueChange }) => {
   useFocusElement('#AuthForm input');
@@ -36,7 +36,7 @@ export const Login: FCC<LoginAction> = ({ valueChange }) => {
   return (
     <>
       <div>
-        <ControlledTextField
+        <ControlledField
           controller={{
             control,
             name: 'username',
@@ -49,7 +49,7 @@ export const Login: FCC<LoginAction> = ({ valueChange }) => {
         />
       </div>
       <div>
-        <ControlledTextField
+        <ControlledField
           component={PasswordTextField}
           controller={{
             control,

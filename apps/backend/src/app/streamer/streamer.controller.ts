@@ -4,7 +4,8 @@ import { PaginationDto, RBStreamerBy } from '@shop/dto';
 import { ApiTags } from '@nestjs/swagger';
 import { StreamerService } from './streamer.service';
 import { ResponsePaginationTransformer, ResponseTransformer } from '@shop/factory';
-import { RSBDonation } from '@shop/type';
+import type { RSBDonation, RSBDonorTop, TopDonateQuery, TopDonateQueryType } from '@shop/type';
+import { c } from '@utils';
 
 @Controller('streamer')
 @ApiTags('Streamer')
@@ -40,6 +41,17 @@ export class StreamerController {
   async getDonateList(@SlugNumber('id') id: number) {
     const data = await this.ss.findDonateHistory(id);
     return new ResponseTransformer<RSBDonation[]>({
+      message: 'OK',
+      data,
+      status: HttpStatus.OK,
+    });
+  }
+
+  @Get('donate-top/:id')
+  async getTopDonateByStreamer(@SlugNumber('id') id: number, @Query() query: TopDonateQuery) {
+    console.log(c.yellow.italic.bold.bgWhite`@@ request top 10`, { id, query: query.filter });
+    const data = await this.ss.getTopDonorsByStreamer(id, query.filter);
+    return new ResponseTransformer<RSBDonorTop[]>({
       message: 'OK',
       data,
       status: HttpStatus.OK,

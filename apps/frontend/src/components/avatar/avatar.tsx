@@ -1,13 +1,14 @@
 'use client';
 import { useMemo } from 'react';
-import { UserQueryResponseSchema } from '@shop/type';
+import { RSBDonor } from '@shop/type';
 import { ForwardImg } from '@components';
 
-export interface NavAvatarProps {
-  user: UserQueryResponseSchema;
+export interface XAvatarProps {
+  user: RSBDonor;
+  size?: string;
 }
 
-const NavAvatar: FCC<NavAvatarProps> = ({ user }) => {
+export const XAvatar: FCC<XAvatarProps> = ({ user, size }) => {
   const { avatar, firstname = '', lastname = '' } = user;
   const naming = useMemo(() => {
     return {
@@ -15,12 +16,12 @@ const NavAvatar: FCC<NavAvatarProps> = ({ user }) => {
       full: firstname + ' ' + lastname,
     };
   }, [firstname, lastname]);
-
+  const _size = size ?? 'w-10 h-10 min-w-10 min-h-10';
   return avatar ? (
     <ForwardImg alt={naming.short} src={avatar} asMuiAvatar />
   ) : (
-    <div className="w-9 h-9 rounded-full text-center content-center border border-gray-400 ">{naming.short}</div>
+    <div className={`${_size} rounded-full text-center content-center border border-gray-400 `}>{naming.short}</div>
   );
 };
 
-export default NavAvatar;
+export default XAvatar;

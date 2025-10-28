@@ -7,10 +7,13 @@ export type MotionMergeAnimationProps = Prettify<MotionNodeLayoutOptions & Motio
 
 type OnRender<L> = (item: L, index: number) => ReactNode;
 
+export function Renderer<L extends Record<string, any>>(props: {
+  list: L[];
+  render: (item: L, index: number) => ReactNode;
+}): ReactElement;
 export function Renderer<L extends Record<string, any>>(props: { list: L[]; render: FCC<L> }): ReactElement;
 
-export function Renderer<L extends Record<string, any>>(props: { list: L[]; render: OnRender<L> }): ReactElement;
-
+// Implementation
 /**
  * @example
  * ```tsx
@@ -19,7 +22,10 @@ export function Renderer<L extends Record<string, any>>(props: { list: L[]; rend
  * ```
  *
  * */
-export function Renderer<L extends Record<string, any>>(props: { list: L[]; render: FCC<L> | OnRender<L> }) {
+export function Renderer<L extends Record<string, any>>(props: {
+  list: L[];
+  render: FCC<L> | ((item: L, index: number) => ReactNode);
+}) {
   return (
     <>
       {props.list.map((item, index) => {
@@ -35,13 +41,12 @@ type OnAnimateAction<L> = (item: L, index: number) => MotionMergeAnimationProps;
 
 export function AnimateRenderer<L extends Record<string, any>>(props: {
   list: L[];
-  render: FCC<L>;
+  render: OnRender<L>;
   onAnimate?: OnAnimateAction<L>;
 }): ReactElement;
-
 export function AnimateRenderer<L extends Record<string, any>>(props: {
   list: L[];
-  render: OnRender<L>;
+  render: FCC<L>;
   onAnimate?: OnAnimateAction<L>;
 }): ReactElement;
 

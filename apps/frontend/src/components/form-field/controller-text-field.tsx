@@ -23,7 +23,7 @@ export type ControlledTextFieldProps<T extends FieldValues, P extends TextFieldP
 };
 
 // 🔹 Implementation
-export const ControlledTextField = <T extends FieldValues, P extends TextFieldProps = TextFieldProps>({
+export const ControlledField = <T extends FieldValues, P extends TextFieldProps = TextFieldProps>({
   controller,
   controlProps,
   textError,
@@ -37,7 +37,7 @@ export const ControlledTextField = <T extends FieldValues, P extends TextFieldPr
       {...controller}
       render={({ field }) => (
         <>
-          <Component {...(field as any)} {...(controlProps as P)} error={!!textError} />
+          <Component inputRef={field.ref} {...(field as any)} {...(controlProps as P)} error={!!textError} />
           {disableFixedError ? (
             <>{textError ? <ErrorHelper>{textError}</ErrorHelper> : <></>}</>
           ) : (

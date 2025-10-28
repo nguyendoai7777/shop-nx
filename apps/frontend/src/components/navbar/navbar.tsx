@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { useAuth } from '../auth-context/auth-context';
 import AuthDialog from '../auth/auth';
 import { Button, Dialog } from '@mui/material';
-import NavAvatar from './components/nav-avatar';
 import dynamic from 'next/dynamic';
 import { zAuthStore, zToastStore } from '@client/z-state';
 import Link from 'next/link';
+import XAvatar from '../avatar/avatar';
 
 const UserSettingMenu = dynamic(() => import('./components/user-setting-menu'), { ssr: false });
 
@@ -63,7 +63,7 @@ export default function Navbar() {
             {user ? (
               <>
                 <div id={MenuAnchorId} onClick={handleClick} className="cursor-pointer">
-                  <NavAvatar user={user} />
+                  <XAvatar user={user} />
                 </div>
               </>
             ) : (

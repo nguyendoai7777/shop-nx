@@ -2,7 +2,7 @@
 
 import { ImageUpload } from './image-upload';
 import { zAuthStore } from '@client/z-state';
-import { CButton, ControlledTextField, PasswordTextField } from '@components';
+import { CButton, ControlledField, PasswordTextField } from '@components';
 import { useUpdateProfileService } from './update-profile.service';
 import { PasswordValidation } from '@client/validators';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -50,7 +50,7 @@ const SettingInfoPage = () => {
       <div className="max-w-100 mx-auto mt-4 flex flex-col">
         {user ? (
           <>
-            <ControlledTextField
+            <ControlledField
               controller={{ control, name: 'firstname', rules: { required: 'Nhập đê' } }}
               controlProps={{
                 className: '!mt-3',
@@ -58,7 +58,7 @@ const SettingInfoPage = () => {
               }}
               textError={errors.firstname?.message}
             />
-            <ControlledTextField
+            <ControlledField
               controller={{ control, name: 'lastname', rules: { required: 'Nhập đê' } }}
               controlProps={{
                 className: '!mt-3',
@@ -66,7 +66,7 @@ const SettingInfoPage = () => {
               }}
               textError={errors.lastname?.message}
             />
-            <ControlledTextField
+            <ControlledField
               controller={{
                 control,
                 name: 'password',
@@ -83,7 +83,7 @@ const SettingInfoPage = () => {
                 type: showPassword ? 'text' : 'password',
               }}
             />
-            <ControlledTextField
+            <ControlledField
               controller={{
                 control,
                 name: 'confirmPassword',

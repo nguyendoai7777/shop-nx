@@ -1,8 +1,8 @@
 'use client';
 import { IconButton, InputAdornment } from '@mui/material';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { motion } from 'motion/react';
-import { AnimateRenderer, CButton, ControlledTextField, ControlledIntField } from '@components';
+import { AnimatePresence, motion } from 'motion/react';
+import { CButton, ControlledIntField, ControlledField, Renderer } from '@components';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Channel, SettingInfoRequestBody, UserEditSettingError } from '@shop/type';
 import { useEffect } from 'react';
@@ -62,7 +62,7 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
       <form className="flex flex-col gap-3 w-full" onKeyDown={handleKeydown} onSubmit={handleSubmit(onSubmit)}>
         <div className="mr-13">
           <div className="text-xl mb-2">Mã nhận dạng kênh</div>
-          <ControlledTextField
+          <ControlledField
             controller={{
               control,
               name: 'channel',
@@ -89,7 +89,7 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
               <></>
             )}
           </div>
-          <ControlledTextField
+          <ControlledField
             controller={{
               control,
               name: `minReceive`,
@@ -103,7 +103,7 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
         </div>
         <div className="mr-13">
           <div className="text-xl mb-2">Mô tả kênh</div>
-          <ControlledTextField
+          <ControlledField
             controller={{
               control,
               name: `description`,
@@ -114,63 +114,64 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
           />
         </div>
         <div className="text-xl">Liên kết ngoài</div>
-        <AnimateRenderer
-          list={fields}
-          render={(item, index) => (
-            <div key={item.id} className="flex gap-3 items-start">
-              <motion.div
-                className="flex flex-col gap-1 w-full"
-                initial={{ opacity: 0, x: -15 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -15 }}
-                transition={{ duration: 0.3 }}
-              >
-                <ControlledTextField
-                  controller={{
-                    control,
-                    name: `externalLinks.${index}.url`,
-                    rules: {
-                      required: 'điền đi...',
-                      pattern: {
-                        value: /^(https?:\/\/).+/,
-                        message: 'URL phải là dạng url (http://... hoặc https://...)',
+        <AnimatePresence>
+          <Renderer
+            list={fields}
+            render={(item, index) => (
+              <div key={item.id} className="flex gap-3 items-start">
+                <motion.div
+                  className="flex flex-col gap-1 w-full"
+                  initial={{ opacity: 0, x: -15 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -15 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ControlledField
+                    controller={{
+                      control,
+                      name: `externalLinks.${index}.url`,
+                      rules: {
+                        required: 'điền đi...',
+                        pattern: {
+                          value: /^(https?:\/\/).+/,
+                          message: 'URL phải là dạng url (http://... hoặc https://...)',
+                        },
                       },
-                    },
-                  }}
-                  controlProps={{
-                    label: 'URL',
-                  }}
-                  textError={externalLinks?.[index]?.url?.message}
-                />
-              </motion.div>
-              <motion.div
-                className="flex flex-col gap-1 w-full"
-                initial={{ opacity: 0, x: 15 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 15 }}
-                transition={{ duration: 0.3 }}
-              >
-                <ControlledTextField
-                  controller={{
-                    control,
-                    name: `externalLinks.${index}.shortname`,
-                    rules: {
-                      required: 'điền đi...',
-                    },
-                  }}
-                  controlProps={{
-                    label: 'Bí danh ',
-                  }}
-                  textError={externalLinks?.[index]?.shortname?.message}
-                />
-              </motion.div>
-              <IconButton className="" onClick={() => remove(index)}>
-                <DeleteIcon />
-              </IconButton>
-            </div>
-          )}
-        />
-
+                    }}
+                    controlProps={{
+                      label: 'URL',
+                    }}
+                    textError={externalLinks?.[index]?.url?.message}
+                  />
+                </motion.div>
+                <motion.div
+                  className="flex flex-col gap-1 w-full"
+                  initial={{ opacity: 0, x: 15 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 15 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ControlledField
+                    controller={{
+                      control,
+                      name: `externalLinks.${index}.shortname`,
+                      rules: {
+                        required: 'điền đi...',
+                      },
+                    }}
+                    controlProps={{
+                      label: 'Bí danh ',
+                    }}
+                    textError={externalLinks?.[index]?.shortname?.message}
+                  />
+                </motion.div>
+                <IconButton className="" onClick={() => remove(index)}>
+                  <DeleteIcon />
+                </IconButton>
+              </div>
+            )}
+          />
+        </AnimatePresence>
         <div className="flex justify-end gap-2 sticky buttom-0 mr-13">
           <CButton onClick={() => append({ url: '', shortname: '' })}>Thêm link</CButton>
 

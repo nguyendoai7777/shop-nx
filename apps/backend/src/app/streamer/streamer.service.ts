@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { PaginationDto, RBStreamerBy } from '@shop/dto';
 import { PrismaClientService } from '@services';
 import { omitKeyInArrObj, omitKeyInObj } from '@transformers';
+import { day } from '@shop/platform';
+import { RSBDonorTop, TopDonateQueryType } from '@shop/type';
 
 @Injectable()
 export class StreamerService {
@@ -109,5 +111,55 @@ export class StreamerService {
         receiverId: true,
       },
     });
+  }
+
+  async getTopDonorsByStreamer(streamerId: number, filter: TopDonateQueryType = 'today') {
+    let where: any = {
+      receiverId: streamerId,
+    };
+
+    // bộ lọc theo ngày / tháng
+    if (filter === 'today') {
+      where.createdAt = {
+        gte: day().startOf('day').toDate(),
+        lte: day().endOf('day').toDate(),
+      };
+    } else if (filter === 'month') {
+      where.createdAt = {
+        gte: day().startOf('month').toDate(),
+        lte: day().endOf('month').toDate(),
+      };
+    }
+
+    // group theo senderId, chỉ tính donation tới streamer này
+    const result = await this.prisma.donation.groupBy({
+      by: ['senderId'],
+      _sum: { amount: true },
+      where,
+      orderBy: { _sum: { amount: 'desc' } },
+      take: 10,
+    });
+
+    // lấy thêm thông tin donor
+    const donors = await Promise.all(
+      result.map(async (item) => {
+        const user = (await this.prisma.user.findUnique({
+          where: { id: item.senderId },
+          select: {
+            id: true,
+            firstname: true,
+            lastname: true,
+            username: true,
+            avatar: true,
+          },
+        }))!;
+        return {
+          ...user,
+          amount: item._sum.amount ?? 0,
+        } satisfies RSBDonorTop;
+      })
+    );
+
+    return donors;
   }
 }

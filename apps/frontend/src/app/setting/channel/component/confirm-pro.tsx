@@ -2,7 +2,7 @@
 import { ButtonBase, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { RegisterChannelReqBody } from '@shop/type';
 import { Controller, useForm } from 'react-hook-form';
-import { ControlledTextField } from '@components';
+import { ControlledField } from '@components';
 
 export interface ConfirmProDialogProps {
   onClose(): void;
@@ -64,7 +64,7 @@ const ConfirmProDialog: FCC<ConfirmProDialogProps> = ({ onClose, onSave }) => {
         />
         <div className="px-6 mt-2">
           <div className="mt-1 w-fit text-xs rounded px-2 mb-1 bg-gray-400/20">/streamer/@{watch('channel')}</div>
-          <ControlledTextField
+          <ControlledField
             controller={{
               control,
               name: 'channel',

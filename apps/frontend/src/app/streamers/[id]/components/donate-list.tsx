@@ -2,7 +2,7 @@
 import { DonateItem } from './donate-item';
 import type { Streamer } from '@shop/type';
 import { useDonationSocket } from '@client/hooks';
-import { AnimateRenderer, Renderer } from '@components';
+import { AnimateRenderer } from '@components';
 import { CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 
@@ -19,11 +19,12 @@ export const DonateList: FCC<DonateListProps> = ({ streamer }) => {
   const { donationList, loading } = useDonationSocket(streamer.id);
   const [initAnimation, setInitAnimation] = useState(true);
   useEffect(() => {
+    setInitAnimation(true);
     const to = setTimeout(
       () => {
         setInitAnimation(false);
       },
-      Ani.delayEach * Ani.initElementInList * 1000
+      Ani.delayEach * Ani.initElementInList * 1000 + 1000
     );
     return () => {
       clearTimeout(to);
@@ -32,7 +33,6 @@ export const DonateList: FCC<DonateListProps> = ({ streamer }) => {
   return (
     <>
       <div className="flex flex-col gap-2">
-        <div>socket</div>
         {loading ? (
           <div className="text-center">
             <CircularProgress />

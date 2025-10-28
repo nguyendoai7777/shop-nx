@@ -25,8 +25,8 @@ export const CButton: FCC<CButtonProps> = ({
   return (
     <ButtonBase
       disabled={loading}
-      {...props}
       className={`duration-150 CButton !px-4 ${size} ${_rounded} ${className} ${_vcl}`}
+      {...props}
     >
       {loading ? <CircularProgress className="mr-2" size={16} /> : <></>}
       {children}

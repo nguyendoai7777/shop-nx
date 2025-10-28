@@ -1,0 +1,71 @@
+.Nor {
+  background-color: oklch(1 0 0 / 1.96%);
+  color: oklch(0.79 0 0);
+}
+
+.Top {
+  border-width: 1px;
+  border-style: solid;
+
+  .avatar-deco {
+    --size: 24px;
+    content: '';
+    position: absolute;
+    transform: rotate(-45deg);
+    top: calc(1px - var(--size) / 2);
+    left: calc(1px - var(--size) / 2);
+    display: block;
+    width: var(--size);
+    height: var(--size);
+
+    &:after {
+      font-size: 10px;
+      color: #0f1538;
+      z-index: 2;
+      position: absolute;
+      font-weight: bold;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -35%);
+    }
+  }
+}
+
+.Top1 {
+  border-color: color-mix(in oklab, var(--color-gold) 35%, transparent);
+  background-color: color-mix(in oklab, var(--color-gold) 5%, transparent);
+
+  .avatar-deco {
+    color: var(--color-gold);
+
+    &:after {
+      content: '1';
+    }
+  }
+}
+
+.Top2 {
+  border-color: color-mix(in oklab, var(--color-silver) 35%, transparent);
+  background-color: color-mix(in oklab, var(--color-silver) 5%, transparent);
+
+  .avatar-deco {
+    color: var(--color-silver);
+
+    &:after {
+      content: '2';
+    }
+  }
+}
+
+.Top3 {
+  border-color: color-mix(in oklab, var(--color-bronze) 35%, transparent);
+  background-color: color-mix(in oklab, var(--color-bronze) 5%, transparent);
+
+  .avatar-deco {
+    color: var(--color-bronze);
+
+    &:after {
+      content: '3';
+    }
+  }
+}

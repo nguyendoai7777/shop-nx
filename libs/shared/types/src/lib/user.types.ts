@@ -1,24 +1,20 @@
-import type { CreateUserDto } from '@shop/dto';
 import { Channel, SettingInfoRequestBody } from './channel.types.js';
 import { Maybe } from './common.types.js';
-import { IsNotEmpty, IsString } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { RSBDonor } from './donate.type.js';
 
 export interface UserProfileImage {
   avatar?: string | null;
   banner?: string | null;
 }
 
-export interface UserQueryResponseSchema extends UserProfileImage {
-  lastname: string;
-  firstname: string;
-  username: string;
+export interface UserQueryResponseSchema extends RSBDonor {
   email: string;
+  username: string;
   channel: Maybe | string;
   verified: boolean;
   createdAt: Date | string;
   updatedAt: Date | string;
-  id: number;
+  banner?: string | null;
 }
 
 export type UserEditSettingError = {

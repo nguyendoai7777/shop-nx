@@ -1,14 +1,15 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { AlertColor, SnackbarProps } from '@mui/material';
+import { ReactElement, ReactNode } from 'react';
 
 export interface ToastProviderProps {
   type: AlertColor;
-  msg: string;
+  msg: ReactNode;
 }
 
 interface ShowToastOptions {
-  msg: string;
+  msg: ReactNode;
   type?: AlertColor;
   config?: SnackbarProps;
 }

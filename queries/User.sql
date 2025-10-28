@@ -38,4 +38,4 @@ select * from wallet where userId = 3;
 delete from user where id = 79;
 delete from channel where userId = 79;
 
-update wallet set balance = 100000000 where userId = 4
+update wallet set balance = 100000000 where userId = 6
