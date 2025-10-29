@@ -1,0 +1,31 @@
+.NavApp {
+  --appbar-height: 56px;
+  --decor-size: calc(var(--appbar-height) / 2);
+  height: var(--appbar-height);
+
+  &:after,
+  &:before {
+    content: '';
+    display: block;
+    height: var(--decor-size);
+    aspect-ratio: 1;
+    position: absolute;
+    top: 0;
+    z-index: 5;
+    container-type: size;
+  }
+
+  &:before {
+    right: 0;
+    background: radial-gradient(circle at 0% 100%, transparent var(--decor-size), var(--color-dark) var(--decor-size));
+  }
+
+  &:after {
+    left: 0;
+    background: radial-gradient(
+      circle at 100% 100%,
+      transparent var(--decor-size),
+      var(--color-dark) var(--decor-size)
+    );
+  }
+}

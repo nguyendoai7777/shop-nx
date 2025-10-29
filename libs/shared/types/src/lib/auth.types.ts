@@ -1,6 +1,6 @@
-import { UserQueryResponseSchema } from './user.types.js';
+import { RSBUser } from './user.types.js';
 
 export interface AuthApiResponse {
   accessToken: string;
-  user: UserQueryResponseSchema
+  user: RSBUser;
 }

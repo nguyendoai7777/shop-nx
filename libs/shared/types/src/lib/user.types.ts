@@ -1,13 +1,19 @@
 import { Channel, SettingInfoRequestBody } from './channel.types.js';
 import { Maybe } from './common.types.js';
-import { RSBDonor } from './donate.type.js';
+
+export interface RSBUserBase {
+  id: number;
+  firstname: string;
+  lastname: string;
+  avatar: string | null;
+}
 
 export interface UserProfileImage {
   avatar?: string | null;
   banner?: string | null;
 }
 
-export interface UserQueryResponseSchema extends RSBDonor {
+export interface RSBUser extends RSBUserBase {
   email: string;
   username: string;
   channel: Maybe | string;
@@ -30,6 +36,6 @@ export interface UserJWT {
   exp: number;
 }
 
-export interface Streamer extends UserQueryResponseSchema {
+export interface Streamer extends RSBUser {
   channelRef: Channel;
 }

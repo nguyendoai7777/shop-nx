@@ -35,14 +35,15 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       description: `Không tìm thấy streamer ${id}`,
     };
   }
-
+  const description = streamer.channelRef?.description ?? '',
+    title = streamer.channel ? streamer.channel + ' on XDonate' : `${streamer.firstname} ${streamer.lastname}`;
   return {
     metadataBase: new URL('http://localhost:3000'),
-    title: streamer.channel + ' on XDonate',
-    description: streamer.channelRef.description,
+    title,
+    description,
     openGraph: {
-      title: streamer.channel + 'on XDonate',
-      description: streamer.channelRef.description,
+      title,
+      description,
       ...(streamer.avatar && { images: streamer.avatar }),
     },
   };

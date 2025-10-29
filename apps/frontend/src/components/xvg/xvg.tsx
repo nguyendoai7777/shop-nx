@@ -10,7 +10,7 @@ export interface XvgProps {
 export const Xvg: FCC<XvgProps> = ({ src, size = '24px', className = '' }) => {
   return (
     <>
-      <svg className={className} style={{ '--size': size, width: size, height: size }}>
+      <svg className={className} style={{ '--size': size, minWidth: size, width: size, height: size }}>
         <use href={`/icon.svg#${src}`} />
       </svg>
     </>

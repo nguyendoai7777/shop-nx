@@ -1,11 +1,7 @@
+import { RSBUser, RSBUserBase } from './user.types.js';
+
 export interface RSBDonated {
   balance: number;
-}
-export interface RSBDonor {
-  id: number;
-  firstname: string;
-  lastname: string;
-  avatar: string | null;
 }
 
 export interface RSBDonation {
@@ -13,7 +9,7 @@ export interface RSBDonation {
   amount: number;
   message: string | null;
   createdAt: string | Date;
-  sender: RSBDonor;
+  sender: RSBUserBase;
 }
 
 export type AppWSType = 'donate';
@@ -33,6 +29,6 @@ export interface TopDonateQuery {
   filter: TopDonateQueryType;
 }
 
-export interface RSBDonorTop extends RSBDonor {
+export interface RSBDonorTop extends RSBUserBase {
   amount: number;
 }

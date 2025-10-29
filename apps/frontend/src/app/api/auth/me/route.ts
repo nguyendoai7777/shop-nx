@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { ResponseBase, UserQueryResponseSchema } from '@shop/type';
+import { ResponseBase, RSBUser } from '@shop/type';
 import { Http, loadConfig } from '@server/utils';
 import { AuthResponse } from '@types';
 import chalk from 'chalk';
@@ -24,7 +24,7 @@ export async function GET() {
 
   // gọi BE để lấy user info
   try {
-    const { data } = await Http.get<ResponseBase<UserQueryResponseSchema>>(`/api/user/current`);
+    const { data } = await Http.get<ResponseBase<RSBUser>>(`/api/user/current`);
 
     console.log(chalk.bold.green`API /me Data`, data);
     if (!data) {

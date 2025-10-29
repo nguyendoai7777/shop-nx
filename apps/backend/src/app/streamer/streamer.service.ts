@@ -162,4 +162,40 @@ export class StreamerService {
 
     return donors;
   }
+
+  async getTopDonate() {
+    const start = day().startOf('month').toDate();
+    const end = day().endOf('month').toDate();
+
+    const topUsers = await this.prisma.donation.groupBy({
+      by: ['receiverId'],
+      where: {
+        createdAt: {
+          gte: start,
+          lte: end,
+        },
+        receiver: {
+          OR: [{ verified: true }, { channelRef: { isNot: null } }],
+        },
+      },
+      _sum: {
+        amount: true,
+      },
+      orderBy: {
+        _sum: {
+          amount: 'desc',
+        },
+      },
+      take: 10,
+    });
+
+    const users = await this.prisma.user.findMany({
+      where: { id: { in: topUsers.map((u) => u.receiverId) } },
+      omit: {
+        password: true,
+      },
+    });
+
+    return users;
+  }
 }

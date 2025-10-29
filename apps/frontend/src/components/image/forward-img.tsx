@@ -8,7 +8,7 @@ export interface ForwardImgProps extends ImgHTMLAttributes<HTMLImageElement> {
   /**
    * by `px`
    * */
-  size?: number;
+  size?: string;
 }
 
 export const ForwardImg: FCC<ForwardImgProps> = ({ src, alt, asMuiAvatar = false, size, ...props }) => {

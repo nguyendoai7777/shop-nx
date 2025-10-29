@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { UserQueryResponseSchema } from '@shop/type';
+import { RSBUser } from '@shop/type';
 
 interface PaymentStore {
   balance: number;

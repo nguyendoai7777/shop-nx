@@ -1,14 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AnimateRenderer, CButton, ControlGroup, Renderer, XAvatar, Xvg } from '@components';
+import { AnimateRenderer, CButton, ControlGroup, Empty, XAvatar, Xvg } from '@components';
 import { Prettify, ResponseBase, RSBDonorTop, Streamer, TopDonateQueryType } from '@shop/type';
 import { httpResource } from '@core/http';
 import { HttpClient } from '@client/utils';
 import { vnd } from '@shop/platform';
 
 import './donate.css';
-import { DonateItem } from './donate-item';
 import { Skeleton } from '@mui/material';
 
 export interface TopDonateProps {
@@ -95,23 +94,33 @@ export const TopDonate: FCC<TopDonateProps> = ({ streamer, loaded }) => {
             <Skeleton className="!rounded-xl" animation="wave" variant="rounded" height={50} />
           </div>
         ) : (
-          <AnimateRenderer
-            list={donor}
-            render={(d, i) => <TopDonateItem {...d} i={i} />}
-            onAnimate={(_, index) => ({
-              layout: true,
-              initial: { opacity: 0, x: '100%', scale: 0.98 },
-              animate: { opacity: 1, x: 0, scale: 1 },
-              exit: { opacity: 0, x: '100%', scale: 0.95 },
-              transition: {
-                type: 'spring',
-                stiffness: 320,
-                damping: 24,
-                mass: 0.6,
-                delay: index * 0.03,
-              },
-            })}
-          />
+          <>
+            <AnimateRenderer
+              list={donor}
+              render={(d, i) => <TopDonateItem {...d} i={i} />}
+              onAnimate={(_, index) => ({
+                layout: true,
+                initial: { opacity: 0, x: '100%', scale: 0.98 },
+                animate: { opacity: 1, x: 0, scale: 1 },
+                exit: { opacity: 0, x: '100%', scale: 0.95 },
+                transition: {
+                  type: 'spring',
+                  stiffness: 320,
+                  damping: 24,
+                  mass: 0.6,
+                  delay: index * 0.03,
+                },
+              })}
+            />
+            <Empty when={!donor.length}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="#25314C" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M21.558 12.3 19.4 5.814A3.549 3.549 0 0 0 16 3.25H8a3.549 3.549 0 0 0-3.4 2.564L2.443 12.3a3.732 3.732 0 0 0-.193 1.187V18A3.383 3.383 0 0 0 6 21.75h12A3.383 3.383 0 0 0 21.75 18v-4.513a3.748 3.748 0 0 0-.192-1.187ZM6.028 6.288A2.063 2.063 0 0 1 8 4.75h8a2.063 2.063 0 0 1 1.972 1.538l2.07 6.212h-3a3.376 3.376 0 0 0-2.886 1.763 2.5 2.5 0 0 1-4.318 0A3.376 3.376 0 0 0 6.955 12.5h-3Z"
+                  fill="#25314C"
+                />
+              </svg>
+            </Empty>
+          </>
         )}
       </div>
     </>

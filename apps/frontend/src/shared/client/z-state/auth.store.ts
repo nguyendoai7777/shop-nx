@@ -1,12 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { UserQueryResponseSchema } from '@shop/type';
+import { RSBUser } from '@shop/type';
 
 interface AuthStore {
   error: string;
   setError(error: string): void;
-  user: UserQueryResponseSchema | undefined;
-  setUser(user: Partial<UserQueryResponseSchema> | undefined): void;
+  user: RSBUser | undefined;
+  setUser(user: Partial<RSBUser> | undefined): void;
   apiUrl: string;
   setApiUrl(url: string): void;
   clearError: () => void;

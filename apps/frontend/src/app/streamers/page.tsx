@@ -6,6 +6,7 @@ import { ResponseBase, Streamer } from '@shop/type';
 import { SvgClient } from '@components';
 import './streamer.scss';
 import { httpResourceAsync } from '@core/http';
+import { RankingDonateList } from './component/ranking-donate-list';
 
 export const metadata: Metadata = {
   title: 'Danh sách streamer',
@@ -34,7 +35,7 @@ export default async function StreamersPage() {
   return (
     <>
       <h1 className="pb-2 font-semibold text-2xl mt-1">Danh sách</h1>
-
+      <RankingDonateList />
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3 mt-4">
         {(data!.data ?? []).map((str) => (
           <CardButton key={str.id}>

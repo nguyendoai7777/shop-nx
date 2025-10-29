@@ -1,1 +1,1 @@
-export type XVGSrc = 'Verified' | 'Crown';
+export type XVGSrc = 'Verified' | 'Crown' | 'EmptyFilled';

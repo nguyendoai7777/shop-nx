@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_AzzTVNRN7N
+createdAt: 2025-10-29T07:06:21.371479100
+updatedAt: 2025-10-29T07:07:03.761176500
+workspaceId: wk_teknBTJbQe
+folderId: fl_b6qizyHfHB
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Ranking 10 in month
+sortPriority: 999.9994
+url: ${[ api_host ]}/streamer/ranking-donate
+urlParameters: []

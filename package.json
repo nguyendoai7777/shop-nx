@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "fe": "nx dev frontend -p 3001",
+    "fe": "nx dev frontend -p 3001 --turbo",
     "be": "nx serve backend",
     "mgdb": "prisma migrate dev --name init",
     "prepare": "husky"
@@ -43,6 +43,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "socket.io-client": "^4.8.1",
+    "swiper": "^12.0.3",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
