@@ -7,13 +7,16 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { PrismaClientExceptionFilter, ResponseExceptionFilter } from '@filters';
-import { ResponseInterceptor } from '@interceptors';
+import {
+  NotFoundFilter,
+  PrismaClientExceptionFilter,
+  ResponseExceptionFilter,
+  UnauthorizedExceptionFilter,
+} from '@filters';
+import { NoCacheInterceptor, ResponseInterceptor } from '@interceptors';
 import { configDotenv } from 'dotenv';
-import { NoCacheInterceptor } from './shared/interceptors/no-cache.interceptor';
-import { NotFoundFilter } from './shared/filters/notfound-exception/notfound-exception.filter';
 import chalk from 'chalk';
-import { Purple } from './shared/constants/color.const';
+import { Purple } from '@constants';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 configDotenv({
@@ -26,7 +29,12 @@ async function bootstrap() {
     logger: ['error', 'warn'],
   });
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new ResponseExceptionFilter(), new PrismaClientExceptionFilter(), new NotFoundFilter());
+  app.useGlobalFilters(
+    new ResponseExceptionFilter(),
+    new PrismaClientExceptionFilter(),
+    new NotFoundFilter(),
+    new UnauthorizedExceptionFilter()
+  );
   app.useGlobalInterceptors(new NoCacheInterceptor(), new ResponseInterceptor());
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);

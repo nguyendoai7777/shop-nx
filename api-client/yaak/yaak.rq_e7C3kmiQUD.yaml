@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_e7C3kmiQUD
 createdAt: 2025-10-06T08:28:28.163135
-updatedAt: 2025-10-06T08:28:28.163135500
+updatedAt: 2025-10-30T08:06:02.797583200
 workspaceId: wk_teknBTJbQe
 folderId: fl_WzNUM9nFRr
 authentication: {}
@@ -13,6 +13,6 @@ description: ''
 headers: []
 method: GET
 name: ''
-sortPriority: 999.9999
+sortPriority: 4000.0
 url: ''
 urlParameters: []

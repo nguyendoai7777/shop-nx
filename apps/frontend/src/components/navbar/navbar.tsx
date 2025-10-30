@@ -86,7 +86,7 @@ export default function Navbar() {
           </div>
         </nav>
       </div>
-      <Dialog open={showLogin} onClose={destroyDialog}>
+      <Dialog className="XDialog" open={showLogin} onClose={destroyDialog}>
         <AuthDialog isRegister={isRegisterMode} onClose={destroyDialog} />
       </Dialog>
     </>

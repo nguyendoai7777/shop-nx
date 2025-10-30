@@ -2,21 +2,15 @@ import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import chalk from 'chalk';
-import { Deeppink, DodgeBlue } from '../constants/color.const';
+import { Deeppink, DodgeBlue, RedisKey } from '@constants';
+import { RedisService } from '@services';
+import { UserJWT } from '@shop/type';
+import { c } from '@utils';
 
 function pathToRegex(pattern: string): RegExp {
-  // Bước 1: thay thế glob ** và *
-  let regexStr = pattern
-    .replace(/\*\*/g, '<<<DOUBLE>>>') // placeholder
-    .replace(/\*/g, '<<<SINGLE>>>'); // placeholder
-
-  // Bước 2: escape các ký tự regex đặc biệt
+  let regexStr = pattern.replace(/\*\*/g, '<<<DOUBLE>>>').replace(/\*/g, '<<<SINGLE>>>');
   regexStr = regexStr.replace(/[.+?^${}()|[\]\\]/g, '\\$&');
-
-  // Bước 3: trả lại placeholder thành regex thật
-  regexStr = regexStr
-    .replace(/<<<DOUBLE>>>/g, '.*') // ** = match nhiều segment
-    .replace(/<<<SINGLE>>>/g, '[^/]+'); // *  = match 1 segment
+  regexStr = regexStr.replace(/<<<DOUBLE>>>/g, '.*').replace(/<<<SINGLE>>>/g, '[^/]+');
 
   return new RegExp(`^${regexStr}$`);
 }
@@ -29,12 +23,13 @@ const openRoutes = ['/api/streamer', '/api/streamer/**', '/api/auth/**', '/api/p
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private readonly redis: RedisService
+  ) {}
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
 
-    // if (request.url.startsWith('/api/auth')) return true;
-    // if (openRoutes.includes(request.url))
     console.log(chalk.hex(Deeppink).bold(`@@`), chalk.hex(DodgeBlue).bold(`[${request.method}]`));
     console.log({
       url: request.url,
@@ -48,13 +43,16 @@ export class AuthGuard implements CanActivate {
     if (!token) {
       throw new UnauthorizedException();
     }
-    try {
-      // 💡 We're assigning the payload to the request object here
-      // so that we can access it in our route handlers
-      request['user'] = await this.jwtService.verifyAsync(token);
-    } catch {
+
+    const user = await this.jwtService.verifyAsync<UserJWT>(token);
+    const accessKey = `${RedisKey.tokenAccess}:${user.id}`;
+    const storedToken = await this.redis.get<string>(accessKey);
+
+    if (!storedToken || storedToken !== token) {
       throw new UnauthorizedException();
     }
+    request['user'] = user;
+
     return true;
   }
 

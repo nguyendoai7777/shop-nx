@@ -3,48 +3,48 @@ import { PrismaClientService, RedisService } from '@services';
 import { CreateUserDto, LoginDto } from '@shop/dto';
 import { JwtService } from '@nestjs/jwt';
 import { verify } from 'argon2';
-import { EResMessage, RedisKey } from '@constants';
-import { AuthApiResponse, UserJWT } from '@shop/type';
-import { ResponseTransformer } from '@shop/factory';
+import { RedisKey } from '@constants';
+import { UserJWT } from '@shop/type';
+import { c } from '@utils';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prisma: PrismaClientService,
-    private readonly jwt$$: JwtService
-    // private readonly redis: RedisService
+    private readonly jwt$$: JwtService,
+    private readonly redis: RedisService
   ) {}
 
-  /*async refreshToken(refreshToken: string) {
+  async refreshToken(rfToken: string) {
+    const user = await this.jwt$$.verifyAsync<UserJWT>(rfToken, {
+      secret: process.env.SECRET_KEY_REFRESH,
+    });
+    console.log(c.bold.cyan`@@ Decoded token`, user);
+    const key = `${RedisKey.tokenRefresh}:${user.id}`;
+    const storedToken = await this.redis.get<string>(key);
+    console.log(c.bold.cyan`@@ Refresh Token`, storedToken);
+    if (!storedToken || storedToken !== rfToken) {
+      throw new UnauthorizedException('Refresh token không hợp lệ hoặc đã hết hạn');
+    }
 
-      const payload = await this.jwt$$.verifyAsync(refreshToken, {
-        secret: process.env.JWT_REFRESH_SECRET,
-      });
+    const _payload: Partial<UserJWT> = {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      firstname: user.firstname,
+      lastname: user.lastname,
+    };
 
-      const key = `${RedisKey.tokenRefresh}:${payload.sub}`;
-      const storedToken = await this.redis.get<string>(key);
-
-      // Kiểm tra token hợp lệ và còn lưu trong Redis
-      if (!storedToken || storedToken !== refreshToken) {
-        throw new UnauthorizedException('Refresh token không hợp lệ hoặc đã hết hạn');
-      }
-
-      // Cấp lại accessToken mới
-      const newAccessToken = await this.jwt$$.signAsync(
-        {
-          sub: payload.sub,
-          username: payload.username,
-          email: payload.email,
-        },
-        {
-          secret: process.env.JWT_SECRET,
-          expiresIn: '15m',
-        },
-      );
-
-      return newAccessToken
-
-  }*/
+    const refreshToken = await this.jwt$$.signAsync(_payload, {
+      secret: process.env.SECRET_KEY_REFRESH,
+      expiresIn: '30d',
+    });
+    const accessToken = await this.jwt$$.signAsync(_payload);
+    return {
+      refreshToken,
+      accessToken,
+    };
+  }
 
   async create(data: CreateUserDto) {
     return this.prisma.user.create({
@@ -78,15 +78,12 @@ export class AuthService {
       status: HttpStatus.UNAUTHORIZED,
     };
 
-    if (!user) {
-      throw new BadRequestException(err);
-    }
-
+    if (!user) throw new BadRequestException(err);
     const isValid = await verify(user.password, dto.password);
-
-    if (!isValid) {
-      throw new BadRequestException(err);
-    }
+    if (!isValid) throw new BadRequestException(err);
+    const refreshKey = `${RedisKey.tokenRefresh}:${user.id}`;
+    const accessKey = `${RedisKey.tokenAccess}:${user.id}`;
+    await Promise.all([this.redis.del(refreshKey), this.redis.del(accessKey)]);
 
     const payload: Partial<UserJWT> = {
       id: user.id,
@@ -103,18 +100,29 @@ export class AuthService {
       secret: process.env.SECRET_KEY_REFRESH,
       expiresIn: '30d',
     });
-    const key = `${RedisKey.tokenRefresh}:${user.id}`;
-    await this.redis.set(key, refreshToken, 730 * 24 * 3600);
+    const rfKey = `${RedisKey.tokenRefresh}:${user.id}`;
+    const acKey = `${RedisKey.tokenAccess}:${user.id}`;
+
+    await this.redis.set(rfKey, refreshToken, 30 * 24 * 3600);
+    await this.redis.set(acKey, token, 7 * 24 * 3600);
 
     const { password, ...user2 } = user;
-    return new ResponseTransformer<AuthApiResponse>({
-      message: EResMessage.LoginSuccess,
-      status: HttpStatus.OK,
-      data: {
-        accessToken: token,
-        refreshToken,
-        user: user2,
-      },
+    return {
+      accessToken: token,
+      refreshToken,
+      user: user2,
+    };
+  }
+
+  async logout(accessToken: string) {
+    const user = await this.jwt$$.verifyAsync<UserJWT>(accessToken, {
+      secret: process.env.SECRET_KEY_REFRESH,
     });
+    const accessKey = `${RedisKey.tokenAccess}:${user.id}`;
+    const refreshKey = `${RedisKey.tokenRefresh}:${user.id}`;
+    await Promise.all([this.redis.del(refreshKey), this.redis.del(accessKey)]);
+    return {
+      data: 'ok',
+    };
   }
 }

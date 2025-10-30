@@ -1,0 +1,26 @@
+type: http_request
+model: http_request
+id: rq_kzpq2TNsuy
+createdAt: 2025-10-30T07:51:53.924452700
+updatedAt: 2025-10-30T08:10:41.119439300
+workspaceId: wk_teknBTJbQe
+folderId: fl_WzNUM9nFRr
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Logout
+sortPriority: 1000.0
+url: ${[ api_host ]}/auth/logout
+urlParameters:
+- enabled: true
+  name: accessToken
+  value: ${[ accessToken ]}
+  id: n0J2JRcyNe
+- enabled: true
+  name: ''
+  value: ''
+  id: u0n5Xivin9

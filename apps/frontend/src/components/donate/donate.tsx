@@ -102,7 +102,7 @@ export const Donate: FCC<DonateProps> = ({ streamer }) => {
             {user ? 'Donate' : 'Đăng nhập để donate'}
           </CButton>
         </form>
-        <Dialog open={showLogin} onClose={destroyDialog}>
+        <Dialog className="XDialog" open={showLogin} onClose={destroyDialog}>
           <AuthDialog onClose={destroyDialog} />
         </Dialog>
       </Keydown.meta.enter>

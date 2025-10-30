@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { PrismaClientModule } from '@services';
+import { PrismaClientModule, RedisModule } from '@services';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
@@ -20,7 +20,7 @@ import { EventsModule } from './events/events.module';
       rootPath: join(__dirname, '../public'),
     }),
     PrismaClientModule,
-    // RedisModule,
+    RedisModule,
     EventsModule,
     UserModule,
     AuthModule,

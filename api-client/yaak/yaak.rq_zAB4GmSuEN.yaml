@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_zAB4GmSuEN
 createdAt: 2025-09-05T04:05:53.840165300
-updatedAt: 2025-10-08T05:12:23.874449400
+updatedAt: 2025-10-30T08:06:02.788793600
 workspaceId: wk_teknBTJbQe
 folderId: fl_WzNUM9nFRr
 authentication: {}
@@ -26,6 +26,6 @@ headers:
   id: 4ernSC6qxH
 method: POST
 name: Register
-sortPriority: 0.0
+sortPriority: 3000.0
 url: ${[ api_host ]}/auth/register
 urlParameters: []

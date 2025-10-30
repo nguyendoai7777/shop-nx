@@ -1,0 +1,26 @@
+type: http_request
+model: http_request
+id: rq_Hj6CmgJXyr
+createdAt: 2025-10-30T07:16:10.395224300
+updatedAt: 2025-10-30T08:06:02.806136500
+workspaceId: wk_teknBTJbQe
+folderId: fl_WzNUM9nFRr
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJzaGFya2JpbmgiLCJlbWFpbCI6InNoYXJrYmluaEBnbWFpbC5jb20iLCJmaXJzdG5hbWUiOiJOZ3V5ZW4gSG9hIiwibGFzdG5hbWUiOiJCaW5oIiwiaWF0IjoxNzYxODA4NjcyLCJleHAiOjE3NjQ0MDA2NzJ9.EYLJpZauhA9-B6OA__74bjyW-HYh1Y9jiL1JyhyiLms"
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: Kpxs2RzgqY
+method: POST
+name: Refresh Token
+sortPriority: 2000.0
+url: ${[ api_host ]}/auth/refresh-token
+urlParameters: []

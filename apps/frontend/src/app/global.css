@@ -94,6 +94,10 @@ input:-webkit-autofill:active {
   @apply bg-gray-300/10 hover:bg-gray-300/25;
 }
 
+.XDialog .MuiDialog-container .MuiPaper-root {
+  @apply mx-0 md:mx-8 w-[calc(100%-2rem)] md:max-w-[600px];
+}
+
 @keyframes spin-smooth {
   0% {
     transform: rotate(0deg);

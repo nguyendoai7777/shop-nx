@@ -79,7 +79,7 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
         {...(scrollPosition === ESoraScrollDistance.Bottom && { 'at-end': '' })}
         {...(scrollPosition === ESoraScrollDistance.None && { 'at-none': '' })}
       >
-        <div className="flex flex-col gap-y-4 w-120 pt-2" id="AuthForm">
+        <div className="flex flex-col gap-y-4 md:w-120 pt-2" id="AuthForm">
           {isLogin ? <Login valueChange={setLoginValue} /> : <Register valueChange={setRegisterValue} />}
         </div>
       </OverlayScrollbarsComponent>

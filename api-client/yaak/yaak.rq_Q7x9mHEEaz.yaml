@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_Q7x9mHEEaz
 createdAt: 2025-10-13T03:01:25.632587300
-updatedAt: 2025-10-13T03:01:35.900975500
+updatedAt: 2025-10-30T09:07:55.714128400
 workspaceId: wk_teknBTJbQe
 folderId: fl_F2grL45rFq
 authentication: {}
@@ -14,5 +14,5 @@ headers: []
 method: GET
 name: Setting
 sortPriority: 999.9999
-url: ${[ api_host ]}/user/setting
+url: ${[ api_host ]}/user/setting-user
 urlParameters: []
