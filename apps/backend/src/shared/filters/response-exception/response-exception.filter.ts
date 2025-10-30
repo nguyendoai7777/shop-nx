@@ -1,7 +1,6 @@
 import { ArgumentsHost, BadRequestException, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
-import { ResponseTransformer } from '@shop/factory';
-import chalk from 'chalk';
+import { ResponseTransformer, TCast } from '@shop/factory';
 import { c } from '@utils';
 
 @Catch(BadRequestException)
@@ -13,11 +12,11 @@ export class ResponseExceptionFilter implements ExceptionFilter {
     let errorMess: any;
     const isBadRequestFilter = (exception.getResponse() as BadRequestException).message;
     const tryAsResponseTransformer = exception.getResponse() as any;
-    console.log(chalk.bold.hex('#ff1493')`@@ BadRequestException`, exception.getResponse());
+    console.log(c.bold.hex('#ff1493')`@@ BadRequestException`, exception.getResponse());
     if (tryAsResponseTransformer instanceof ResponseTransformer) {
       errorMess = tryAsResponseTransformer.data;
     } else if (Array.isArray(isBadRequestFilter)) {
-      const errors = isBadRequestFilter as unknown as string[];
+      const errors = TCast<string[]>(isBadRequestFilter);
       const validationMap: Record<string, string> = {};
       for (const msg of errors) {
         const parts = msg.split(' ');
@@ -31,7 +30,7 @@ export class ResponseExceptionFilter implements ExceptionFilter {
         status: HttpStatus.BAD_REQUEST,
       };
     } else {
-      console.log(chalk.bold.hex('#ff1493')`@@ Case else`);
+      console.log(c.bold.hex('#ff1493')`@@ Case else`);
       errorMess = {
         message: exception.message,
         status: HttpStatus.BAD_REQUEST,
