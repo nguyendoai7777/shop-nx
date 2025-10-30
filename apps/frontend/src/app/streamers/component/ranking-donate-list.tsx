@@ -52,44 +52,18 @@ export const RankingDonateList: FCC<CardListProps> = ({}) => {
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
           >
-            {data.map((it, i) => (
+            {data.concat(data).map((it, i) => (
               <SwiperSlide key={i}>
                 <XCard index={i} className="">
                   <div className="w-3/4 aspect-square mx-auto">
-                    <XAvatar size="100%" user={it} />
+                    <XAvatar avatarSize="100%" user={it} />
                   </div>
-                  <div className="line-clamp-1 text-center text-xs md:text-base">
+                  <div className="line-clamp-1 text-center text-xs md:text-base mt-2">
                     {it.firstname} {it.lastname}
                   </div>
                 </XCard>
               </SwiperSlide>
             ))}
-            {/*<Renderer
-            list={data}
-            render={(it, idx) => (
-            <>
-              <SwiperSlide>
-                <XCard>{it.lastname}</XCard>
-              </SwiperSlide>
-              <SwiperSlide>
-                <XCard>{it.lastname}</XCard>
-              </SwiperSlide>
-              <SwiperSlide>
-                <XCard>{it.lastname}</XCard>
-              </SwiperSlide>
-            </>
-
-            )}
-          />*/}
-            {/*<SwiperSlide>
-            <XCard>2</XCard>
-          </SwiperSlide>
-          <SwiperSlide>
-            <XCard>3</XCard>
-          </SwiperSlide>
-          <SwiperSlide>
-            <XCard>4</XCard>
-          </SwiperSlide>*/}
           </Swiper>
         </Suspense>
       </ErrorBoundary>

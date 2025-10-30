@@ -20,6 +20,7 @@ import { EventsModule } from './events/events.module';
       rootPath: join(__dirname, '../public'),
     }),
     PrismaClientModule,
+    // RedisModule,
     EventsModule,
     UserModule,
     AuthModule,

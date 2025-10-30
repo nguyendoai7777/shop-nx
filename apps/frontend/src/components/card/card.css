@@ -29,6 +29,15 @@
   }
 }
 
+@keyframes gradientShift {
+  0% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: top 37.5% left 37.5%;
+  }
+}
+
 .XCard {
   .idle {
     animation: move 5s linear infinite;
@@ -48,59 +57,93 @@
   }
 
   .XCard1 {
+    animation: gradientShift 4.2s linear infinite;
+    background-size: 800% 800% !important;
     background: linear-gradient(
+      135deg,
+      #fcf4de,
+      #efb8eb,
+      #d66dee,
+      #b039cb,
+      #fcf4de,
+      #fcf4de,
+      #efb8eb,
+      #d66dee,
+      #b039cb,
+      #fcf4de
+    );
+    /*background: linear-gradient(
       45deg,
       hsla(43, 83%, 93%, 1) 0%,
       hsla(305, 64%, 83%, 1) 50%,
       hsla(289, 79%, 68%, 1) 100%
-    );
+    );*/
   }
 
   .XCard2 {
+    animation: gradientShift 4.2s linear infinite;
+    animation-delay: 0.5s;
+    background-size: 800% 800% !important;
     background: linear-gradient(
-      45deg,
-      hsla(207, 80%, 59%, 1) 0%,
-      hsla(344, 64%, 79%, 1) 50%,
-      hsla(343, 93%, 69%, 1) 100%
+      135deg,
+      #439fea,
+      #eca7b9,
+      #c94461,
+      #d9214b,
+      #439fea,
+      #439fea,
+      #eca7b9,
+      #c94461,
+      #d9214b,
+      #439fea
     );
   }
 
   .XCard3 {
-    background: linear-gradient(45deg, hsla(212, 35%, 58%, 1) 0%, hsla(218, 32%, 80%, 1) 100%);
+    animation: gradientShift 4.2s linear infinite;
+    animation-delay: 0.5s;
+    background-size: 800% 800% !important;
+    background: linear-gradient(
+      135deg,
+      #6e91b9,
+      #bcc8dc,
+      #6e91b9,
+      #6e91b9,
+      #bcc8dc,
+      #6e91b9,
+      #6e91b9,
+      #bcc8dc,
+      #6e91b9,
+      #6e91b9,
+      #bcc8dc,
+      #6e91b9
+    );
   }
 
   .ranking-order {
+    --fs: 40px;
     background: linear-gradient(2deg, #ffffff00 0%, #ffffff 100%) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent;
-    font-size: 35px;
+    font-size: var(--fs);
     line-height: 35px;
-    width: 60px;
-    font-weight: 600;
+    font-weight: bold;
   }
 
   svg {
     width: 20px;
-    height: 45px;
+    height: 35px;
   }
 
   svg {
     text {
       animation: stroke 5s infinite alternate;
-      stroke-width: 2;
-      font-size: 35px;
+      stroke-width: 3;
+      font-size: var(--fs);
     }
 
     &.XTxt1 text {
       stroke: hsla(289, 79%, 68%, 1);
-    }
-
-    &.XTxt2 text {
-      stroke: hsla(343, 93%, 69%, 1);
-    }
-
-    &.XTxt3 text {
-      stroke: hsla(218, 32%, 80%, 1);
     }
   }
 }

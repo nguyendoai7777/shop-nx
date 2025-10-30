@@ -32,6 +32,8 @@ export interface UserJWT {
   id: number;
   username: string;
   email: string;
+  firstname: string;
+  lastname: string;
   iat: number;
   exp: number;
 }

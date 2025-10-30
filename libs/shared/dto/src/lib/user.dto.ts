@@ -12,6 +12,18 @@ import {
 import { ApiProperty, IntersectionType } from '@nestjs/swagger';
 import { PasswordMatchConstraint } from '../decorators/password-matcher.decorator.js';
 
+export class RefreshTokenDto {
+  @IsDefined({ message: 'refreshToken không được để trống' })
+  @IsNotEmpty({ message: 'refreshToken không được để trống' })
+  @IsString()
+  @ApiProperty({
+    description: 'Refresh toke',
+    example: 'ey...',
+    type: 'string',
+  })
+  refreshToken: string;
+}
+
 export class UserInfoDTO {
   @IsEmail({}, { message: 'Email Không đúng định dạng' })
   @IsDefined({ message: 'Email không được để trống' })
