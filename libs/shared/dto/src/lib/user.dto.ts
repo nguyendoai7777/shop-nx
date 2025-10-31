@@ -70,16 +70,17 @@ export class UserPasswordDTO {
     type: 'string',
   })
   password: string;
+
   @ValidateIf((o) => o.password !== undefined && o.password !== '')
   @Validate(PasswordMatchConstraint)
-  @IsNotEmpty({ message: 'confirmPassword Vui lòng xác nhận lại mật khẩu' })
+  @IsNotEmpty({ message: 'verifiedPassword Vui lòng xác nhận lại mật khẩu' })
   @IsNotEmpty()
   @IsString()
   @ApiProperty({
     example: '123@!Fvxs',
     required: false,
   })
-  confirmPassword?: string;
+  verifiedPassword?: string;
 }
 
 export class CreateUserDto extends IntersectionType(UserInfoDTO, UserPasswordDTO) {

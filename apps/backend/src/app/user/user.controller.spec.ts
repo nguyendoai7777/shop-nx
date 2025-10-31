@@ -36,9 +36,18 @@ describe('UserController', () => {
       lastname: 'Shark',
       firstname: 'Binh chó lợn',
       password: '',
-      confirmPassword: '',
+      verifiedPassword: '',
     };
-    const user: UserJWT = { id: 1, email: 'jon@gmail.com', name: 'John', exp: 1, iat: 1, username: 'johnxx' };
+    const user: UserJWT = {
+      id: 1,
+      email: 'jon@gmail.com',
+      name: 'John',
+      exp: 1,
+      iat: 1,
+      username: 'johnxx',
+      lastname: 'fx',
+      firstname: '',
+    };
     (userService.updateUserInfoSetting as jest.Mock).mockResolvedValueOnce(undefined);
     const result = await controller.updateUserProfile(payload, user);
     expect(userService.updateUserInfoSetting).toHaveBeenCalledWith(
@@ -61,9 +70,18 @@ describe('UserController', () => {
       lastname: 'Shark',
       firstname: 'Binh chó lợn',
       password: 'mr@dxd&123',
-      confirmPassword: 'mr@dxd&123',
+      verifiedPassword: 'mr@dxd&123',
     };
-    const user: UserJWT = { id: 1, email: 'jon@gmail.com', name: 'John', exp: 1, iat: 1, username: 'johnxx' };
+    const user: UserJWT = {
+      id: 1,
+      email: 'jon@gmail.com',
+      name: 'John',
+      exp: 1,
+      iat: 1,
+      username: 'johnxx',
+      lastname: 'fx',
+      firstname: '',
+    };
     (userService.updateUserInfoSetting as jest.Mock).mockResolvedValueOnce(undefined);
     const result = await controller.updateUserProfile(payload, user);
     expect(userService.updateUserInfoSetting).toHaveBeenCalledWith(

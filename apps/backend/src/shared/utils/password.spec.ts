@@ -24,9 +24,9 @@ describe('verifyPassword', () => {
 
   it('Check login success', async () => {
     const password = 'Secret123';
-    const confirmPassword = 'Secret123';
+    const verifiedPassword = 'Secret123';
 
-    const hashed = await verifyPassword(password, confirmPassword);
+    const hashed = await verifyPassword(password, verifiedPassword);
 
     expect(typeof hashed).toBe('string');
     expect(hashed).not.toEqual(password);

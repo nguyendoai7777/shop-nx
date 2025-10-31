@@ -9,7 +9,7 @@ describe('Remove falsy key in object', () => {
       lastname: 'Shark',
       firstname: 'Binh',
       password: '',
-      confirmPassword: '',
+      verifiedPassword: '',
     };
     const result = removeEmptyFields(data);
     expect(result).toEqual(expected);
@@ -19,7 +19,7 @@ describe('Remove falsy key in object', () => {
       lastname: 'Shark',
       firstname: 'Binh',
       password: null,
-      confirmPassword: null,
+      verifiedPassword: null,
     };
     const result = removeEmptyFields(data);
     expect(result).toEqual(expected);
@@ -29,7 +29,7 @@ describe('Remove falsy key in object', () => {
       lastname: 'Shark',
       firstname: 'Binh',
       password: undefined,
-      confirmPassword: undefined,
+      verifiedPassword: undefined,
     };
     const result = removeEmptyFields(data);
     expect(result).toEqual(expected);

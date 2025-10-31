@@ -2,12 +2,14 @@ import { ValidatorConstraint, ValidatorConstraintInterface } from 'class-validat
 
 @ValidatorConstraint({ name: 'passwordMatch', async: false })
 export class PasswordMatchConstraint implements ValidatorConstraintInterface {
-  validate(confirmPassword: string, args: any) {
-    const { password } = args.object as any;
-    return !password || confirmPassword === password;
+  validate(_: string, args: any) {
+    const { password, verifiedPassword } = args.object as any;
+    console.log(`@@ @ValidatorConstraint`, { verifiedPassword, _ });
+    console.log(`@@ @ValidatorConstraint`, { args });
+    return verifiedPassword === password;
   }
 
   defaultMessage() {
-    return 'confirmPassword Xác nhận mật khẩu không khớp';
+    return 'verifiedPassword Xác nhận mật khẩu không khớp';
   }
 }

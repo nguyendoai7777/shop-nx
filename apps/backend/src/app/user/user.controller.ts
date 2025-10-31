@@ -78,7 +78,7 @@ export class UserController {
   @Put('setting-channel')
   async updateChannel(@Body() payload: ChannelDto, @User() user: UserJWT) {
     try {
-      const d = await this.userService.updateSettingInfo(payload, user);
+      await this.userService.updateSettingInfo(payload, user);
       return new ResponseTransformer({
         message: 'Cập nhật thành công',
         status: HttpStatus.OK,
@@ -91,7 +91,7 @@ export class UserController {
   @Patch('update-profile')
   async updateUserProfile(@Body() payload: UpdateUserProfileDto, @User() user: UserJWT) {
     if (payload.password) {
-      payload.password = await verifyPassword(payload.password, payload.confirmPassword!);
+      payload.password = await verifyPassword(payload.password, payload.verifiedPassword!);
     }
     await this.userService.updateUserInfoSetting(removeEmptyFields(payload), user.id);
     return new ResponseTransformer({
@@ -101,8 +101,12 @@ export class UserController {
   }
 
   @Post(`change-password`)
-  changePassword(@User() user: UserJWT, @Body() dto: UserPasswordDTO) {
-    return this.userService.changePassword(dto, user.id);
+  async changePassword(@Body() dto: UserPasswordDTO, @User() user: UserJWT) {
+    await this.userService.changePassword(dto, user.id);
+    return new ResponseTransformer({
+      message: 'Đổi mật khẩu thành công',
+      status: HttpStatus.OK,
+    });
   }
 
   @Delete(':id')

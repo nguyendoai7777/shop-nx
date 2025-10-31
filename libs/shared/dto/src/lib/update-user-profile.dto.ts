@@ -26,13 +26,13 @@ export class UpdateUserProfileDto {
 
   @ValidateIf((o) => o.password !== undefined && o.password !== '')
   @Validate(PasswordMatchConstraint)
-  @IsNotEmpty({ message: 'confirmPassword Vui lòng xác nhận lại mật khẩu' })
+  @IsNotEmpty({ message: 'verifiedPassword Vui lòng xác nhận lại mật khẩu' })
   @IsString()
   @ApiProperty({
     example: '123@!Fvxs',
     required: false,
   })
-  confirmPassword?: string;
+  verifiedPassword?: string;
 
   @IsString()
   @IsOptional()

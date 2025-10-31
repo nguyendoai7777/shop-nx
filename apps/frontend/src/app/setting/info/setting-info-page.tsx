@@ -94,7 +94,7 @@ const SettingInfoPage = () => {
                   },
                 },
               }}
-              textError={errors.confirmPassword?.message}
+              textError={errors.verifiedPassword?.message}
               controlProps={{
                 className: '!mt-3',
                 label: 'Xác nhận mật khẩu',

@@ -16,7 +16,7 @@ export const useUpdateProfileService = () => {
       lastname: user?.lastname ?? '',
       firstname: user?.firstname ?? '',
       password: '',
-      confirmPassword: '',
+      verifiedPassword: '',
     },
     mode: 'all',
     reValidateMode: 'onChange',
