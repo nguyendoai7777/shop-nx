@@ -9,9 +9,9 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "forceConsistentCasingInFileNames": true,
-    "types": ["node", "express", "multer"],
+    "types": ["node", "express", "multer", "@nestjs/common"],
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
   },
   "include": ["src/**/*.ts"],
   "references": [

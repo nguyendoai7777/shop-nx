@@ -81,5 +81,11 @@
         }
       }
     }
+  },
+  "dependencies": {
+    "@shop/platform": "workspace:*",
+    "@shop/dto": "workspace:*",
+    "@shop/factory": "workspace:*",
+    "@shop/type": "workspace:*"
   }
 }

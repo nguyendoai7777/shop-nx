@@ -11,13 +11,20 @@ const nextConfig = {
   // See: https://nx.dev/recipes/next/next-config-setup
   reactStrictMode: false,
   nx: {
-    svgr: false
+    svgr: false,
   },
+};
+
+/** @param config {import('next').NextConfig} */
+const withNxNext16 = (config) => {
+  if ('eslint' in config) delete config.eslint;
+  return config;
 };
 
 const plugins = [
   // Add more Next.js plugins to this list if needed.
   withNx,
+  withNxNext16,
 ];
 
 module.exports = composePlugins(...plugins)(nextConfig);

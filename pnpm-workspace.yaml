@@ -1,0 +1,17 @@
+packages:
+  - apps/*
+  - libs/shared/*
+
+ignoredBuiltDependencies:
+  - '@nestjs/core'
+  - '@parcel/watcher'
+  - '@prisma/client'
+  - '@prisma/engines'
+  - '@scarf/scarf'
+  - '@swc/core'
+  - argon2
+  - esbuild
+  - nx
+  - prisma
+  - sharp
+  - unrs-resolver
