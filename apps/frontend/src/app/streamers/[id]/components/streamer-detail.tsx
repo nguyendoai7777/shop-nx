@@ -11,7 +11,7 @@ export interface StreamerDetailProps {
 export const StreamerDetail: FCC<StreamerDetailProps> = ({ streamer }) => {
   return (
     <div className="mt-4">
-      <div className="relative">
+      <div className="hidden md:block relative">
         {streamer.banner ? (
           <ForwardImg className="w-full h-auto aspect-[16/2.5]" src={streamer.banner} />
         ) : (
@@ -34,7 +34,7 @@ export const StreamerDetail: FCC<StreamerDetailProps> = ({ streamer }) => {
                   <XAvatar user={streamer} />
                 </div>
               )}*/}
-              <XAvatar user={streamer} className={'w-full h-full text-3xl'} />
+              <XAvatar user={streamer} avatarSize={`100%`} className={'w-full h-full text-3xl'} />
             </div>
             {streamer.channelRef ? (
               <svg
@@ -61,7 +61,7 @@ export const StreamerDetail: FCC<StreamerDetailProps> = ({ streamer }) => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-4 mt-4 items-start">
-        <div className="md:w-1/3 mt-16 sticky top-[80px] overflow-x-hidden">
+        <div className="md:w-1/3 mt-0 lg:mt-16 md:sticky md:top-[80px] overflow-x-hidden w-full">
           <div className="text-3xl flex gap-2 py-2 items-center">
             {streamer.firstname} {streamer.lastname}
           </div>
@@ -88,7 +88,8 @@ export const StreamerDetail: FCC<StreamerDetailProps> = ({ streamer }) => {
           )}
         </div>
         {streamer.channelRef ? (
-          <div className="md:w-2/3">
+          <div className="md:w-2/3 w-full">
+            <div className="md:hidden mb-2">Donate</div>
             <DonateList streamer={streamer} />
           </div>
         ) : (

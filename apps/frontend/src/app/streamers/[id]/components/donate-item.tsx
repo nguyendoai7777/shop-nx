@@ -2,15 +2,17 @@
 import { RSBDonation } from '@shop/type';
 import { passiveOf, vnd } from '@shop/platform';
 import { motion } from 'motion/react';
+import { XAvatar } from '@components';
 
 export const DonateItem: FCC<RSBDonation> = (donate) => {
   return (
     <>
-      <motion.div className="flex gap-2 rounded-xl bg-gray-500/10 px-3 py-3">
+      <motion.div className="flex gap-2 rounded-xl bg-gray-500/10 px-3 py-2 md:py-3">
         <div className="min-w-12 h-12 relative rounded-full overflow-hidden">
-          <img alt="avatar" src="/avt.jpg" className="absolute w-full top-1/2 left-1/2 -translate-1/2" />
+          <XAvatar avatarSize={`100%`} className={`min-w-12 h-12`} user={donate.sender} />
+          {/*<img alt="avatar" className="absolute w-full top-1/2 left-1/2 -translate-1/2" />*/}
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col md:gap-2 gap-0">
           <div>
             <span>
               {donate.sender.firstname} {donate.sender.lastname}

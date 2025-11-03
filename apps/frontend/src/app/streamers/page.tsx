@@ -26,8 +26,6 @@ export const metadata: Metadata = {
 
 export default async function StreamersPage() {
   const { data, error } = await httpResourceAsync<ResponseBase<Streamer[]>>(Http.get(`/api/streamer`));
-
-  console.log(`@@ Server streamer`, data);
   if (error) {
     return <div>Fetch Streamers fail</div>;
   }

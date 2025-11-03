@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { AuthResponse } from '@types';
 import { ResponseBase } from '@shop/type';
 import { CatchAxiosError, Http, loadConfig } from '@server/utils';
+import { ServerCookieKey } from '@server/const';
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -17,11 +18,18 @@ export async function POST(req: Request) {
         user: res.data.user,
         accessToken: res.data.accessToken,
         api: ApiUrl,
+        refreshToken: res.data.refreshToken,
       },
       message: res.message,
       status: res.status,
     });
-    response.cookies.set('token', token, {
+    response.cookies.set(ServerCookieKey.accessToken, token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+    });
+    response.cookies.set(ServerCookieKey.refreshToken, token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

@@ -29,7 +29,8 @@
       "@client/utils": ["src/shared/client/utils"],
       "@client/validators": ["src/shared/client/validators"],
       "@core/http": ["src/core/http"],
-      "@core/route": ["src/core/route"]
+      "@core/route": ["src/core/route"],
+      "@server/const": ["src/shared/server/constant"]
     },
     "types": ["jest", "node"],
     "outDir": "dist",

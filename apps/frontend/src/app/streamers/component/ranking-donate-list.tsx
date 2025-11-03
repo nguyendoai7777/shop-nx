@@ -50,7 +50,6 @@ export const RankingDonateList: FCC<CardListProps> = ({}) => {
               },
             }}
             onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
           >
             {data.concat(data).map((it, i) => (
               <SwiperSlide key={i}>

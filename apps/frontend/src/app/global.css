@@ -95,7 +95,8 @@ input:-webkit-autofill:active {
 }
 
 .XDialog .MuiDialog-container .MuiPaper-root {
-  @apply mx-0 md:mx-8 w-[calc(100%-2rem)] md:max-w-[600px];
+  max-width: 450px !important;
+  @apply mx-0 md:mx-8 w-[calc(100%-2rem)];
 }
 
 @keyframes spin-smooth {

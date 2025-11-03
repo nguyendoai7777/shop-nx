@@ -57,9 +57,11 @@ export const ImageUpload: FCC<ImageUploadProps> = ({ onPick }) => {
 
   return (
     <>
-      <div className="SettingInfoPage relative flex-1 mr-13">
+      <div className="SettingInfoPage relative flex-1 lg:mr-13">
         <div className="relative w-full">
-          <div className={`Banner aspect-[16/2.5] bg-gray-300/10 w-full ${banner || user?.banner ? '' : 'opacity-35'}`}>
+          <div
+            className={`Banner aspect-[16/3] bg-gray-300/10 w-full md:min-h-[120px] ${banner || user?.banner ? '' : 'opacity-35'}`}
+          >
             {banner ? (
               <img className="absolute top-1/2 left-1/2 -translate-1/2 h-full" alt="banner" src={banner.preview} />
             ) : user?.banner ? (
@@ -78,7 +80,7 @@ export const ImageUpload: FCC<ImageUploadProps> = ({ onPick }) => {
           </Tooltip>
         </div>
 
-        <div className="absolute left-12  w-45 h-45 z-20 top-[calc(100%-90px)] bg-dark border-2 border-gray-300  rounded-full overflow-hidden">
+        <div className="absolute left-4 md:left-12 w-20 h-20 md:w-45 md:h-45 z-20 top-1/2 -translate-y-1/2 md:translate-y-0 md:top-[calc(100%-90px)] bg-dark border-2 border-gray-300  rounded-full overflow-hidden">
           <div className="relative w-full h-full">
             <div className={`Banner h-full w-full ${avatar || user?.avatar ? '' : 'opacity-35'}`}>
               {avatar ? (

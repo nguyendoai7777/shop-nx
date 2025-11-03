@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { loadConfig } from './config-loader.util';
 import { CatchAxiosInterceptorError, Cookie } from './index';
+import { ServerCookieKey } from '@server/const';
 
 const httpServer = axios.create({
   headers: { 'Content-Type': 'application/json' },
@@ -13,7 +14,7 @@ httpServer.interceptors.request.use(
     // const cookieStore = await cookies();
     // const token = cookieStore.get('token')?.value;
 
-    const token = await Cookie.get('token');
+    const token = await Cookie.get(ServerCookieKey.accessToken);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

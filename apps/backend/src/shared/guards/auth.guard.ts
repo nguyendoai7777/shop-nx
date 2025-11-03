@@ -5,7 +5,6 @@ import chalk from 'chalk';
 import { Deeppink, DodgeBlue, RedisKey } from '@constants';
 import { RedisService } from '@services';
 import { UserJWT } from '@shop/type';
-import { c } from '@utils';
 
 function pathToRegex(pattern: string): RegExp {
   let regexStr = pattern.replace(/\*\*/g, '<<<DOUBLE>>>').replace(/\*/g, '<<<SINGLE>>>');

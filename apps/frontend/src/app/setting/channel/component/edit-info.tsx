@@ -17,6 +17,8 @@ export interface EditUserInfoProps {
 }
 
 const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyncError = {}, loading = false }) => {
+  const minReceive = channel.minReceive ?? MinReceive;
+
   const {
     control,
     handleSubmit,
@@ -30,7 +32,7 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
       channel: channelName,
       externalLinks: channel.externalLinks, // {url: string; shortname?: string }[]
       description: channel.description,
-      minReceive: channel.minReceive ?? MinReceive,
+      minReceive,
     },
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -60,7 +62,7 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
   return (
     <div className="w-full">
       <form className="flex flex-col gap-3 w-full" onKeyDown={handleKeydown} onSubmit={handleSubmit(onSubmit)}>
-        <div className="mr-13">
+        <div className="lg:mr-13">
           <div className="text-xl mb-2">Mã nhận dạng kênh</div>
           <ControlledField
             controller={{
@@ -77,8 +79,7 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
             }}
           />
         </div>
-
-        <div className="mr-13">
+        <div className="lg:mr-13">
           <div className="text-xl">
             Donate tối thiểu
             {receive ? (
@@ -94,14 +95,14 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
               control,
               name: `minReceive`,
               rules: {
-                min: { value: MinReceive, message: `Tối thiểu ${vnd(MinReceive)} nhé.` },
+                min: { value: minReceive, message: `Tối thiểu ${vnd(minReceive)} nhé.` },
               },
             }}
             component={ControlledIntField}
             textError={minReceiveError?.message}
           />
         </div>
-        <div className="mr-13">
+        <div className="lg:mr-13">
           <div className="text-xl mb-2">Mô tả kênh</div>
           <ControlledField
             controller={{
@@ -118,7 +119,7 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
           <Renderer
             list={fields}
             render={(item, index) => (
-              <div key={item.id} className="flex gap-3 items-start">
+              <div key={item.id} className="flex gap-2 md:gap-3 items-start">
                 <motion.div
                   className="flex flex-col gap-1 w-full"
                   initial={{ opacity: 0, x: -15 }}
@@ -172,7 +173,7 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
             )}
           />
         </AnimatePresence>
-        <div className="flex justify-end gap-2 sticky buttom-0 mr-13">
+        <div className="grid grid-cols-2 lg:flex justify-end gap-2 sticky buttom-0 mr-12 lg:mr-13">
           <CButton onClick={() => append({ url: '', shortname: '' })}>Thêm link</CButton>
 
           <CButton
@@ -184,6 +185,8 @@ const EditUserInfo: FCC<EditUserInfoProps> = ({ channel, channelName, save, asyn
             Lưu
           </CButton>
         </div>
+        <hr />
+        <div>cài đặt chặn từ/cụ từ</div>
       </form>
     </div>
   );

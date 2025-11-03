@@ -24,7 +24,7 @@ const SettingInfoPage = () => {
     formState: { errors },
   } = form;
   const passwordValue = watch('password');
-  const confirmPasswordValue = watch('confirmPassword');
+  const confirmPasswordValue = watch('verifiedPassword');
   useEffect(() => {
     if (user && takeOne !== 1) {
       setValue('lastname', user.lastname);
@@ -39,7 +39,7 @@ const SettingInfoPage = () => {
   };
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 w-full">
       <ImageUpload
         onPick={({ avatar, banner }) => {
           console.log(`@@ just set`, { avatar, banner });
@@ -47,7 +47,7 @@ const SettingInfoPage = () => {
           banner && setBanner(banner);
         }}
       />
-      <div className="max-w-100 mx-auto mt-4 flex flex-col">
+      <div className="md:max-w-100 mx-auto mt-4 flex flex-col">
         {user ? (
           <>
             <ControlledField
@@ -86,7 +86,7 @@ const SettingInfoPage = () => {
             <ControlledField
               controller={{
                 control,
-                name: 'confirmPassword',
+                name: 'verifiedPassword',
                 rules: {
                   validate: {
                     requiredIfPassword: PasswordValidation.requiredIfPassword(passwordValue),

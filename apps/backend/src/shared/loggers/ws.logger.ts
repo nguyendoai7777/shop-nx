@@ -20,7 +20,6 @@ export class WTLogger implements LoggerService {
     this.logger.error(message, ...this._meta(optionalParams));
   }
 
-
   warn(message: any, ...optionalParams: any[]) {
     this.logger.warn(message, ...this._meta(optionalParams));
   }

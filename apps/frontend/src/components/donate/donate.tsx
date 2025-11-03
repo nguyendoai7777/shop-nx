@@ -98,7 +98,7 @@ export const Donate: FCC<DonateProps> = ({ streamer }) => {
             <kbd className="bg-white/10 px-1 rounded mr-0.5">Enter</kbd>
             để Donate nhanh.
           </div>
-          <CButton type={'submit'} rounded className="min-w-[150px] !mx-auto !flex !mt-2">
+          <CButton type={'submit'} rounded className="w-full md:w-auto min-w-[150px] !mx-auto !flex !mt-2">
             {user ? 'Donate' : 'Đăng nhập để donate'}
           </CButton>
         </form>
