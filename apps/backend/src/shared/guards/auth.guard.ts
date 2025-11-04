@@ -46,7 +46,6 @@ export class AuthGuard implements CanActivate {
     const user = await this.jwtService.verifyAsync<UserJWT>(token);
     const accessKey = `${RedisKey.tokenAccess}:${user.id}`;
     const storedToken = await this.redis.get<string>(accessKey);
-
     if (!storedToken || storedToken !== token) {
       throw new UnauthorizedException();
     }

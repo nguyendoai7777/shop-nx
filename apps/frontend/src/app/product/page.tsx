@@ -1,8 +1,9 @@
+import { Suspense } from 'react';
 
 export default function Page() {
   return (
-    <div >
+    <Suspense>
       <h1>Welcome to Page!</h1>
-    </div>
+    </Suspense>
   );
 }

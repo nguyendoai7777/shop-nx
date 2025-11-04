@@ -1,7 +1,7 @@
 'use client';
 
-import { createContext, useContext } from 'react';
-import { AuthContextType } from '@types';
+import { createContext, Suspense, useContext } from 'react';
+import type { AuthContextType } from '@types';
 import { useAuthContextHook } from './auth-context.hooks';
 
 const AuthContext = createContext<AuthContextType>();
@@ -9,17 +9,19 @@ const AuthContext = createContext<AuthContextType>();
 export const AuthContextProvider: FCC = ({ children }) => {
   const { register, logout, login, loading, setLoading } = useAuthContextHook();
   return (
-    <AuthContext
-      value={{
-        loading,
-        login,
-        logout,
-        register,
-        setLoading,
-      }}
-    >
-      {children}
-    </AuthContext>
+    <Suspense fallback={<>Loading...</>}>
+      <AuthContext
+        value={{
+          loading,
+          login,
+          logout,
+          register,
+          setLoading,
+        }}
+      >
+        {children}
+      </AuthContext>
+    </Suspense>
   );
 };
 

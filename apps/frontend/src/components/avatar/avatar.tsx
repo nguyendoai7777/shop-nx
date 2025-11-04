@@ -7,6 +7,7 @@ export interface XAvatarProps {
   user: RSBUserBase;
   asMuiAvatar?: boolean;
   avatarSize?: string;
+  alt?: string;
 }
 
 export const XAvatar: FCC<XAvatarProps> = ({
@@ -23,7 +24,7 @@ export const XAvatar: FCC<XAvatarProps> = ({
     };
   }, [firstname, lastname]);
   return avatar ? (
-    <ForwardImg alt={naming.short} size={avatarSize} src={avatar} asMuiAvatar={asMuiAvatar} />
+    <ForwardImg alt={naming.full} size={avatarSize} src={avatar} asMuiAvatar={asMuiAvatar} />
   ) : (
     <div className={`${className} rounded-full text-center content-center border border-gray-400 `}>{naming.short}</div>
   );

@@ -3,7 +3,7 @@
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { Button, DialogTitle } from '@mui/material';
 import { OverlayScrollbarsComponent, OverlayScrollbarsComponentRef } from 'overlayscrollbars-react';
-import { AuthDialogProps, LoginFormDto, RegisterFormDto } from '@types';
+import type { AuthDialogProps, LoginFormDto, RegisterFormDto } from '@types';
 import { useAuth } from '../auth-context/auth-context';
 import { Login } from '../login/login';
 import { Register } from '../register/register';

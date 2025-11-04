@@ -1,15 +1,12 @@
-export interface SpinProps {
-  /**
-   * css
-   * @example
-   * */
-  size?: string;
-}
+'use client';
+import { CircularProgress } from '@mui/material';
 
-export const XIndicatorSpin: FCC<SpinProps> = ({ size = '50px' }) => {
+export interface LsdProps {}
+
+export const XLoadingCircular: FCC<LsdProps> = ({ className }) => {
   return (
     <>
-      <div className="Indicator XIndicator-spin" style={{ width: size, height: size, minWidth: size }}></div>
+      <CircularProgress className={className} />
     </>
   );
 };

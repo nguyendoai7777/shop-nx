@@ -1,14 +1,14 @@
 import { ResponseBase } from '@shop/type';
-import { AuthResponse, RegisterFormDto } from '@types';
+import type { AuthResponse, RegisterFormDto } from '@types';
 import { zAuthStore } from '@client/z-state';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ClientConfiguration } from '@client/utils';
 import { isPrivateRoute } from '@core/route';
 
 export const useAuthContextHook = () => {
   const { clearError, setError, setUser, setApiUrl } = zAuthStore();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const router = useRouter();
   const currentUrl = usePathname();
 
@@ -16,7 +16,9 @@ export const useAuthContextHook = () => {
 
   useEffect(() => {
     fetch('/api/auth/me')
-      .then((res) => res.json())
+      .then((res) => {
+        return res.json();
+      })
       .then(({ data }: ResponseBase<AuthResponse>) => {
         if (data?.user) {
           setUser(data.user);
@@ -46,10 +48,10 @@ export const useAuthContextHook = () => {
       if (resource.data?.user) {
         setUser(resource.data.user);
         ClientConfiguration.setMultiple({ token: resource.data.accessToken, api: resource.data.api });
-        const returnUrl = searchParams.get('returnUrl');
+        /*const returnUrl = searchParams.get('returnUrl');
         if (returnUrl) {
           router.push(returnUrl);
-        }
+        }*/
       } else {
         setError(resource.message);
         setUser(void 0);
@@ -89,14 +91,13 @@ export const useAuthContextHook = () => {
         setError(data?.message);
       } else {
         // setUser({ verified: true, channel: data.data.channel });
-        const returnUrl = searchParams.get('returnUrl');
+        //const returnUrl = searchParams.get('returnUrl');
       }
       return data;
     } finally {
       setLoading(false);
     }
   };
-
   return {
     register,
     logout,

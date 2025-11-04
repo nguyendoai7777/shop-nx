@@ -5,3 +5,8 @@ export interface AuthApiResponse {
   refreshToken: string;
   user: RSBUser;
 }
+
+export interface AuthLogin {
+  username: string;
+  password: string;
+}

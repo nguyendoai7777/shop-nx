@@ -1,5 +1,5 @@
 'use client';
-import { RegisterAction, RegisterFormDto } from '@types';
+import type { RegisterAction, RegisterFormDto } from '@types';
 import { useFocusElement, useFormChange } from '@client/hooks';
 import { CTextField } from '../form-field';
 
@@ -8,7 +8,7 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
 
   const { value, handleInput } = useFormChange<RegisterFormDto>(
     {
-      confirmPassword: 'MinhAnh@2003',
+      verifiedPassword: 'MinhAnh@2003',
       password: 'MinhAnh@2003',
       firstname: 'Nguyen Hoa',
       lastname: 'Binh',
@@ -67,7 +67,7 @@ export const Register: FCC<RegisterAction> = ({ valueChange }) => {
         type="password"
         label="Xác nhận mật khẩu"
         value={value.password}
-        onChange={(e) => handleInput(e, 'confirmPassword')}
+        onChange={(e) => handleInput(e, 'verifiedPassword')}
       />
     </>
   );

@@ -1,6 +1,6 @@
-import { Lsd } from './components/lsd';
+import { XLoadingCircular } from '@components';
 
 export default function Loading() {
   // Or a custom loading skeleton component
-  return <Lsd />;
+  return <XLoadingCircular />;
 }

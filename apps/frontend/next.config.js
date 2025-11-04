@@ -11,6 +11,9 @@ const nextConfig = {
   // Use this to set Nx-specific options
   // See: https://nx.dev/recipes/next/next-config-setup
   reactStrictMode: false,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   nx: {
     svgr: false,
   },

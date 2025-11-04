@@ -25,6 +25,8 @@
   --breakpoint-xl: 78rem;
   --color-btn-base-hover-bg: var(--color-btn-base-hover-bg);
   --color-btn-base-active-bg: var(--color-btn-base-active-bg);
+
+  --breakpoint-xsm: 26.25rem;
 }
 body {
   min-height: 100svh;
@@ -170,4 +172,8 @@ input:-webkit-autofill:active {
 
 input + fieldset {
   transition: 0.2s;
+}
+
+.XSwiper .swiper-wrapper {
+  display: flex;
 }

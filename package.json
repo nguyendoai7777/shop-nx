@@ -5,6 +5,7 @@
   "scripts": {
     "fe": "nx dev frontend -p 3001 --turbo",
     "be": "nx serve backend",
+    "bf": "nx build frontend",
     "mgdb": "prisma migrate dev --name init",
     "prepare": "husky"
   },

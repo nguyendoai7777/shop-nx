@@ -1,4 +1,4 @@
-import { AppConfig } from '@types';
+import type { AppConfig } from '@types';
 import { join } from 'node:path';
 import { readFileSync } from 'node:fs';
 

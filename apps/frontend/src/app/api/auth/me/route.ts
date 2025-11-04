@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { ResponseBase, RSBUser } from '@shop/type';
 import { Http, loadConfig } from '@server/utils';
-import { AuthResponse } from '@types';
+import type { AuthResponse } from '@types';
 import { ServerCookieKey } from '@server/const';
 
 // simple verify (có thể gọi BE verify nếu cần)

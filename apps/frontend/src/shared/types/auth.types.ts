@@ -1,6 +1,6 @@
 import type { CreateUserDto, LoginDto } from '@shop/dto';
-import { AuthApiResponse, Prettify, ResponseBase } from '@shop/type';
-import { FormChange } from './form.types';
+import type { AuthApiResponse, Prettify, ResponseBase } from '@shop/type';
+import type { FormChange } from './form.types';
 
 export type LoginFormDto = Prettify<LoginDto>;
 export type RegisterFormDto = Prettify<CreateUserDto>;

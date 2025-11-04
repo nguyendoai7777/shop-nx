@@ -1,27 +1,29 @@
 'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { XAvatar, XCard, XIndicatorSpin } from '@components';
-import 'swiper/css';
-import { Suspense, useEffect, useState } from 'react';
+import { Renderer, XAvatar, XCard } from '@components';
+
+import { useEffect, useState } from 'react';
 import { HttpClient } from '@client/utils';
 import { ResponseBase, RSBUser } from '@shop/type';
-import { httpResource, httpResourceAsync } from '@core/http';
+import { httpResource } from '@core/http';
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
-
+import { Skeleton } from '@mui/material';
+import 'swiper/css';
 export interface CardListProps {}
-const resource = httpResourceAsync(HttpClient.get<ResponseBase<RSBUser[]>>('streamer/ranking-donate'));
 
 export const RankingDonateList: FCC<CardListProps> = ({}) => {
   // const b = use(resource).data;
+  const prefetch = Array.from({ length: 12 }, (_, i) => ({ id: i + 1 })); // [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }, { id: 7 }, { id: 8 },{ id: 8 },{ id: 8 }];
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<RSBUser[]>([]);
   useEffect(() => {
+    setLoading(true);
     httpResource(HttpClient.get<ResponseBase<RSBUser[]>>('streamer/ranking-donate')).subscribe({
       next(res) {
         setData(res.data);
       },
       completed() {
-        setLoading(false);
+        // setLoading(false);
       },
     });
   }, []);
@@ -29,15 +31,23 @@ export const RankingDonateList: FCC<CardListProps> = ({}) => {
   return (
     <>
       <ErrorBoundary errorComponent={LoadedError}>
-        <Suspense fallback={<>Loading...</>}>
+        {loading ? (
+          <div className="flex gap-2 overflow-hidden">
+            <Renderer
+              list={prefetch}
+              render={() => (
+                <div className="min-w-[calc(50%-0.25rem)] xsm:min-w-[calc(33.3333%-0.35rem)] sm:min-w-[calc(25%-.4rem)] lg:min-w-[calc(20%-.4rem)] xl:min-w-[calc(100%/7-.45rem)] 2xl:min-w-[calc(100%/9-.45rem)]">
+                  <Skeleton variant="rectangular" className="rounded-xl aspect-[167/222] !h-auto" />
+                </div>
+              )}
+            />
+          </div>
+        ) : (
           <Swiper
             spaceBetween={8}
             breakpoints={{
               320: {
                 slidesPerView: 2,
-              },
-              400: {
-                slidesPerView: 2.5,
               },
               640: {
                 slidesPerView: 4,
@@ -45,13 +55,17 @@ export const RankingDonateList: FCC<CardListProps> = ({}) => {
               1024: {
                 slidesPerView: 5,
               },
-              1440: {
+              1280: {
+                slidesPerView: 7,
+              },
+              1536: {
                 slidesPerView: 7,
               },
             }}
             onSlideChange={() => console.log('slide change')}
+            className="XSwiper"
           >
-            {data.concat(data).map((it, i) => (
+            {data.map((it, i) => (
               <SwiperSlide key={i}>
                 <XCard index={i} className="">
                   <div className="w-3/4 aspect-square mx-auto">
@@ -64,7 +78,7 @@ export const RankingDonateList: FCC<CardListProps> = ({}) => {
               </SwiperSlide>
             ))}
           </Swiper>
-        </Suspense>
+        )}
       </ErrorBoundary>
     </>
   );

@@ -1,7 +1,7 @@
 'use client';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import { LoginAction, LoginFormDto } from '@types';
+import type { LoginAction, LoginFormDto } from '@types';
 import { useFocusElement } from '@client/hooks';
 import { ControlledField, PasswordTextField } from '../form-field';
 

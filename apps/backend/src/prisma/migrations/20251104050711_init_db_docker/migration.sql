@@ -46,6 +46,14 @@ CREATE TABLE `User` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Wallet` (
+    `userId` INTEGER NOT NULL,
+    `balance` INTEGER NOT NULL DEFAULT 0,
+
+    PRIMARY KEY (`userId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Donation` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `amount` INTEGER NOT NULL,
@@ -76,14 +84,6 @@ CREATE TABLE `WalletTransaction` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Wallet` (
-    `userId` INTEGER NOT NULL,
-    `balance` INTEGER NOT NULL DEFAULT 0,
-
-    PRIMARY KEY (`userId`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
 CREATE TABLE `Subscription` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `subscription` INTEGER NOT NULL,
@@ -102,6 +102,9 @@ ALTER TABLE `ExternalLink` ADD CONSTRAINT `ExternalLink_channelId_fkey` FOREIGN 
 ALTER TABLE `Channel` ADD CONSTRAINT `Channel_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE `Wallet` ADD CONSTRAINT `Wallet_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE `Donation` ADD CONSTRAINT `Donation_senderId_fkey` FOREIGN KEY (`senderId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -109,6 +112,3 @@ ALTER TABLE `Donation` ADD CONSTRAINT `Donation_receiverId_fkey` FOREIGN KEY (`r
 
 -- AddForeignKey
 ALTER TABLE `WalletTransaction` ADD CONSTRAINT `WalletTransaction_walletId_fkey` FOREIGN KEY (`walletId`) REFERENCES `Wallet`(`userId`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Wallet` ADD CONSTRAINT `Wallet_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

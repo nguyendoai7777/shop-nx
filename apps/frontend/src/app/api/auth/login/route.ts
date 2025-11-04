@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { AuthResponse } from '@types';
+import type { AuthResponse } from '@types';
 import { ResponseBase } from '@shop/type';
 import { CatchAxiosError, Http, loadConfig } from '@server/utils';
 import { ServerCookieKey } from '@server/const';
