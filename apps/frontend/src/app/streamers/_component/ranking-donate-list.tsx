@@ -9,11 +9,12 @@ import { httpResource } from '@core/http';
 import { ErrorBoundary } from 'next/dist/client/components/error-boundary';
 import { Skeleton } from '@mui/material';
 import 'swiper/css';
+import { SwiperConfig } from './swiper.config';
+
 export interface CardListProps {}
 
 export const RankingDonateList: FCC<CardListProps> = ({}) => {
-  // const b = use(resource).data;
-  const prefetch = Array.from({ length: 12 }, (_, i) => ({ id: i + 1 })); // [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }, { id: 7 }, { id: 8 },{ id: 8 },{ id: 8 }];
+  const prefetch = Array.from({ length: 12 }, (_, i) => ({ id: i + 1 }));
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<RSBUser[]>([]);
   useEffect(() => {
@@ -23,7 +24,7 @@ export const RankingDonateList: FCC<CardListProps> = ({}) => {
         setData(res.data);
       },
       completed() {
-        // setLoading(false);
+        setLoading(false);
       },
     });
   }, []);
@@ -43,28 +44,7 @@ export const RankingDonateList: FCC<CardListProps> = ({}) => {
             />
           </div>
         ) : (
-          <Swiper
-            spaceBetween={8}
-            breakpoints={{
-              320: {
-                slidesPerView: 2,
-              },
-              640: {
-                slidesPerView: 4,
-              },
-              1024: {
-                slidesPerView: 5,
-              },
-              1280: {
-                slidesPerView: 7,
-              },
-              1536: {
-                slidesPerView: 7,
-              },
-            }}
-            onSlideChange={() => console.log('slide change')}
-            className="XSwiper"
-          >
+          <Swiper {...SwiperConfig} onSlideChange={() => console.log('slide change')} className="XSwiper">
             {data.map((it, i) => (
               <SwiperSlide key={i}>
                 <XCard index={i} className="">

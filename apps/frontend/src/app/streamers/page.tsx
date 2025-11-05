@@ -1,15 +1,16 @@
 import { Metadata } from 'next';
-import { CardButton } from './card-button';
 import Link from 'next/link';
 import { Http } from '@server/utils';
 import { ResponseBase, Streamer } from '@shop/type';
-import { SvgClient } from '@components';
+import { CButton, SvgClient } from '@components';
 import './streamer.scss';
 import { httpResourceAsync } from '@core/http';
-import { RankingDonateList } from './component/ranking-donate-list';
+import { RankingDonateList } from './_component/ranking-donate-list';
 
 export const metadata: Metadata = {
   title: 'Danh sách streamer',
+  description: 'Nơi fssddddderrrrrrrrrrrredsredf2',
+  openGraph: {},
 };
 
 /*export async function getStaticProps() {
@@ -36,7 +37,7 @@ export default async function StreamersPage() {
       <RankingDonateList />
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3 mt-4">
         {(data!.data ?? []).map((str) => (
-          <CardButton key={str.id}>
+          <CButton key={str.id} className="!h-auto" style={{ padding: '0 !important' }}>
             <Link
               href={`/streamers/${str.channel ? `@${str.channel}` : str.id}`}
               className={`StreamerCard overflow-hidden flex !ustify-start items-center gap-2 rounded-md bg-gray-700/50 p-3 duration-300 border border-transparent w-full ${
@@ -54,7 +55,7 @@ export default async function StreamersPage() {
                 <div className="text-left">{str.email}</div>
               </div>
             </Link>
-          </CardButton>
+          </CButton>
         ))}
       </div>
     </>

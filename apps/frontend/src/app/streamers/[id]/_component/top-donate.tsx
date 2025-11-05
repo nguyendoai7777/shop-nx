@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Skeleton } from '@mui/material';
 import { AnimateRenderer, CButton, ControlGroup, Empty, XAvatar, Xvg } from '@components';
 import { Prettify, ResponseBase, RSBDonorTop, Streamer, TopDonateQueryType } from '@shop/type';
 import { httpResource } from '@core/http';
 import { HttpClient } from '@client/utils';
 import { vnd } from '@shop/platform';
 
-import './donate.css';
-import { Skeleton } from '@mui/material';
+import './top-donate.css';
 
 export interface TopDonateProps {
   streamer: Streamer;
@@ -126,6 +126,7 @@ export const TopDonate: FCC<TopDonateProps> = ({ streamer, loaded }) => {
     </>
   );
 };
+
 const MapStyle: Record<number, string> = {
   0: 'Top Top1',
   1: 'Top Top2',

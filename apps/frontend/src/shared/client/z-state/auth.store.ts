@@ -4,6 +4,8 @@ import { RSBUser } from '@shop/type';
 
 interface AuthStore {
   error: string;
+  loading: boolean;
+  setLoading(state: boolean): void;
   setError(error: string): void;
   user: RSBUser | undefined;
   setUser(user: Partial<RSBUser> | undefined): void;
@@ -14,6 +16,8 @@ interface AuthStore {
 
 export const zAuthStore = create<AuthStore>()((set, get) => ({
   error: '',
+  loading: false,
+  setLoading: (loading) => set({ loading }),
   setError: (error) => set({ error }),
   user: void 0,
   setUser: (state) => {

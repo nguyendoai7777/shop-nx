@@ -1,4 +1,3 @@
-import { useAuth } from '../auth-context/auth-context';
 import { zAuthStore, zToastStore } from '@client/z-state';
 import { FormEvent, useState } from 'react';
 import type { DonateDto } from '@shop/dto';
@@ -10,9 +9,8 @@ import { useForm, UseFormHandleSubmit } from 'react-hook-form';
 
 export const useDonateService = (streamer: Streamer) => {
   const minReceive = streamer.channelRef.minReceive ?? MinReceive;
-  const { setLoading } = useAuth();
   const { closeToast, showToast } = zToastStore();
-  const { user, clearError } = zAuthStore();
+  const { user, clearError, setLoading } = zAuthStore();
   const [selectedValue, setSelectedValue] = useState(minReceive);
   const [showLogin, setShowLogin] = useState(false);
 

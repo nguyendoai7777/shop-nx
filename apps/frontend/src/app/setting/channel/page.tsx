@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-
-import SettingChanelPage from './setting-channel-page';
+import SettingChanelPage from './_component/setting-channel/setting-channel.page';
 
 export interface PageProps {}
 

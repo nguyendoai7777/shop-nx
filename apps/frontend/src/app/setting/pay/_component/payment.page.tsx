@@ -1,7 +1,7 @@
 'use client';
-import { Deposit } from './component/deposit';
-import { Withdraw } from './component/withdraw';
-import { IntegratedDigitCard } from './component/integrated-digit-card';
+import { Deposit } from './deposit';
+import { Withdraw } from './withdraw';
+import { IntegratedDigitCard } from './integrated-digit-card';
 
 export interface PaymentPageProps {}
 

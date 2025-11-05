@@ -1,14 +1,14 @@
 'use client';
 import { CButton, ControlGroup, ControlledIntField, ControlledField, Keydown } from '@components';
 import { vnd } from '@shop/platform';
-import { usePaymentService } from '../payment.service';
+import { paymentService } from './payment.service';
 import { useForm } from 'react-hook-form';
 import { DepositDto } from '@shop/dto';
 
 export interface DepositProps {}
 
 export const Deposit: FCC<DepositProps> = ({}) => {
-  const { handleDeposit, loading } = usePaymentService();
+  const { handleDeposit, loading } = paymentService();
   const {
     control,
     watch,

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import type { LoginAction, LoginFormDto } from '@types';
 import { useFocusElement } from '@client/hooks';
-import { ControlledField, PasswordTextField } from '../form-field';
+import { ControlledField, PasswordTextField } from '@components';
 
 export const Login: FCC<LoginAction> = ({ valueChange }) => {
   useFocusElement('#AuthForm input');

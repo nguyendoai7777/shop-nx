@@ -5,7 +5,7 @@ import { zAuthStore, zToastStore } from '@client/z-state';
 import { MediaImagAllowedMsg, MediaImageAllowed, MediaImageMimes } from '@shop/platform';
 import { ForwardImg } from '@components';
 import { ChangeEvent, useRef, useState } from 'react';
-import { ImageUploadProps, UploadFile } from './update-user-profile.type';
+import { ImageUploadProps, UploadFile } from '../update-user-profile.type';
 
 export const ImageUpload: FCC<ImageUploadProps> = ({ onPick }) => {
   const { user } = zAuthStore();

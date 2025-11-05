@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '../auth-context/auth-context';
 import AuthDialog from '../auth/auth';
 import { Button, Dialog } from '@mui/material';
 import dynamic from 'next/dynamic';
 import { zAuthStore, zToastStore } from '@client/z-state';
 import Link from 'next/link';
 import XAvatar from '../avatar/avatar';
+import { useAuthAction } from '@client/hooks';
 import './navbar.css';
 
 const UserSettingMenu = dynamic(() => import('./components/user-setting-menu'), { ssr: false });
@@ -16,9 +16,8 @@ const MenuAnchorId = crypto.randomUUID();
 
 export default function Navbar() {
   const { closeToast } = zToastStore();
-  const { user, clearError } = zAuthStore();
-  const { setLoading } = useAuth();
-  const { logout } = useAuth();
+  const { user, setLoading, clearError } = zAuthStore();
+  const { logout } = useAuthAction();
   const [showLogin, setShowLogin] = useState(false);
   const [isRegisterMode, setIsRegisterMode] = useState(false);
 

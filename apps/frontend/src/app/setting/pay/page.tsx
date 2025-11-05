@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { PaymentPage } from './payment-page';
+import { PaymentPage } from './_component/payment.page';
 
 export interface SettingPaymentProps {}
 export const metadata: Metadata = {

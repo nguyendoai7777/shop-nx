@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 import { ReactNode } from 'react';
-import { AuthContextProvider, Navbar } from '@components';
+import { Navbar } from '@components';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import { MuiThemeConfig } from '@server/utils';
-import 'overlayscrollbars/overlayscrollbars.css';
-import { BodyScrollbarInitializer } from './scrollbar-initializer';
+import { AppInitConfig } from './scrollbar-initializer';
 import { ToastProvider } from '../components/toast/toast-provider';
+import 'overlayscrollbars/overlayscrollbars.css';
 import './global.css';
 
 export const metadata: Metadata = {
@@ -19,13 +19,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className="bg-dark text-white px-4" data-overlayscrollbars-initialize>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+          <AppInitConfig />
           <ThemeProvider theme={MuiThemeConfig}>
-            <AuthContextProvider>
-              <BodyScrollbarInitializer />
-              <ToastProvider />
-              <Navbar />
-              {children}
-            </AuthContextProvider>
+            <ToastProvider />
+            <Navbar />
+            {children}
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

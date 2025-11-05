@@ -4,18 +4,17 @@ import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { Button, DialogTitle } from '@mui/material';
 import { OverlayScrollbarsComponent, OverlayScrollbarsComponentRef } from 'overlayscrollbars-react';
 import type { AuthDialogProps, LoginFormDto, RegisterFormDto } from '@types';
-import { useAuth } from '../auth-context/auth-context';
 import { Login } from '../login/login';
 import { Register } from '../register/register';
 import { zAuthStore, zToastStore } from '@client/z-state';
-import { ESoraScrollDistance, useSoraScrollbar } from '@client/hooks';
+import { ESoraScrollDistance, useAuthAction, useSoraScrollbar } from '@client/hooks';
 
 const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
   const scrollRef = useRef<OverlayScrollbarsComponentRef>(null);
   const { showToast } = zToastStore();
 
-  const { login, register, loading } = useAuth();
-  const { error } = zAuthStore();
+  const { login, register } = useAuthAction();
+  const { error, loading } = zAuthStore();
   const { scrollPosition, handleScroll } = useSoraScrollbar();
 
   const [isLogin, setIsLogin] = useState(!isRegister);
@@ -23,7 +22,6 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
   const [loginValue, setLoginValue] = useState<LoginFormDto>();
 
   const _exeLogin = async () => {
-    console.log(loginValue);
     const data = await login(loginValue!);
     if (data.data?.user) {
       onClose?.();
@@ -31,7 +29,6 @@ const AuthDialog: FCC<AuthDialogProps> = ({ onClose, isRegister = false }) => {
   };
 
   const _exeRegister = async () => {
-    console.log(registerValue);
     const data = await register(registerValue!);
     if (data.data) {
       onClose?.();

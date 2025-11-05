@@ -1,4 +1,4 @@
-import { Sidenav } from './channel/component/sidenav';
+import { Sidenav } from './channel/_component/sidenav';
 
 export interface SettingLayoutProps {}
 

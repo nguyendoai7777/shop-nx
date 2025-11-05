@@ -1,5 +1,5 @@
 import { Streamer } from '@shop/type';
-import { Donate, ForwardImg, XAvatar, Xvg } from '@components';
+import { Donate, ForwardImg, XAvatar } from '@components';
 import ChannelDescription from './channel-desc';
 import { DonateList } from './donate-list';
 import { TopDonate } from './top-donate';
@@ -17,23 +17,9 @@ export const StreamerDetail: FCC<StreamerDetailProps> = ({ streamer }) => {
         ) : (
           <div className="w-full h-auto aspect-[16/2.5] bg-white/10"></div>
         )}
-        {/*<img alt="intro" className="w-full h-auto aspect-[16/2.5]" src={user.banner ?? '/profile-img/placeholder/profile-banner.webp'} />*/}
         <div className="absolute left-2  w-45 h-45 z-20 top-[calc(100%-90px)]">
           <div className="relative h-full">
             <div className="rounded-full overflow-hidden absolute inset-5 h-fit">
-              {/*{streamer.avatar ? (
-                <ForwardImg width={140} height={140} src={streamer.avatar} />
-              ) : (
-                <div
-                  className="bg-white/10 rounded-full"
-                  style={{
-                    width: 140,
-                    height: 140,
-                  }}
-                >
-                  <XAvatar user={streamer} />
-                </div>
-              )}*/}
               <XAvatar user={streamer} avatarSize={`100%`} className={'w-full h-full text-3xl'} />
             </div>
             {streamer.channelRef ? (

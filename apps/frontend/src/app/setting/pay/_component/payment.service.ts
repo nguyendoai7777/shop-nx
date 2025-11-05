@@ -5,7 +5,7 @@ import { HttpClient } from '@client/utils';
 import { ResponseBase } from '@shop/type';
 import { zPaymentStore, zToastStore } from '@client/z-state';
 
-export const usePaymentService = () => {
+export const paymentService = () => {
   const { showToast } = zToastStore();
   const { setBalance } = zPaymentStore();
   const [loading, setLoading] = useState(false);

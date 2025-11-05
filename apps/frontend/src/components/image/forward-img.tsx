@@ -1,6 +1,6 @@
 'use client';
-import { ImgHTMLAttributes, useEffect } from 'react';
-import { Avatar, AvatarProps } from '@mui/material';
+import { ImgHTMLAttributes, useEffect, useState } from 'react';
+import { Avatar, AvatarProps, Skeleton } from '@mui/material';
 import { ClientConfiguration } from '@client/utils';
 
 export interface ForwardImgProps extends ImgHTMLAttributes<HTMLImageElement> {
@@ -13,23 +13,24 @@ export interface ForwardImgProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 export const ForwardImg: FCC<ForwardImgProps> = ({ src, alt, asMuiAvatar = false, size, ...props }) => {
-  const path = `http://localhost:3000/${src}`;
-  if (asMuiAvatar) {
-    return <Avatar alt={alt} sx={{ width: size, height: size }} src={path} {...(props as AvatarProps)} />;
-  }
+  const [url, setUrl] = useState('');
   useEffect(() => {
-    const v = async () => {
-      const xv = await ClientConfiguration.get('api');
-      console.log({ xv });
-    };
-    v();
+    (async () => {
+      const api = await ClientConfiguration.get('api');
+      setUrl(`${api}/${src}`);
+    })();
   }, []);
-  return (
+  if (asMuiAvatar) {
+    return <Avatar alt={alt} sx={{ width: size, height: size }} src={url} {...(props as AvatarProps)} />;
+  }
+  return url ? (
     <img
       alt={alt}
       style={size ? { width: `${size}px`, height: `${size}px` } : {}}
-      src={path}
+      src={url}
       {...(props as ImgHTMLAttributes<HTMLImageElement>)}
     />
+  ) : (
+    <Skeleton variant="circular" />
   );
 };

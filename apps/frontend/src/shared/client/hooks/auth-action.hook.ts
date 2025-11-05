@@ -1,38 +1,17 @@
 import { ResponseBase } from '@shop/type';
-import type { AuthResponse, RegisterFormDto } from '@types';
+import type { AuthResponse, LoginFormDto, RegisterFormDto } from '@types';
 import { zAuthStore } from '@client/z-state';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { ClientConfiguration } from '@client/utils';
 import { isPrivateRoute } from '@core/route';
 
-export const useAuthContextHook = () => {
-  const { clearError, setError, setUser, setApiUrl } = zAuthStore();
+export const useAuthAction = () => {
+  const { clearError, setError, setUser, setLoading } = zAuthStore();
   // const searchParams = useSearchParams();
   const router = useRouter();
   const currentUrl = usePathname();
 
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('/api/auth/me')
-      .then((res) => {
-        return res.json();
-      })
-      .then(({ data }: ResponseBase<AuthResponse>) => {
-        if (data?.user) {
-          setUser(data.user);
-          setApiUrl(data.api);
-          ClientConfiguration.setMultiple({ token: data.accessToken, api: data.api });
-        } else {
-          ClientConfiguration.setMultiple({ api: data.api });
-          setUser(void 0);
-        }
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
-  const login = async (payload: RegisterFormDto) => {
+  const login = async (payload: LoginFormDto) => {
     clearError();
     setLoading(true);
     try {
@@ -102,7 +81,5 @@ export const useAuthContextHook = () => {
     register,
     logout,
     login,
-    setLoading,
-    loading,
   };
 };

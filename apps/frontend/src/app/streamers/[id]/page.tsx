@@ -1,6 +1,6 @@
-import { Http } from '@server/utils';
+import { Http, loadConfig } from '@server/utils';
 import { ResponseBase, Streamer } from '@shop/type';
-import { StreamerDetail } from './components';
+import { StreamerDetail } from './_component';
 import { Metadata } from 'next';
 import { cache } from 'react';
 
@@ -27,6 +27,7 @@ const getStreamerData = cache(async (id: string): Promise<Streamer | null> => {
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
+  const config = await loadConfig();
   const streamer = await getStreamerData(id);
 
   if (!streamer) {
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const description = streamer.channelRef?.description ?? '',
     title = streamer.channel ? streamer.channel + ' on XDonate' : `${streamer.firstname} ${streamer.lastname}`;
   return {
-    metadataBase: new URL('http://localhost:3000'),
+    metadataBase: new URL(config.ApiUrl),
     title,
     description,
     openGraph: {

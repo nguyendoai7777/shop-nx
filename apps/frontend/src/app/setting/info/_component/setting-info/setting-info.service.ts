@@ -3,11 +3,11 @@ import { zAuthStore, zToastStore } from '@client/z-state';
 import { HttpClient } from '@client/utils';
 import { ResponseBase, UserProfileImage } from '@shop/type';
 import { useForm } from 'react-hook-form';
-import { PickImage } from './update-user-profile.type';
+import { PickImage } from '../../update-user-profile.type';
 import type { UpdateUserProfileDto } from '@shop/dto';
 import { httpResource } from '@core/http';
 
-export const useUpdateProfileService = () => {
+export const settingInfoService = () => {
   const { user, setUser } = zAuthStore();
   const { showToast } = zToastStore();
 

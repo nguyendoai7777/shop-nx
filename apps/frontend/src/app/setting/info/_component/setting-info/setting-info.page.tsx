@@ -1,18 +1,18 @@
 'use client';
 
-import { ImageUpload } from './image-upload';
+import { ImageUpload } from '../image-upload';
 import { zAuthStore } from '@client/z-state';
-import { CButton, ControlledField, PasswordTextField } from '@components';
-import { useUpdateProfileService } from './update-profile.service';
+import { CButton, ControlledField } from '@components';
+import { settingInfoService } from './setting-info.service';
 import { PasswordValidation } from '@client/validators';
 import { ChangeEvent, useEffect, useState } from 'react';
-import './setting-info-page.scss';
-import { UploadFile } from './update-user-profile.type';
+import { UploadFile } from '../../update-user-profile.type';
 import { Checkbox, FormControlLabel } from '@mui/material';
+import './setting-info.scss';
 
 const SettingInfoPage = () => {
   const { user } = zAuthStore();
-  const { form, handleUpdate } = useUpdateProfileService();
+  const { form, handleUpdate } = settingInfoService();
   const [takeOne, setTakeOne] = useState(0);
   const [banner, setBanner] = useState<UploadFile>();
   const [avatar, setAvatar] = useState<UploadFile>();
